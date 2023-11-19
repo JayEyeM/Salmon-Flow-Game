@@ -148,22 +148,24 @@ function placeObstacles(){
 function moveSalmon(e) {
   if (e.code == "ArrowLeft") {
     //swim left
-    velocityX = -4;
-
-    if(e.code == "ArrowRight") {
+    velocityX = -7;
+  } else if(e.code == "ArrowRight") {
       //swim right
-      velocityX = +4;
-
-        //reset game
-      if (gameOver) {
-        salmon.x = salmonX;
-        obstacleArray = [];
-        score = 0;
-        gameOver = false;
-      }
+      velocityX = 7;
+  } else if (e.code == "Space") {
+    //jump
+    velocityY = 5;
+  }
+    //reset game
+    if (gameOver) {
+      salmon.x = salmonX;
+      obstacleArray = [];
+      score = 0;
+      gameOver = false;
     }
   }
-}
+
+
 
 function detectCollision(a, b) {
   return a.y < b.y + b.height &&
@@ -171,3 +173,10 @@ function detectCollision(a, b) {
         a.x < b.x + b.width &&
         a.x + a.width > b.x; 
 }
+
+document.addEventListener("keyup", function(e) {
+  if (e.code == "ArrowLeft" || e.code == "ArrowRight") {
+    // stop moving
+    velocityX = 0;
+  }
+});
