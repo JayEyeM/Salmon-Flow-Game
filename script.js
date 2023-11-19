@@ -22,17 +22,17 @@ let salmon = {
 //obstacles
 let obstacleArray = [];
 let obstacleWidth = 50;
-let obstacleHeight = 40; 
+let obstacleHeight = 90; 
 let obstacleX = 0;
-let obstacleY = boardHeight;
+let obstacleY = boardHeight - 550;
 
 let driftwoodImg;
 let beaverImg;
 
 //physics
 let velocityX = 4; //salmon left and right speed
-let velocityY = -2; //moving down speed
-let gravity = 0.4;
+let velocityY = 2; //moving down speed
+let gravity = 0;
 
 let gameOver = false;
 let score = 0;
@@ -61,8 +61,8 @@ window.onload = function(){
   beaverImg.src = "./beaverCharacter.svg";
 
   requestAnimationFrame(update);
-  setInterval(placeObstacles, 1500);//every 1.5 seconds
-  document.addEventListener("keyleft", moveSalmon);
+  setInterval(placeObstacles, 3000);//every 1.5 seconds
+  document.addEventListener("keydown", moveSalmon);
 }
 
 function update(){
@@ -73,7 +73,7 @@ function update(){
   context.clearRect(0, 0, board.width, board.height);
 
   //salmon
-  velocityX += gravity;
+  velocityX = velocityX;
   //salmon.x += velocityX;
   salmon.x = Math.max(salmon.x + velocityX, 0); //apply gravity to current salmon.x, limit the salmon.x to side of canvas.
   context.drawImage(salmonImg, salmon.x, salmon.y, salmon.width, salmon.height);
@@ -119,27 +119,27 @@ function placeObstacles(){
   }
 
   //
+  // 
   //
-  //
-  let randomObstacleX = obstacleX - obstacleWidth/4 - Math.random()*(obstacleWidth/2);
-  let openingSpace = board.width/4;
+  let randomObstacleX = obstacleX - obstacleWidth/3 + Math.random()*(obstacleWidth/2);
+  let openingSpace = board.width/8;
 
   let driftwood = {
     img : driftwoodImg,
-    x : randomObstacleX,
-    y : obstacleY,
-    width : obstacleWidth,
-    height : obstacleHeight,
+    x : randomObstacleX * 2,
+    y : obstacleY-15,
+    width : obstacleWidth+25,
+    height : obstacleHeight-45,
     passed : false
   }
   obstacleArray.push(driftwood);
 
   let beaver = {
     img : beaverImg,
-    x : randomObstacleX + obstacleHeight + openingSpace,
+    x : randomObstacleX + obstacleHeight + openingSpace * 2,
     y : obstacleY,
     width : obstacleWidth,
-    height : obstacleHeight,
+    height : obstacleHeight+20,
     passed : false
   }
   obstacleArray.push(beaver);
