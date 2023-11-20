@@ -61,7 +61,7 @@ window.onload = function(){
   beaverImg.src = "./beaverCharacter.svg";
 
   requestAnimationFrame(update);
-  setInterval(placeObstacles, 3000);//every 1.5 seconds
+  setInterval(placeObstacles, 5000);//every 1.5 seconds
   document.addEventListener("keydown", moveSalmon);
 }
 
@@ -113,35 +113,39 @@ function update(){
   }
 }
 
-function placeObstacles(){
+function placeObstacles() {
   if (gameOver) {
     return;
   }
 
-  //
-  // 
-  //
-  let randomObstacleX = obstacleX - obstacleWidth/3 + Math.random()*(obstacleWidth/2);
-  let openingSpace = board.width/8;
+  let randomInterval = Math.random() * (4.5 - 2) + 1; // Random interval between 1 and 4.5 seconds
+  setTimeout(placeObstacles, randomInterval * 4000); // Convert to milliseconds
 
+  let randomDriftwoodY = -10; // Start at top of the board
+  let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
   let driftwood = {
-    img : driftwoodImg,
-    x : randomObstacleX * 2,
-    y : obstacleY-15,
-    width : obstacleWidth+25,
-    height : obstacleHeight-45,
-    passed : false
-  }
+    img: driftwoodImg,
+    x: randomDriftwoodX,
+    y: randomDriftwoodY,
+    width: obstacleWidth + 25,
+    height: obstacleHeight - 45,
+    passed: false
+  };
   obstacleArray.push(driftwood);
 
+  let openingSpace = board.width / 4;
+  let minOpeningX = obstacleHeight + openingSpace;
+  let maxOpeningX = board.width - obstacleWidth - openingSpace;
+  let randomBeaverY = -10; // Start at top of the board
+  let randomBeaverX = Math.random() * (maxOpeningX - minOpeningX) + minOpeningX;
   let beaver = {
-    img : beaverImg,
-    x : randomObstacleX + obstacleHeight + openingSpace * 2,
-    y : obstacleY,
-    width : obstacleWidth,
-    height : obstacleHeight+20,
-    passed : false
-  }
+    img: beaverImg,
+    x: randomBeaverX,
+    y: randomBeaverY,
+    width: obstacleWidth,
+    height: obstacleHeight + 20,
+    passed: false
+  };
   obstacleArray.push(beaver);
 }
 
