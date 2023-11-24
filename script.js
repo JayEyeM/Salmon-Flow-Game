@@ -30,9 +30,9 @@ let driftwoodImg;
 let beaverImg;
 
 //physics
-let velocityX = 4; //salmon left and right speed
-let velocityY = 2; //moving down speed
-let gravity = 0;
+let velocityX = 0; //salmon left and right speed
+let velocityY = 4; //moving down speed
+let gravity = 5;
 
 let gameOver = false;
 let score = 0;
@@ -44,8 +44,11 @@ window.onload = function(){
   context = board.getContext("2d");
 
   //draw salmon
-  //context.fillStyle = "transparent";
-  //context.fillRect(salmon.x, salmon.y, salmon.width, salmon.height);
+  context.fillStyle = "rgb(255, 0, 0)";
+context.beginPath();
+context.ellipse(salmon.x + salmon.width/2, salmon.y + salmon.height/2, salmon.width/2, salmon.height/2, 0, 0, 2 * Math.PI);
+context.fill();
+context.closePath();
 
   //load images
   salmonImg = new Image();
@@ -72,35 +75,50 @@ function update(){
   }
   context.clearRect(0, 0, board.width, board.height);
 
+  
   //salmon
-  velocityX = velocityX;
-  //salmon.x += velocityX;
-  salmon.x = Math.max(salmon.x + velocityX, 0); //apply gravity to current salmon.x, limit the salmon.x to side of canvas.
+  salmon.x += velocityX;
+  salmon.x = Math.max(salmon.x, 0); // Limit the salmon's position to stay within the left edge of the board
+  salmon.x = Math.min(salmon.x, board.width - salmon.width); // Limit the salmon's position to stay within the right edge of the board
   context.drawImage(salmonImg, salmon.x, salmon.y, salmon.width, salmon.height);
 
-  if (salmon.x > board.width) {
+  //overlay shape onto salmon
+  context.fillStyle = "rgb(255, 0, 0, 0.35)";
+context.beginPath();
+context.ellipse(salmon.x + salmon.width/2, salmon.y + salmon.height/2, salmon.width/2, salmon.height/2, 0, 0, 2 * Math.PI);
+context.fill();
+context.closePath();
+  // Check if the salmon's position exceeds the right edge of the board
+  if (salmon.x + salmon.width > board.width) {
     gameOver = true;
   }
 
   //obstacles
-  for (let i = 0; i < obstacleArray.length; i++){
-    let obstacle = obstacleArray[i];
-    obstacle.y += velocityY;
-    context.drawImage(obstacle.img, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+for (let i = 0; i < obstacleArray.length; i++){
+  let obstacle = obstacleArray[i];
+  obstacle.y += velocityY;
+  context.drawImage(obstacle.img, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
 
-    if (!obstacle.passed && salmon.y > obstacle.Y + obstacle.height) {
-      score += 1;
-      obstacle.passed = true;
-    }
+  // overlay shape onto obstacles
+  context.fillStyle = "rgb(255, 0, 0, 0.35)";
+  context.beginPath();
+  context.ellipse(obstacle.x + obstacle.width/2, obstacle.y + obstacle.height/2, obstacle.width/2, obstacle.height/2, 0, 0, 2 * Math.PI);
+  context.fill();
+  context.closePath();
 
-    if (detectCollision(salmon, obstacle)) {
-      gameOver = true;
-    }
+  if (!obstacle.passed && salmon.y > obstacle.y + obstacle.height) {
+    score += 1;
+    obstacle.passed = true;
   }
+
+  if (detectCollision(salmon, obstacle)) {
+    gameOver = true;
+  }
+}
 
   //clear obstacles
   while (obstacleArray.length > 0 && obstacleArray[0].y < -obstacleHeight) {
-    obstacleArray.shift();//to remove first element from array
+    obstacleArray.shift();
   }
 
   //score
@@ -142,7 +160,7 @@ function placeObstacles() {
     img: beaverImg,
     x: randomBeaverX,
     y: randomBeaverY,
-    width: obstacleWidth,
+    width: obstacleWidth-5,
     height: obstacleHeight + 20,
     passed: false
   };
@@ -151,33 +169,46 @@ function placeObstacles() {
 
 function moveSalmon(e) {
   if (e.code == "ArrowLeft") {
-    //swim left
-    velocityX = -7;
-  } else if(e.code == "ArrowRight") {
-      //swim right
+    // swim left
+    if (salmon.x - velocityX >= 0) {
+      velocityX = -7;
+    } else {
+      velocityX = 0;
+    }
+  } else if (e.code == "ArrowRight") {
+    // swim right
+    if (salmon.x + salmon.width < board.width) {
       velocityX = 7;
+    } else {
+      salmon.x = board.width - salmon.width; // Set the position to the maximum allowed position
+    }
   } else if (e.code == "Space") {
-    //jump
+    // jump
     velocityY = 5;
   }
-    //reset game
-    if (gameOver) {
-      salmon.x = salmonX;
-      obstacleArray = [];
-      score = 0;
-      gameOver = false;
-    }
+  
+  // Limit the salmon's position to stay within the left edge of the board
+  if (salmon.x < 0) {
+    salmon.x = 0;
   }
 
-
-
-function detectCollision(a, b) {
-  return a.y < b.y + b.height &&
-        a.y + a.height > b.y &&
-        a.x < b.x + b.width &&
-        a.x + a.width > b.x; 
+  // reset game
+  if (gameOver) {
+    salmon.x = salmonX;
+    obstacleArray = [];
+    score = 0;
+    gameOver = false;
+  }
 }
 
+
+function detectCollision(ellipse1, ellipse2) {
+  let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
+  let dy = ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
+  let distance = Math.sqrt(dx * dx + dy * dy);
+
+  return distance <= ellipse1.width / 2 + ellipse2.width / 2 && distance <= ellipse1.height / 2 + ellipse2.height / 2;
+}
 document.addEventListener("keyup", function(e) {
   if (e.code == "ArrowLeft" || e.code == "ArrowRight") {
     // stop moving
