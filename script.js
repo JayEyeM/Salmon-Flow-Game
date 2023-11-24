@@ -5,9 +5,23 @@ let boardWidth = 390;
 let boardHeight = 480;
 let context;
 
+//fisherman
+let fishermanWidth = 130;
+let fishermanHeight = 250;
+let fishermanX = 0;
+let fishermanY = 0;
+let fishermanImg;
+
+let fisherman = {
+  x : fishermanX,
+  y : fishermanY,
+  width : fishermanWidth,
+  height : fishermanHeight
+}
+
 //salmon
-let salmonWidth = 60;
-let salmonHeight = 100;
+let salmonWidth = 40;
+let salmonHeight = 105;
 let salmonX = boardWidth/2.2;
 let salmonY = boardHeight/1.28;
 let salmonImg;
@@ -43,6 +57,13 @@ window.onload = function(){
   board.width = boardWidth;
   context = board.getContext("2d");
 
+  //load fisherman image
+  fishermanImg = new Image();
+  fishermanImg.src = "./fishermanCharacter2.svg";
+  fishermanImg.onload = function(){
+  context.drawImage(fishermanImg, fisherman.x, fisherman.y, fisherman.width, fisherman.height);
+  };
+
   //draw salmon
   context.fillStyle = "rgb(255, 0, 0)";
 context.beginPath();
@@ -75,7 +96,8 @@ function update(){
   }
   context.clearRect(0, 0, board.width, board.height);
 
-  
+  // draw fisherman image
+  context.drawImage(fishermanImg, fisherman.x, fisherman.y, fisherman.width, fisherman.height);
   //salmon
   salmon.x += velocityX;
   salmon.x = Math.max(salmon.x, 0); // Limit the salmon's position to stay within the left edge of the board
