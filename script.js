@@ -19,6 +19,8 @@ let fisherman = {
   height : fishermanHeight
 }
 
+
+
 //salmon
 let salmonWidth = 40;
 let salmonHeight = 105;
@@ -56,6 +58,8 @@ window.onload = function(){
   board.height = boardHeight;
   board.width = boardWidth;
   context = board.getContext("2d");
+
+  
 
   //load fisherman image
   fishermanImg = new Image();
@@ -98,6 +102,8 @@ function update(){
 
   // draw fisherman image
   context.drawImage(fishermanImg, fisherman.x, fisherman.y, fisherman.width, fisherman.height);
+
+
   //salmon
   salmon.x += velocityX;
   salmon.x = Math.max(salmon.x, 0); // Limit the salmon's position to stay within the left edge of the board
@@ -158,35 +164,63 @@ function placeObstacles() {
     return;
   }
 
-  let randomInterval = Math.random() * (4.5 - 2) + 1; // Random interval between 1 and 4.5 seconds
-  setTimeout(placeObstacles, randomInterval * 4000); // Convert to milliseconds
+  let randomInterval = Math.random() * (5.5-2) + 2; // Random interval between 1 and 5.5 seconds
+  setTimeout(placeObstacles, randomInterval * 2000); // Convert to milliseconds
 
-  let randomDriftwoodY = -10; // Start at top of the board
-  let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
-  let driftwood = {
-    img: driftwoodImg,
-    x: randomDriftwoodX,
-    y: randomDriftwoodY,
-    width: obstacleWidth + 25,
-    height: obstacleHeight - 45,
-    passed: false
-  };
-  obstacleArray.push(driftwood);
+  // Randomly choose which obstacle to place
+  let obstacleType = Math.random() < 0.5 ? 'driftwood' : 'beaver';
 
-  let openingSpace = board.width / 4;
-  let minOpeningX = obstacleHeight + openingSpace;
-  let maxOpeningX = board.width - obstacleWidth - openingSpace;
-  let randomBeaverY = -10; // Start at top of the board
-  let randomBeaverX = Math.random() * (maxOpeningX - minOpeningX) + minOpeningX;
-  let beaver = {
-    img: beaverImg,
-    x: randomBeaverX,
-    y: randomBeaverY,
-    width: obstacleWidth-5,
-    height: obstacleHeight + 20,
-    passed: false
-  };
-  obstacleArray.push(beaver);
+  if (obstacleType === 'driftwood') {
+    let randomDriftwoodY = -10; // Start at top of the board
+    let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
+    let driftwood = {
+      img: driftwoodImg,
+      x: randomDriftwoodX,
+      y: randomDriftwoodY,
+      width: obstacleWidth * 2,
+      height: obstacleHeight - 45,
+      passed: false
+    };
+
+    // Check for minimum distance between obstacles
+    let isOverlapping = obstacleArray.some((obstacle) => {
+      return (
+        driftwood.x < obstacle.x + obstacle.width &&
+        driftwood.x + driftwood.width > obstacle.x &&
+        driftwood.y < obstacle.y + obstacle.height &&
+        driftwood.y + driftwood.height > obstacle.y
+      );
+    });
+
+    if (!isOverlapping) {
+      obstacleArray.push(driftwood);
+    }
+  } else if (obstacleType === 'beaver') {
+    let randomBeaverY = -10; // Start at top of the board
+    let randomBeaverX = Math.random() * (board.width - obstacleWidth);
+    let beaver = {
+      img: beaverImg,
+      x: randomBeaverX,
+      y: randomBeaverY,
+      width: obstacleWidth-5,
+      height: obstacleHeight + 20,
+      passed: false
+    };
+
+    // Check for minimum distance between obstacles
+    let isOverlapping = obstacleArray.some((obstacle) => {
+      return (
+        beaver.x < obstacle.x + obstacle.width &&
+        beaver.x + beaver.width > obstacle.x &&
+        beaver.y < obstacle.y + obstacle.height &&
+        beaver.y + beaver.height > obstacle.y
+      );
+    });
+
+    if (!isOverlapping) {
+      obstacleArray.push(beaver);
+    }
+  }
 }
 
 function moveSalmon(e) {
