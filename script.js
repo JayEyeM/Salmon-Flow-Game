@@ -16,7 +16,7 @@ document.addEventListener("keydown", function (e) {
 let currentMusicSpeed = 1; // Variable to store the current music speed
 
 function playMusic(play, volume = 0.2, speed = 1) {
-  const maxMusicSpeed = 3;
+  const maxMusicSpeed = 2;
 
   if (play) {
     if (!audio) {
@@ -259,10 +259,10 @@ function update() {
 
     if (elapsedTime >= speedIncreaseInterval) {
       elapsedTime = 0;
-      musicSpeed += 0.5;
+      musicSpeed += 0.2;
 
       // Increase speed from the current speed
-      playMusic(true, 0.2, currentMusicSpeed + 0.5);
+      playMusic(true, 0.2, currentMusicSpeed + 0.2);
     }
   }
 }
