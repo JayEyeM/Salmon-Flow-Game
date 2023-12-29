@@ -43,6 +43,11 @@ function playMusic(play, volume = 0.2, speed = 1) {
 }
 
 // Board and game variables
+
+const beginner = 5;
+const intermediate = 10;
+const advanced = 15;
+
 let board;
 let boardWidth = 390;
 let boardHeight = 480;
@@ -123,9 +128,11 @@ window.onload = function () {
   beaverImg = new Image();
   beaverImg.src = "./beaverCharacter.svg";
 
-  requestAnimationFrame(update);
-  setInterval(placeObstacles, 5000); // Every 5 seconds
   document.addEventListener("keydown", moveSalmon);
+
+  obstacleManager();
+
+  requestAnimationFrame(update);
 };
 
 let musicStopped = false;
@@ -152,13 +159,7 @@ function update() {
   salmon.x = Math.max(salmon.x, 0);
   salmon.x = Math.min(salmon.x, board.width - salmon.width);
 
-  context.drawImage(
-    salmonImg,
-    salmon.x,
-    salmon.y,
-    salmon.width,
-    salmon.height
-  );
+  context.drawImage(salmonImg, salmon.x, salmon.y, salmon.width, salmon.height);
 
   context.fillStyle = "rgb(255, 0, 0, 0.35)";
   context.beginPath();
@@ -267,16 +268,7 @@ function update() {
   }
 }
 
-function placeObstacles() {
-  if (gameOver) {
-    return;
-  }
-
-  let randomInterval = Math.random() * (5.5 - 2) + 2;
-  setTimeout(placeObstacles, randomInterval * 2000);
-
-  let obstacleType = Math.random() < 0.5 ? "driftwood" : "beaver";
-
+function renderObstacles(obstacleType) {
   if (obstacleType === "driftwood") {
     let randomDriftwoodY = -10;
     let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
@@ -328,6 +320,27 @@ function placeObstacles() {
   }
 }
 
+function obstacleManager() {
+  if (gameOver) {
+    return;
+  }
+
+  let obstacleType = Math.random() < 0.5 ? "driftwood" : "beaver";
+
+  setInterval(() => {
+    for (let i = 0; i < beginner; i++) {
+      if (score < beginner) {
+        renderObstacles(obstacleType);
+      }
+    }
+  }, Math.random() * 3000);
+}
+
+//   if (score < intermediate && score > beginner) {
+//     setInterval(renderObstacles(obstacleType), Math.random() * 5000);
+//   }
+// }
+
 function moveSalmon(e) {
   if (e.code == "ArrowLeft") {
     if (salmon.x - velocityX >= 0) {
@@ -365,7 +378,8 @@ function moveSalmon(e) {
 
 function detectCollision(ellipse1, ellipse2) {
   let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
-  let dy = ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
+  let dy =
+    ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
   let distance = Math.sqrt(dx * dx + dy * dy);
 
   return (
