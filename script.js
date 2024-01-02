@@ -1,12 +1,13 @@
 // Background music
 let musicSpeed = 1; // Initial music speed
 let elapsedTime = 0;
-const speedIncreaseInterval = 10; // Increase speed every 15 seconds
+const speedIncreaseInterval = 15; // Increase speed every 15 seconds
 
 let audio;
 
 document.addEventListener("keydown", function (e) {
   if (e.code === "ArrowLeft" || e.code === "ArrowRight") {
+    e.preventDefault();
     if (!audio || audio.paused) {
       playMusic(true);
     }
@@ -43,6 +44,11 @@ function playMusic(play, volume = 0.2, speed = 1) {
 }
 
 // Board and game variables
+
+const beginner = 25;
+const intermediate = 75;
+const advanced = 150;
+
 let board;
 let boardWidth = 390;
 let boardHeight = 480;
@@ -123,9 +129,11 @@ window.onload = function () {
   beaverImg = new Image();
   beaverImg.src = "./beaverCharacter.svg";
 
-  requestAnimationFrame(update);
-  setInterval(placeObstacles, 5000); // Every 5 seconds
   document.addEventListener("keydown", moveSalmon);
+
+  obstacleManager();
+
+  requestAnimationFrame(update);
 };
 
 let musicStopped = false;
@@ -152,13 +160,7 @@ function update() {
   salmon.x = Math.max(salmon.x, 0);
   salmon.x = Math.min(salmon.x, board.width - salmon.width);
 
-  context.drawImage(
-    salmonImg,
-    salmon.x,
-    salmon.y,
-    salmon.width,
-    salmon.height
-  );
+  context.drawImage(salmonImg, salmon.x, salmon.y, salmon.width, salmon.height);
 
   context.fillStyle = "rgb(255, 0, 0, 0.35)";
   context.beginPath();
@@ -267,18 +269,9 @@ function update() {
   }
 }
 
-function placeObstacles() {
-  if (gameOver) {
-    return;
-  }
-
-  let randomInterval = Math.random() * (5.5 - 2) + 2;
-  setTimeout(placeObstacles, randomInterval * 2000);
-
-  let obstacleType = Math.random() < 0.5 ? "driftwood" : "beaver";
-
+function renderObstacles(obstacleType) {
   if (obstacleType === "driftwood") {
-    let randomDriftwoodY = -10;
+    let randomDriftwoodY = -(Math.random() * (board.height - obstacleHeight) - obstacleHeight);
     let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
     let driftwood = {
       img: driftwoodImg,
@@ -290,19 +283,14 @@ function placeObstacles() {
     };
 
     let isOverlapping = obstacleArray.some((obstacle) => {
-      return (
-        driftwood.x < obstacle.x + obstacle.width &&
-        driftwood.x + driftwood.width > obstacle.x &&
-        driftwood.y < obstacle.y + obstacle.height &&
-        driftwood.y + driftwood.height > obstacle.y
-      );
+      return checkObstacleProximity(driftwood, obstacle);
     });
 
     if (!isOverlapping) {
       obstacleArray.push(driftwood);
     }
   } else if (obstacleType === "beaver") {
-    let randomBeaverY = -10;
+    let randomBeaverY = -(Math.random() * (board.height - obstacleHeight) - obstacleHeight);
     let randomBeaverX = Math.random() * (board.width - obstacleWidth);
     let beaver = {
       img: beaverImg,
@@ -314,12 +302,7 @@ function placeObstacles() {
     };
 
     let isOverlapping = obstacleArray.some((obstacle) => {
-      return (
-        beaver.x < obstacle.x + obstacle.width &&
-        beaver.x + beaver.width > obstacle.x &&
-        beaver.y < obstacle.y + obstacle.height &&
-        beaver.y + beaver.height > obstacle.y
-      );
+      return checkObstacleProximity(beaver, obstacle);
     });
 
     if (!isOverlapping) {
@@ -327,6 +310,54 @@ function placeObstacles() {
     }
   }
 }
+
+function getRandomXPosition(obstacleWidth) {
+  let randomX = Math.random() * (board.width - obstacleWidth);
+  let proximityThreshold = 100;
+
+  while (obstacleArray.some((obstacle) => Math.abs(obstacle.x - randomX) < proximityThreshold)) {
+    randomX = Math.random() * (board.width - obstacleWidth);
+  }
+
+  return randomX;
+}
+
+function checkObstacleProximity(newObstacle, existingObstacle) {
+  let proximityThreshold = 100;
+
+  return (
+    newObstacle.x < existingObstacle.x + existingObstacle.width + proximityThreshold &&
+    newObstacle.x + newObstacle.width + proximityThreshold > existingObstacle.x &&
+    newObstacle.y < existingObstacle.y + existingObstacle.height + proximityThreshold &&
+    newObstacle.y + newObstacle.height + proximityThreshold > existingObstacle.y
+  );
+}
+
+function obstacleManager() {
+  if (gameOver) {
+    return;
+  }
+
+  setInterval(() => {
+    for (let i = 0; i < beginner; i++) {
+      let obstacleType = Math.random() < 0.5 ? "driftwood" : "beaver";
+      if (score < beginner) {
+        renderObstacles(obstacleType);
+      }
+    }
+  },Math.random() * 5000);
+}
+
+//if (score > beginner && score < intermediate) {
+  //setInterval(() => {
+   // for (let i = 0; i < intermediate; i++) {
+    //  if (score < intermediate) {
+    //    renderObstacles(obstacleType);
+    //  }
+   // }
+ // },Math.random() * 5000);
+ //}
+//}
 
 function moveSalmon(e) {
   if (e.code == "ArrowLeft") {
@@ -365,7 +396,8 @@ function moveSalmon(e) {
 
 function detectCollision(ellipse1, ellipse2) {
   let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
-  let dy = ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
+  let dy = 
+    ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
   let distance = Math.sqrt(dx * dx + dy * dy);
 
   return (
