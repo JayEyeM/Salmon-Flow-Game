@@ -6,7 +6,7 @@ const speedIncreaseInterval = 15; // Increase speed every 15 seconds
 let audio;
 
 document.addEventListener("keydown", function (e) {
-  if (e.code === "ArrowLeft" || e.code === "ArrowRight") {
+  if (e.code === "ArrowLeft" || e.code === "ArrowRight" || "e.code === Space") {
     e.preventDefault();
     if (!audio || audio.paused) {
       playMusic(true);
@@ -45,9 +45,6 @@ function playMusic(play, volume = 0.2, speed = 1) {
 
 // Board and game variables
 
-const beginner = 25;
-const intermediate = 75;
-const advanced = 150;
 
 let board;
 let boardWidth = 390;
@@ -93,6 +90,8 @@ let gravity = 5;
 let gameOver = false;
 let score = 0;
 
+let currentLevel;
+
 window.onload = function () {
   board = document.getElementById("board");
   board.height = boardHeight;
@@ -132,11 +131,51 @@ window.onload = function () {
   document.addEventListener("keydown", moveSalmon);
 
   obstacleManager();
-
   requestAnimationFrame(update);
+  currentLevel = levelCalculation(count);
 };
 
 let musicStopped = false;
+
+let frameCount = 0;
+let lastCountFrame = 0;
+let count = countObstacles();
+let level = 1;
+function countObstacles() {
+if (frameCount !== lastCountFrame) {
+  let count = 0;
+  for (let i = 0; i < obstacleArray.length; i++) {
+    if (obstacleArray[i].type === "beaver" || obstacleArray[i].type === "driftwood") {
+      count++;
+    }
+  }
+  //console.log("Updated obstacleArray:", obstacleArray);
+  console.log("Count of Obstacles:", count);
+  lastCountFrame = frameCount;
+
+  if (count % 10 === 0) {
+    level = levelCalculation(count);
+  }
+
+  let currentLevel = levelCalculation(count);
+
+    return count;
+  }
+}
+
+function levelStyle(text, x, y, color = "white", font = "45px sans-serif", isBold = true) {
+  context.fillStyle = color;
+  context.font = isBold ? `bold ${font}` : font;
+  context.fillText(text, x, y);
+}
+
+function levelCalculation(count) {
+  if (count === 0) {
+    return 1;
+  } else {
+    return Math.floor(count / 10) + 1;
+  }
+}
 
 function update() {
   requestAnimationFrame(update);
@@ -156,9 +195,9 @@ function update() {
     fisherman.height
   );
 
-  salmon.x += velocityX;
-  salmon.x = Math.max(salmon.x, 0);
-  salmon.x = Math.min(salmon.x, board.width - salmon.width);
+  salmon.x += velocityX;//adds velocity to the salmon x position when the left and right arrow keys are pressed
+  salmon.x = Math.max(salmon.x, 0);//sets the salmon x position to 0 if it is less than 0
+  salmon.x = Math.min(salmon.x, board.width - salmon.width);//sets the salmon x position to the board width minus the salmon width if it is greater than the board width minus the salmon width
 
   context.drawImage(salmonImg, salmon.x, salmon.y, salmon.width, salmon.height);
 
@@ -192,18 +231,18 @@ function update() {
 
   if (salmon.x + salmon.width > board.width) {
     gameOver = true;
-  }
+  }//checks if the salmon x position is greater than the board width and sets gameOver to true if it is.
 
   for (let i = 0; i < obstacleArray.length; i++) {
     let obstacle = obstacleArray[i];
-    obstacle.y += velocityY;
+    obstacle.y += velocityY;//
     context.drawImage(
       obstacle.img,
       obstacle.x,
       obstacle.y,
       obstacle.width,
       obstacle.height
-    );
+    );//draws the obstacle 
 
     context.fillStyle = "rgb(255, 0, 0, 0.35)";
     context.beginPath();
@@ -215,7 +254,7 @@ function update() {
       0,
       0,
       2 * Math.PI
-    );
+    );//draws the ellipse around the obstacle 
     context.fill();
     context.closePath();
 
@@ -226,33 +265,47 @@ function update() {
       obstacle.y + obstacle.height / 1.4,
       obstacle.width / 3,
       obstacle.height / 4
-    );
+    );//draws the rectangle around the ellipse around the obstacle 
     context.fill();
     context.closePath();
 
-    if (!obstacle.passed && salmon.y > obstacle.y + obstacle.height) {
+    if (!obstacle.passed && salmon.y < obstacle.y + obstacle.height) {
       score += 1;
       obstacle.passed = true;
-    }
+    }//checks if the obstacle has passed the salmon and adds 1 to the score if it has.
+
+
+      
+      //if (score === 25) {
+        //createIntermediateObstacles();
+      
+    
 
     if (detectCollision(salmon, obstacle)) {
       gameOver = true;
+      gameOverAudio = new Audio("./gameOverSound.wav");
+      gameOverAudio.play();//game over sound.
     }
   }
 
-  while (obstacleArray.length > 0 && obstacleArray[0].y < -obstacleHeight) {
-    obstacleArray.shift();
-  }
+ while (obstacleArray.length > 0 && obstacleArray[0].y + obstacleArray[0].height <= 0) {
+  obstacleArray.shift();
+}
 
-  context.fillStyle = "white";
-  context.font = "45px sans-serif";
-  context.fillText(score, 5, 45);
+  function scoreStyle() {
+  context.fillStyle = "white";//sets the color of the score
+  context.font = "45px sans-serif";//sets the font and size of the score
+  context.fillText(score, 5, 95);//displays the score
+  }
+scoreStyle();
 
   if (gameOver && !musicStopped) {
     playMusic(false);
     musicStopped = true;
-    context.fillText("GAME OVER", 5, 90);
+    context.fillStyle = "white";
+    context.fillText("GAME OVER", 50, 120);
   }
+  
 
   if (!gameOver) {
     musicStopped = false;
@@ -267,13 +320,30 @@ function update() {
       playMusic(true, 0.2, currentMusicSpeed + 0.2);
     }
   }
+  frameCount++;
+  countObstacles();
+  
+
+  
+function drawLevel(level) {
+    context.fillText("Level " + level, 5, 40);
+    
 }
+
+drawLevel(level);
+
+}//end of update function
+
+
+
+
 
 function renderObstacles(obstacleType) {
   if (obstacleType === "driftwood") {
     let randomDriftwoodY = -(Math.random() * (board.height - obstacleHeight) - obstacleHeight);
     let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
     let driftwood = {
+      type: "driftwood",
       img: driftwoodImg,
       x: randomDriftwoodX,
       y: randomDriftwoodY,
@@ -289,10 +359,12 @@ function renderObstacles(obstacleType) {
     if (!isOverlapping) {
       obstacleArray.push(driftwood);
     }
+    //console.log("Updated obstacleArray:", obstacleArray);
   } else if (obstacleType === "beaver") {
     let randomBeaverY = -(Math.random() * (board.height - obstacleHeight) - obstacleHeight);
     let randomBeaverX = Math.random() * (board.width - obstacleWidth);
     let beaver = {
+      type: "beaver",
       img: beaverImg,
       x: randomBeaverX,
       y: randomBeaverY,
@@ -308,18 +380,19 @@ function renderObstacles(obstacleType) {
     if (!isOverlapping) {
       obstacleArray.push(beaver);
     }
+    //console.log("Updated obstacleArray:", obstacleArray);
   }
 }
 
 function getRandomXPosition(obstacleWidth) {
-  let randomX = Math.random() * (board.width - obstacleWidth);
-  let proximityThreshold = 100;
+  let randomX = Math.random() * (board.width - obstacleWidth);//generates a random x position
+  let proximityThreshold = 100;//sets the proximity threshold to 100 pixels between the new obstacle and existing obstacles
 
   while (obstacleArray.some((obstacle) => Math.abs(obstacle.x - randomX) < proximityThreshold)) {
     randomX = Math.random() * (board.width - obstacleWidth);
-  }
+  } //checks if the random x position is close to an existing obstacle and generates a new random x position if it is.
 
-  return randomX;
+  return randomX;//returns the random x position
 }
 
 function checkObstacleProximity(newObstacle, existingObstacle) {
@@ -331,60 +404,58 @@ function checkObstacleProximity(newObstacle, existingObstacle) {
     newObstacle.y < existingObstacle.y + existingObstacle.height + proximityThreshold &&
     newObstacle.y + newObstacle.height + proximityThreshold > existingObstacle.y
   );
-}
+}//checks if the new obstacle is close to an existing obstacle
 
 function obstacleManager() {
   if (gameOver) {
     return;
   }
 
-  setInterval(() => {
-    for (let i = 0; i < beginner; i++) {
-      let obstacleType = Math.random() < 0.5 ? "driftwood" : "beaver";
-      if (score < beginner) {
-        renderObstacles(obstacleType);
-      }
-    }
-  },Math.random() * 5000);
+  setInterval(renderObstacles, 500, "driftwood");//creates a new driftwood every 500ms
+  setInterval(renderObstacles, 500, "beaver");//creates a new beaver every 500ms
 }
 
-//if (score > beginner && score < intermediate) {
-  //setInterval(() => {
-   // for (let i = 0; i < intermediate; i++) {
-    //  if (score < intermediate) {
-    //    renderObstacles(obstacleType);
-    //  }
-   // }
- // },Math.random() * 5000);
- //}
-//}
+const jumpStrength = 8;
+
+function jump(){
+  velocityY = jumpStrength;
+  salmon.y = salmon.y - 40; 
+}
+
 
 function moveSalmon(e) {
   if (e.code == "ArrowLeft") {
     if (salmon.x - velocityX >= 0) {
-      velocityX = -7;
+      velocityX = -10;
     } else {
       velocityX = 0;
     }
   } else if (e.code == "ArrowRight") {
     if (salmon.x + salmon.width < board.width) {
-      velocityX = 7;
+      velocityX = 10;
     } else {
       salmon.x = board.width - salmon.width;
     }
-  } else if (e.code == "Space") {
-    velocityY = 5;
+  } else if ("keydown", e.code == "Space") {
+    jump();
   }
 
   if (salmon.x < 0) {
     salmon.x = 0;
   }
-
+  
   if (gameOver) {
-    salmon.x = salmonX;
-    obstacleArray = [];
-    score = 0;
-    gameOver = false;
+    salmon.x = salmonX;//sets the salmon x position to 0
+  obstacleArray = [];//clears the obstacle array
+  score = 0;//sets the score to 0
+  gameOver = false;//sets the game over to false
+
+  gameOverLogic();
+}
+}
+
+function gameOverLogic(){
+  if (gameOver) {
 
     // Stop the music if it is playing
     playMusic(false);
@@ -406,8 +477,26 @@ function detectCollision(ellipse1, ellipse2) {
   );
 }
 
+
+let jumpHeight = 40;
+let orignalY = salmon.y;
+
+function fall(){
+  let fallInterval = setInterval(function(){
+    salmon.y += jumpHeight;
+
+    if (salmon.y >= orignalY){
+      clearInterval(fallInterval);
+    }
+  }, 10);
+}
 document.addEventListener("keyup", function (e) {
-  if (e.code == "ArrowLeft" || e.code == "ArrowRight") {
-    velocityX = 0;
+  if (e.code == "ArrowLeft") {
+    velocityX = -3.5;
+  }else if (e.code == "ArrowRight") {
+    velocityX = 3.5;
+  }else if (e.code == "Space") {
+    velocityY = 4;
+    fall();
   }
 });
