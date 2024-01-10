@@ -141,6 +141,7 @@ let frameCount = 0;
 let lastCountFrame = 0;
 let count = countObstacles();
 let level = 1;
+
 function countObstacles() {
 if (frameCount !== lastCountFrame) {
   let count = 0;
@@ -176,6 +177,34 @@ function levelCalculation(count) {
     return Math.floor(count / 10) + 1;
   }
 }
+
+const maxVelocityY = 22;
+
+function obstacleSpeedIncrease(level) {
+  if (level++) {
+    velocityY += 0.002;
+    if (velocityY > maxVelocityY) {
+      velocityY = maxVelocityY;
+    }
+    if (velocityY > 10) {
+      document.addEventListener("keydown", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -12;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 12;
+        }
+      });
+      document.addEventListener("keyup", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -5.5;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 5.5;
+        }
+      });
+    }
+  }
+}
+
 
 function update() {
   requestAnimationFrame(update);
@@ -331,6 +360,8 @@ function drawLevel(level) {
 }
 
 drawLevel(level);
+
+obstacleSpeedIncrease(level);
 
 }//end of update function
 
