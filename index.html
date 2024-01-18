@@ -13,20 +13,12 @@
 
     <div id="gameInstructionsDiv">
         <p id="gameInstructionsPara">
-            <span class="instructionText">Using the controls, avoid obstacles like driftwood and beavers, or else game over!
-            Use your jumps wisely! You get three jumps to bypass obstacles. It takes 60 seconds for all three to renew!</span><br>
-            <strong>Flies</strong> = +10 points | <strong>Worms</strong> = +15 points |<br>
+            
             
         </p>
     </div>
 
-    <div id="controlsDiv">
-        <p id="controlsPara">
-            <strong class="strong">Left arrow</strong> to move left |
-            <strong class="strong">Right arrow</strong> to move right |
-            <strong class="strong">Space Bar</strong> to jump<br>
-        </p>
-    </div>
+   
 
  <div id="container">   
 
@@ -46,6 +38,27 @@
     <div id="button-div">
         
         <button id="instructions-button">Instructions</button>
+
+        <div id="instructionsWindow">
+            <div id="instructionsDiv">
+                <h2>Game Instructions</h2>
+                <p id="instructionsPara">
+                    <span class="instructionText">Avoid obstacles like driftwood and beavers, or else game over!
+                        Use your jumps wisely! You get three jumps to bypass obstacles. It takes 15 seconds for all three to renew!<br>
+                        The salmon continues to drift in the last pressed direction, so be careful and keep swimming!<br>
+                        If you're quick enough, you can score extra points by eating flies and worms:</span>
+                        <strong>Flies</strong> = 5 points | <strong>Worms</strong> = 10 points
+                </p>
+                <div id="controlsDiv">
+                    <p id="controlsPara">
+                        <strong class="strong">Left arrow</strong> to move left |
+                        <strong class="strong">Right arrow</strong> to move right |
+                        <strong class="strong">Space Bar</strong> to jump<br>
+                    </p>
+                </div>
+                <button id="closeInstructionsButton">Close</button>
+            </div>
+        </div>
         <button id="mute-button">Mute sound</button>
     </div>
 </div>
