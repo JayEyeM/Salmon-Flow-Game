@@ -52,7 +52,7 @@ let boardHeight = 480;
 let context;
 
 let fishermanWidth = 130;
-let fishermanHeight = 250;
+let fishermanHeight = 200;
 let fishermanX = 0;
 let fishermanY = 0;
 let fishermanImg;
@@ -90,13 +90,33 @@ let gravity = 5;
 let gameOver = false;
 let score = 0;
 
+const scoreText = document.getElementById('score-text');
+const gameOverText = document.getElementById('game-over-text');
+const levelText = document.getElementById('level-text');
 let currentLevel;
+let level = 1;
 
+function drawLevel() {
+  levelText.innerHTML = 'Level<br>' + level;
+}
+
+function drawScore() {
+  scoreText.innerHTML = 'Score:<br>' + score;
+}
+
+function drawGameOver() {
+  if (!gameOver) {
+    gameOverText.textContent = '';
+  } else if (gameOver) {
+    gameOverText.innerHTML = 'Game <br> Over';
+}
+}
 window.onload = function () {
   board = document.getElementById("board");
   board.height = boardHeight;
   board.width = boardWidth;
   context = board.getContext("2d");
+  context.globalCompositeOperation='destination-over';
 
   fishermanImg = new Image();
   fishermanImg.src = "./fishermanCharacter2.svg";
@@ -110,6 +130,12 @@ window.onload = function () {
     );
   };
 
+  driftwoodImg = new Image();
+  driftwoodImg.src = "./driftwoodFinal.svg";
+
+  beaverImg = new Image();
+  beaverImg.src = "./beaverCharacter.svg";
+
   salmonImg = new Image();
   salmonImg.src = "./finalSalmonCharacter.svg";
   salmonImg.onload = function () {
@@ -122,13 +148,9 @@ window.onload = function () {
     );
   };
 
-  driftwoodImg = new Image();
-  driftwoodImg.src = "./driftwoodFinal.svg";
+  
 
-  beaverImg = new Image();
-  beaverImg.src = "./beaverCharacter.svg";
-
-  document.addEventListener("keydown", moveSalmon);
+  
 
   obstacleManager();
   requestAnimationFrame(update);
@@ -140,7 +162,7 @@ let musicStopped = false;
 let frameCount = 0;
 let lastCountFrame = 0;
 let count = countObstacles();
-let level = 1;
+
 
 function countObstacles() {
 if (frameCount !== lastCountFrame) {
@@ -164,17 +186,12 @@ if (frameCount !== lastCountFrame) {
   }
 }
 
-function levelStyle(text, x, y, color = "white", font = "45px sans-serif", isBold = true) {
-  context.fillStyle = color;
-  context.font = isBold ? `bold ${font}` : font;
-  context.fillText(text, x, y);
-}
-
 function levelCalculation(count) {
   if (count === 0) {
     return 1;
   } else {
     return Math.floor(count / 10) + 1;
+    
   }
 }
 
@@ -202,9 +219,62 @@ function obstacleSpeedIncrease(level) {
         }
       });
     }
+    if (velocityY > 20) {
+      document.addEventListener("keydown", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -14;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 14;
+        }
+      });
+      document.addEventListener("keyup", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -7.5;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 7.5;
+        }
+      });
+    }
   }
 }
 
+let jumpCount = 0;
+let jumpsAreAvailable = true;
+let jumpReloadTimeout;
+
+function countJumps() {
+  if (isSalmonJumping && jumpsAreAvailable) {
+    const jumpIcon = document.querySelector(`#jump-icon-${jumpCount + 1}`);
+    jumpIcon.style.display = 'none';
+    isSalmonJumping = false;
+    jumpCount++;
+
+    if (jumpCount === 3) {
+      jumpsAreAvailable = false;
+      jumpReloadTimeout = setTimeout(() => {
+        jumpsAreAvailable = true;
+        resetJumpIcons();
+      }, 15000);
+    }
+  }
+}
+
+function resetJumpIcons() {
+  clearTimeout(jumpReloadTimeout);
+  jumpCount = 0;
+  const jumpIcons = document.querySelectorAll('.jump-icon');
+  jumpIcons.forEach((jumpIcon) => {
+    jumpIcon.style.display = 'inline-block';
+  });
+}
+
+function jumpLimit() {
+  if (!jumpsAreAvailable || jumpCount === 3) {
+    isJumpInProgress = true;
+  } else {
+    isJumpInProgress = false;
+  }
+}
 
 function update() {
   requestAnimationFrame(update);
@@ -213,6 +283,7 @@ function update() {
     playMusic(false); // Stop music
     return;
   }
+
 
   context.clearRect(0, 0, board.width, board.height);
 
@@ -223,6 +294,7 @@ function update() {
     fisherman.width,
     fisherman.height
   );
+  
 
   salmon.x += velocityX;//adds velocity to the salmon x position when the left and right arrow keys are pressed
   salmon.x = Math.max(salmon.x, 0);//sets the salmon x position to 0 if it is less than 0
@@ -272,7 +344,11 @@ function update() {
       obstacle.width,
       obstacle.height
     );//draws the obstacle 
+    
 
+    
+    moveBeaverFaster(i);
+    
     context.fillStyle = "rgb(255, 0, 0, 0.35)";
     context.beginPath();
     context.ellipse(
@@ -321,18 +397,12 @@ function update() {
   obstacleArray.shift();
 }
 
-  function scoreStyle() {
-  context.fillStyle = "white";//sets the color of the score
-  context.font = "45px sans-serif";//sets the font and size of the score
-  context.fillText(score, 5, 95);//displays the score
-  }
-scoreStyle();
+
 
   if (gameOver && !musicStopped) {
     playMusic(false);
     musicStopped = true;
-    context.fillStyle = "white";
-    context.fillText("GAME OVER", 50, 120);
+   
   }
   
 
@@ -351,27 +421,38 @@ scoreStyle();
   }
   frameCount++;
   countObstacles();
-  
-
-  
-function drawLevel(level) {
-    context.fillText("Level " + level, 5, 40);
-    
-}
-
-drawLevel(level);
-
+  drawLevel();
+  drawScore();
+  drawGameOver();
+  countJumps();
+  jumpLimit();
 obstacleSpeedIncrease(level);
+
+document.addEventListener("keydown", moveSalmon);
+
 
 }//end of update function
 
-
-
-
+function moveBeaverFaster(i){
+    if (obstacleArray[i].type === "beaver" && level <= 5) {
+      obstacleArray[i].y += velocityY * 0.2;
+  
+  }else if (obstacleArray[i].type === "beaver" && level > 5 && level <= 10) {
+    obstacleArray[i].y += velocityY * 0.3;
+}else if (obstacleArray[i].type === "beaver" && level > 10 && level <= 15) {
+  obstacleArray[i].y += velocityY * 0.4;
+}else if (obstacleArray[i].type === "beaver" && level > 15 && level <= 20) {
+  obstacleArray[i].y += velocityY * 0.5;
+}else if (obstacleArray[i].type === "beaver" && level > 20 && level <= 25) {
+  obstacleArray[i].y += velocityY * 0.6;
+}else if (obstacleArray[i].type === "beaver" && level > 25) {
+  obstacleArray[i].y += velocityY * 0.7;
+}
+}
 
 function renderObstacles(obstacleType) {
   if (obstacleType === "driftwood") {
-    let randomDriftwoodY = -(Math.random() * (board.height - obstacleHeight) - obstacleHeight);
+    let randomDriftwoodY = -(Math.random() * (board.height - obstacleHeight) * 0.5);
     let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
     let driftwood = {
       type: "driftwood",
@@ -392,7 +473,7 @@ function renderObstacles(obstacleType) {
     }
     //console.log("Updated obstacleArray:", obstacleArray);
   } else if (obstacleType === "beaver") {
-    let randomBeaverY = -(Math.random() * (board.height - obstacleHeight) - obstacleHeight);
+    let randomBeaverY = -(Math.random() * (board.height - obstacleHeight) * 0.5);
     let randomBeaverX = Math.random() * (board.width - obstacleWidth);
     let beaver = {
       type: "beaver",
@@ -403,6 +484,8 @@ function renderObstacles(obstacleType) {
       height: obstacleHeight + 20,
       passed: false,
     };
+    
+ 
 
     let isOverlapping = obstacleArray.some((obstacle) => {
       return checkObstacleProximity(beaver, obstacle);
@@ -410,8 +493,10 @@ function renderObstacles(obstacleType) {
 
     if (!isOverlapping) {
       obstacleArray.push(beaver);
+      moveBeaverFaster(i);
     }
     //console.log("Updated obstacleArray:", obstacleArray);
+    
   }
 }
 
@@ -446,13 +531,39 @@ function obstacleManager() {
   setInterval(renderObstacles, 500, "beaver");//creates a new beaver every 500ms
 }
 
-const jumpStrength = 8;
+let isSalmonJumping = false;
 
-function jump(){
-  velocityY = jumpStrength;
-  salmon.y = salmon.y - 40; 
+let jumpHeight = 40;
+let originalY = salmon.y;
+let isJumpInProgress = false;
+let isFallInProgress = false;
+function fall(){
+isFallInProgress = true;
+
+  setTimeout(function(){
+    isSalmonJumping = false;
+    salmon.y = salmon.y + 40;
+    isJumpInProgress = false;
+  }, 1000);
 }
 
+function jump(){
+  if(isJumpInProgress) {
+    return;
+  }
+    salmon.y = salmon.y - jumpHeight;
+    isJumpInProgress = true;
+    isSalmonJumping = true;
+    fall();
+    collisionDetectionDelayer();
+    
+}
+
+function collisionDetectionDelayer() {
+  setTimeout(() => {
+    isFallInProgress = false;
+  }, 3000);
+}
 
 function moveSalmon(e) {
   if (e.code == "ArrowLeft") {
@@ -467,8 +578,10 @@ function moveSalmon(e) {
     } else {
       salmon.x = board.width - salmon.width;
     }
-  } else if ("keydown", e.code == "Space") {
+  } else if (e.code === "Space") {
     jump();
+  } else if (e.code === "KeyS") {
+    velocityY = maxVelocityY;
   }
 
   if (salmon.x < 0) {
@@ -496,11 +609,18 @@ function gameOverLogic(){
   }
 }
 
+let isColliding = false;
 function detectCollision(ellipse1, ellipse2) {
+  if (isSalmonJumping || isFallInProgress) {
+    return false;
+  }
+
   let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
   let dy = 
     ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
   let distance = Math.sqrt(dx * dx + dy * dy);
+
+  isColliding = true;
 
   return (
     distance <= ellipse1.width / 2 + ellipse2.width / 2 &&
@@ -508,26 +628,35 @@ function detectCollision(ellipse1, ellipse2) {
   );
 }
 
+function noCollision() {
+  if(!isFallInProgress) {
+    isColliding = false;
+  }
+ }
 
-let jumpHeight = 40;
-let orignalY = salmon.y;
 
-function fall(){
-  let fallInterval = setInterval(function(){
-    salmon.y += jumpHeight;
-
-    if (salmon.y >= orignalY){
-      clearInterval(fallInterval);
-    }
-  }, 10);
-}
 document.addEventListener("keyup", function (e) {
   if (e.code == "ArrowLeft") {
     velocityX = -3.5;
+    isSalmonJumping = false;
   }else if (e.code == "ArrowRight") {
     velocityX = 3.5;
-  }else if (e.code == "Space") {
-    velocityY = 4;
-    fall();
+    isSalmonJumping = false;
   }
 });
+
+const instructionsButton = document.getElementById("instructions-button");
+const instructionsWindow = document.getElementById("instructionsWindow");
+const closeInstructionsButton = document.getElementById("closeInstructionsButton");
+
+instructionsButton.addEventListener("click", showInstructions);
+closeInstructionsButton.addEventListener("click", closeInstructions);
+
+function showInstructions() {
+  instructionsWindow.style.display = "block";
+}
+
+function closeInstructions() {
+  instructionsWindow.style.display = "none";
+}
+

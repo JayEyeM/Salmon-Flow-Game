@@ -13,12 +13,10 @@
 
     <div id="gameInstructionsDiv">
         <p id="gameInstructionsPara">
-            <span class="instructionText">Using the controls, avoid obstacles like rocks, logs, fisherman, beavers, bears, and birds.
-            Jump over beaver dams or else face instant level restart! Eat flies or worms to gain health! If you run out of health, it is game over!</span><br>
-            <strong>Rocks and logs</strong> = -5 health | <strong>Beavers and Birds</strong> = -10 health |
-            <strong>Bears and Fisherman</strong> = -15 health | <strong>Flies</strong> = +6 health | <strong>Worms</strong> = +9 health |<br>
-            <strong>Beaver Dams</strong> = Level Restart |
-            <strong>0 Health</strong> = Game Over!
+            <span class="instructionText">Using the controls, avoid obstacles like driftwood and beavers, or else game over!
+            Use your jumps wisely! You get three jumps to bypass obstacles. It takes 60 seconds for all three to renew!</span><br>
+            <strong>Flies</strong> = +10 points | <strong>Worms</strong> = +15 points |<br>
+            
         </p>
     </div>
 
@@ -30,14 +28,32 @@
         </p>
     </div>
 
-    <h3>Health</h3>
-    
-    
-    <progress id="healthBar" value="100" max="100"></progress>
-    
-    <canvas id="board"></canvas>
-    
+ <div id="container">   
 
+
+<div id="text-layer">
+    <p id="level-text"></p>
+    <p id="score-text"></p>
+
+    <div id="jump-icons">
+        <p id="jump-para">Jumps:</p>
+        <p><span id="jump-reload-countdown"></span></p>
+        <div id="jump-icon-1" class="jump-icon"></div>
+        <div id="jump-icon-2" class="jump-icon"></div>
+        <div id="jump-icon-3" class="jump-icon"></div>
+    </div>
+    <p id="game-over-text"></p>
+    <div id="button-div">
+        
+        <button id="instructions-button">Instructions</button>
+        <button id="mute-button">Mute sound</button>
+    </div>
+</div>
+
+<div id="image-layer">
+    <canvas id="board"></canvas>
+</div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
