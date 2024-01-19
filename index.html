@@ -11,12 +11,7 @@
     <h1>Salmon Flow!</h1>
     
 
-    <div id="gameInstructionsDiv">
-        <p id="gameInstructionsPara">
-            
-            
-        </p>
-    </div>
+   
 
    
 
@@ -59,13 +54,14 @@
                 <button id="closeInstructionsButton">Close</button>
             </div>
         </div>
-        <button id="mute-button">Mute sound</button>
+        <button type="button" id="mute-button" onclick="toggleSound()">Mute Sound</button>
+        <button id="start-button">Start</button>
+        
     </div>
 </div>
 
-<div id="image-layer">
+
     <canvas id="board"></canvas>
-</div>
 </div>
     <script src="script.js"></script>
 </body>

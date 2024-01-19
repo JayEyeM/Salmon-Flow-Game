@@ -12,7 +12,6 @@ body {background-color:aqua;
     flex-direction:column; 
     justify-content:center;
     min-height:100vh;
-      
 }
 
 h1{color:salmon;
@@ -49,19 +48,8 @@ font-size: 3.5vh;
 padding:3px;
 }
 
-#gameInstructionsDiv{border: 3px solid black;
-    display:flex; 
-    flex-direction:column; 
-    justify-content:center;
-        max-height:60%;
-        width:90%;
-        margin:auto;
-        margin-bottom:3px;
-        background-color: lightsalmon;}
 
-#gameInstructionsPara{text-align:center;
-    padding:3px;
-}
+
 
 .instructionText{color:rgb(0, 92, 92);
 font-size: 4.5vh;}
@@ -79,59 +67,52 @@ max-width:70vh;
 margin:auto;}
 
 #container {
-    display: flex;
-    justify-content: center;
-    max-height: 100vh;
-    border:5px solid blue;
-    padding-top: 5vh;
-    padding-bottom: 5vh;
+    position: relative;
+    width:100%;
+    height:100vh;
+    max-height: 100%;
+    border: 5px solid blue;
     overflow: hidden;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#image-layer {
-        max-width:80vw;
-        max-height:90vh;
-        margin: 0;
-        padding: 0;
-        background-size: cover;
-        flex-shrink: 1;
-  }
-  
-  #text-layer {
+#text-layer {
+    position: absolute;
+    height: 20vh; /* Set the height to 100% to match the max-height of #board */
     border: 5px solid black;
     background-color: salmon;
-    max-width: calc(100% - 80vw);
-    max-height: 90vh;
-    flex-shrink: 1;
     z-index: 1;
     text-align: center;
-    padding: 0;
-    margin-left: 2vh;
-    margin-right: 1vh;
+    padding: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 
-    
-  }
 
-
-
-#board{border:5px solid black;
-        max-width:80vw;
-        max-height:90vh;
-        background-image: url(./salmonFlowBackground2.png);
-        display:block;
-        background-size: cover;
-        position: relative;
-    }
-
+#board {
+    position: relative;
+    max-width: 390px;
+    width: 25vw; /* Adjust as needed */
+    max-height: 480px;
+    border: 5px solid black;
+    background-image: url(./salmonFlowBackground2.png);
+    background-size: cover;
+    top: 21vh;
+}
     #jump-icons{
         background-color: white;
-        width: 100%;
         padding: 5px;
     }
     #jump-para{text-align:center;
-    color:black;
+    color:green;
     font-size: min(3vw, 6vh);
     background-color: white;
+    padding:3px;
     }
 
     .jump-icon{
@@ -141,23 +122,22 @@ margin:auto;}
         height: min(7vh);
   width: min(2.75vh);
         margin: 5px;
+        font-size: min(3vw, 6vh);
     }
     #level-text {
         font-size: min(3vw, 6vh);
         color: green;
         position: relative;
-        padding:5px;
-        width:100%;
         background-color: white;
+        padding:3px;
       }
 
     #score-text {
         font-size: min(3vw, 6vh);
         color: green;
         position: relative;
-        padding:5px;
-        width:100%;
         background-color: white;
+        padding:3px;
     }
 
     #game-over-text {
@@ -165,20 +145,17 @@ margin:auto;}
         font-size: min(3vw, 6vh);
         color: red;
         position: relative;
-        margin-top: 2vh;
-        padding:5px;
-        height:18vh;
+        padding:3px;
       }
 
       #button-div {
-        width: 100%;
-        height: auto;
+        position: relative;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         margin-top: 1.2vh;
         margin-bottom: 1.2vh;
-
+        padding: 3px;
     }
     
     #mute-button {
@@ -191,7 +168,19 @@ margin:auto;}
         margin: 2px auto;
         padding: 5px;
         max-height: 8vh;
+        margin: 1.5px;
     }
+    #start-button{
+        background-color: black;
+        border: 2px white solid;
+        font-size: min(1.5vw, 3vh);
+        color: white;
+        position: relative;
+        flex: 1;
+        margin: 2px auto;
+        padding: 5px;
+        max-height: 8vh;
+        margin: 1.5px;}
     
     #instructions-button {
         background-color: black;
@@ -203,6 +192,7 @@ margin:auto;}
         margin: 2px auto;
         padding: 5px;
         max-height: 8vh;
+        margin: 1.5px;
     }
 
     #instructionsWindow{

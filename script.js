@@ -3,7 +3,25 @@ let musicSpeed = 1; // Initial music speed
 let elapsedTime = 0;
 const speedIncreaseInterval = 15; // Increase speed every 15 seconds
 
-let audio;
+let audio = new Audio("./Theme music.wav");
+let gameOverAudio = new Audio("./gameOverSound.wav");
+
+let muteButton = document.getElementById("mute-button");
+let audioClips = [audio, gameOverAudio];
+
+function toggleSound() {
+  audio.muted = !audio.muted;
+  gameOverAudio.muted = !gameOverAudio.muted;
+
+  if (audio.muted || gameOverAudio.muted) {
+    muteButton.textContent = "Unmute sound";
+  } else {
+    muteButton.textContent = "Mute sound";
+  }
+}
+
+
+
 
 document.addEventListener("keydown", function (e) {
   if (e.code === "ArrowLeft" || e.code === "ArrowRight" || "e.code === Space") {
@@ -16,7 +34,7 @@ document.addEventListener("keydown", function (e) {
 
 let currentMusicSpeed = 1; // Variable to store the current music speed
 
-function playMusic(play, volume = 0.2, speed = 1) {
+function playMusic(play, volume = 0.7, speed = 1) {
   const maxMusicSpeed = 2;
 
   if (play) {
@@ -37,7 +55,7 @@ function playMusic(play, volume = 0.2, speed = 1) {
     }
   } else {
     if (audio && !audio.paused) {
-      audio.pause();
+      audio.paused;
       audio.currentTime = 0; // Reset the audio to the beginning of the loop
     }
   }
@@ -388,7 +406,6 @@ function update() {
 
     if (detectCollision(salmon, obstacle)) {
       gameOver = true;
-      gameOverAudio = new Audio("./gameOverSound.wav");
       gameOverAudio.play();//game over sound.
     }
   }
