@@ -2,7 +2,7 @@
     padding:0;
     box-sizing: border-box;}
 
-body {background-color:aqua;
+body {background-color:rgb(0, 62, 62);
     font-family: Arial, sans-serif;
 	border:5px solid black;
     margin: 0;
@@ -15,12 +15,11 @@ body {background-color:aqua;
 }
 
 h1{color:salmon;
-    border:3px solid black;
-background-color: rgb(0, 92, 92);
-font-family: cursive;
+background-color: rgb(0, 62, 62);
+font-family: 'Orbitron', sans-serif;
 font-weight: bold;
 font-size: 15vh;
-text-shadow: 3px 3px 3px black;
+text-shadow: 10px 10px 10px black;
 width: 90%;
 margin: auto;
 text-align: center;}
@@ -28,7 +27,7 @@ text-align: center;}
 
 #controlsDiv {
     border:3px solid black;
-    background-color: seagreen;
+    background-color: rgb(0, 62, 62);
     display:flex; 
     flex-direction:column; 
     justify-content:center;
@@ -51,79 +50,63 @@ padding:3px;
 
 
 
-.instructionText{color:rgb(0, 92, 92);
+.instructionText{color:rgb(0, 62, 62);
 font-size: 4.5vh;}
 
-
-h3{font-family: cursive;
-background-color: rgb(0, 92, 92);
-font-size: 5vh;
-color:salmon;
-border: 3px solid black;
-text-align: center;
-width:60%;
-max-width:70vh;
-    min-width:50vh;
-margin:auto;}
 
 #container {
     position: relative;
     width:100%;
     height:100vh;
     max-height: 100%;
-    border: 5px solid blue;
+    
     overflow: hidden;
     display : flex;
     flex-direction: row;
     
 }
 
-#text-layer-board-div{
-    width:100vw;
-    height:100vw;
-    margin:auto auto;
+#text-layer-board-div {
+    border: 5px solid black;
+    background-color: black;
+    width: 50%;
+    height: 100vh;
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    margin: auto;
+    border-radius: 20px;
+}
+
+#text-layer, #board {
+    max-height: 98vh;
+    box-shadow: 0px 10px 40px 10px;
 }
 
 #text-layer {
-    position: relative;
-    height: 98vh; 
-    width: 15vw;
-    border: 5px solid black;
-    background-color: salmon;
-    z-index: 1;
+  
+    background-color: black;
     text-align: center;
     padding: 3px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-right: 3px;
-    
-    
 }
 
-
 #board {
-    position: relative;
-    max-width: 780px;
-    width: 40vw; 
-    height:98vh;
-    max-height: 960px;
     border: 5px solid black;
     background-image: url(./salmonFlowBackground2.png);
     background-size: cover;
-    ;
 }
+
+
+
+
+
     #jump-icons{
-        background-color: white;
         padding: 5px;
+        position: relative;
     }
     #jump-para{text-align:center;
-    color:green;
+    color:lightseagreen;
     font-size: min(3vw, 6vh);
-    background-color: white;
     padding:3px;
     }
 
@@ -136,24 +119,28 @@ margin:auto;}
         margin: 5px;
         font-size: min(3vw, 6vh);
     }
+
+    #texts {
+        position: relative;
+        width: 100%;
+        border: 2px rgb(0, 62, 62) solid;
+        border-radius: 10px;
+    }
     #level-text {
         font-size: min(3vw, 6vh);
-        color: green;
+        color: lightseagreen;
         position: relative;
-        background-color: white;
         padding:3px;
       }
 
     #score-text {
         font-size: min(3vw, 6vh);
-        color: green;
+        color: lightseagreen;
         position: relative;
-        background-color: white;
         padding:3px;
     }
 
     #game-over-text {
-        background-color: white;
         font-size: min(3vw, 6vh);
         color: red;
         position: relative;
@@ -168,46 +155,55 @@ margin:auto;}
         margin-top: 1.2vh;
         margin-bottom: 1.2vh;
         padding: 3px;
+        border: 2px rgb(0, 62, 62) solid;
+        border-radius: 10px;
+        width: 100%;
     }
     
     #mute-button {
-        background-color: black;
-        border: 2px white solid;
+        background-color: salmon;
+        border: 2px rgb(0, 62, 62) solid;
         font-size: min(1.5vw, 3vh);
-        color: white;
+        color: rgb(0, 62, 62);
+        border-radius: 10px;
         position: relative;
         flex: 1;
         margin: 2px auto;
         padding: 5px;
         max-height: 8vh;
         margin: 1.5px;
-        width: 90%;
+        width: 98%;
+        font-weight: bold;
     }
     #start-button{
-        background-color: black;
-        border: 2px white solid;
+        background-color: salmon;
+        border: 2px rgb(0, 62, 62) solid;
         font-size: min(1.5vw, 3vh);
-        color: white;
+        color: rgb(0, 62, 62);
+        border-radius: 10px;
         position: relative;
         flex: 1;
         margin: 2px auto;
         padding: 5px;
         margin: 1.5px;
-        width: 90%;
+        width: 98%;
+        font-weight: bold;
     }
     
     #instructions-button {
-        background-color: black;
-        border: 2px white solid;
+        background-color: salmon;
+        border: 2px rgb(0, 62, 62) solid;
         font-size: min(1.5vw, 3vh);
-        color: white;
+        color: rgb(0, 62, 62);
+        border-radius: 10px;
         position: relative;
         flex: 1;
         margin: 2px auto;
         padding: 5px;
         max-height: 8vh;
         margin: 1.5px;
-        width: 90%;
+        width: 98%;
+        font-weight: bold;
     }
 
     #instructionsWindow{
@@ -220,26 +216,28 @@ margin:auto;}
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 9999;
         margin: auto auto;
+        border-radius: 25px;
       }
 
       #instructionsDiv{
         position: relative;
         top: 5vh;
         margin:auto auto;
-        background-color: rgba(255, 255, 255, 1);
+        background-color: lightsalmon;
         padding: 20px;
         width: 80%;
         height: 80%;
         text-align: center;
-        border-radius: 5px;
+        border-radius: 25px;
       }
 
       #closeInstructionsButton {
-        border: green solid 2px;
+        border: 2px rgb(0, 62, 62) solid;
         background-color: salmon;
-        color: black;
+        color: rgb(0, 62, 62);
         font-size: large;
         margin-top: 10px;
         padding: 2px;
+        border-radius: 5px;
       }
       
