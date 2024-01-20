@@ -4,6 +4,7 @@ let elapsedTime = 0;
 const speedIncreaseInterval = 15; // Increase speed every 15 seconds
 
 let audio = new Audio("./Theme music.wav");
+audio.loop = true;
 let gameOverAudio = new Audio("./gameOverSound.wav");
 
 let muteButton = document.getElementById("mute-button");
@@ -21,7 +22,7 @@ function toggleSound() {
 }
 
 
-
+let isColliding = false;
 
 document.addEventListener("keydown", function (e) {
   if (e.code === "ArrowLeft" || e.code === "ArrowRight" || "e.code === Space") {
@@ -30,36 +31,32 @@ document.addEventListener("keydown", function (e) {
       playMusic(true);
     }
   }
+
+  if (gameOver && (e.code === "ArrowLeft" || e.code === "ArrowRight" || e.code === "Space")) {
+    audio.currentTime = 0;
+    playMusic(true);
+    gameOver = false;
+    obstacleArray = [];
+    score = 0;
+  }
 });
 
 let currentMusicSpeed = 1; // Variable to store the current music speed
 
-function playMusic(play, volume = 0.7, speed = 1) {
+function playMusic(play) {
   const maxMusicSpeed = 2;
 
   if (play) {
-    if (!audio) {
-      audio = new Audio("./Theme music.wav");
-      audio.loop = true;
-      audio.volume = volume;
-      audio.playbackRate = Math.min(speed, maxMusicSpeed); // Set the playback speed
+    if (audio.paused || audio.currentTime >= audio.duration) {
+      audio.currentTime = 0; // Reset the audio to the beginning
+      audio.playbackRate = Math.min(musicSpeed, maxMusicSpeed);
       audio.play();
-      currentMusicSpeed = audio.playbackRate; // Remember the initial speed
-    } else {
-      if (audio.paused) {
-        audio.play();
-      }
-      // Adjust the playback speed if the audio is already playing
-      audio.playbackRate = Math.min(speed, maxMusicSpeed);
-      currentMusicSpeed = audio.playbackRate; // Update the current speed
     }
   } else {
-    if (audio && !audio.paused) {
-      audio.paused;
-      audio.currentTime = 0; // Reset the audio to the beginning of the loop
-    }
+    audio.pause();
   }
 }
+
 
 // Board and game variables
 
@@ -173,7 +170,7 @@ window.onload = function () {
   obstacleManager();
   requestAnimationFrame(update);
   currentLevel = levelCalculation(count);
-};
+};//end of onload
 
 let musicStopped = false;
 
@@ -302,7 +299,13 @@ function update() {
     return;
   }
 
-
+  let salmonRect = {
+    x: salmon.x - salmon.width / 8 + salmon.width / 2,
+    y: salmon.y - salmon.height / 2 + salmon.height/2.2,
+    width: salmon.width / 4,
+    height: salmon.height / 8
+  };
+  
   context.clearRect(0, 0, board.width, board.height);
 
   context.drawImage(
@@ -335,18 +338,15 @@ function update() {
   context.closePath();
 
   context.fillStyle = "rgb(255, 0, 0, 0.35)";
-  context.beginPath();
-  context.rect(
-    salmon.x - salmon.width / 8 + salmon.width / 2,
-    salmon.y - salmon.height / 2 + salmon.height / 2,
-    salmon.width / 4,
-    salmon.height / 4,
-    0,
-    0,
-    2 * Math.PI
-  );
-  context.fill();
-  context.closePath();
+  context.fillRect(
+    salmonRect.x,
+    salmonRect.y,
+    salmonRect.width,
+    salmonRect.height
+    );
+
+
+
 
   if (salmon.x + salmon.width > board.width) {
     gameOver = true;
@@ -366,6 +366,14 @@ function update() {
 
     
     moveBeaverFaster(i);
+
+    let obstacleRect = {
+      x: obstacle.x + obstacle.width / 3,
+      y: obstacle.y + obstacle.height,
+      width: obstacle.width / 3,
+      height: obstacle.height / 8
+    };
+    
     
     context.fillStyle = "rgb(255, 0, 0, 0.35)";
     context.beginPath();
@@ -383,14 +391,17 @@ function update() {
 
     context.fillStyle = "rgb(255, 250, 0, 0.35)";
     context.beginPath();
-    context.rect(
-      obstacle.x + obstacle.width / 3,
-      obstacle.y + obstacle.height / 1.4,
-      obstacle.width / 3,
-      obstacle.height / 4
-    );//draws the rectangle around the ellipse around the obstacle 
-    context.fill();
-    context.closePath();
+    context.fillStyle = "rgb(255, 250, 0, 0.35)";
+context.beginPath();
+context.fillRect(
+  obstacleRect.x,
+    obstacleRect.y,
+    obstacleRect.width,
+    obstacleRect.height
+);
+context.fill();
+context.closePath();
+
 
     if (!obstacle.passed && salmon.y < obstacle.y + obstacle.height) {
       score += 1;
@@ -404,10 +415,11 @@ function update() {
       
     
 
-    if (detectCollision(salmon, obstacle)) {
-      gameOver = true;
-      gameOverAudio.play();//game over sound.
-    }
+        if (detectEllipseEllipseCollision(salmon, obstacle) || detectEllipseRectangleCollision(salmon, obstacleRect)) {
+          gameOver = true;
+          gameOverAudio.play(); // game over sound.
+        }
+        
   }
 
  while (obstacleArray.length > 0 && obstacleArray[0].y + obstacleArray[0].height <= 0) {
@@ -433,7 +445,7 @@ function update() {
       musicSpeed += 0.2;
 
       // Increase speed from the current speed
-      playMusic(true, 0.2, currentMusicSpeed + 0.2);
+      playMusic(true, 0.2, currentMusicSpeed + 0.2);//increases the music speed by 0.2 and plays the music with the new speed 
     }
   }
   frameCount++;
@@ -510,7 +522,7 @@ function renderObstacles(obstacleType) {
 
     if (!isOverlapping) {
       obstacleArray.push(beaver);
-      moveBeaverFaster(i);
+      moveBeaverFaster(obstacleArray.length - 1);
     }
     //console.log("Updated obstacleArray:", obstacleArray);
     
@@ -561,6 +573,7 @@ isFallInProgress = true;
     isSalmonJumping = false;
     salmon.y = salmon.y + 40;
     isJumpInProgress = false;
+    isColliding = false;
   }, 1000);
 }
 
@@ -571,6 +584,7 @@ function jump(){
     salmon.y = salmon.y - jumpHeight;
     isJumpInProgress = true;
     isSalmonJumping = true;
+    isColliding = false;
     fall();
     collisionDetectionDelayer();
     
@@ -619,31 +633,55 @@ function gameOverLogic(){
   if (gameOver) {
 
     // Stop the music if it is playing
-    playMusic(false);
+    audio.currentTime = 0;
+    audio.loop = false;
 
-    // Restart music for a new round
-    playMusic(true);
+    gameOverAudio.play();
+    gameOverAudio.loop = false;
+
   }
 }
 
-let isColliding = false;
-function detectCollision(ellipse1, ellipse2) {
-  if (isSalmonJumping || isFallInProgress) {
+
+function detectEllipseRectangleCollision(ellipse, rectangle) {
+  if (!isJumpInProgress && !isFallInProgress) {
+    let ellipseCenterX = ellipse.x + ellipse.width / 2;
+    let ellipseCenterY = ellipse.y + ellipse.height / 2;
+
+    let rectMinX = rectangle.x;
+    let rectMinY = rectangle.y;
+    let rectMaxX = rectangle.x + rectangle.width;
+    let rectMaxY = rectangle.y + rectangle.height;
+
+    let closestX = Math.max(rectMinX, Math.min(ellipseCenterX, rectMaxX));
+    let closestY = Math.max(rectMinY, Math.min(ellipseCenterY, rectMaxY));
+
+    let distanceX = ellipseCenterX - closestX;
+    let distanceY = ellipseCenterY - closestY;
+    let distanceSquared = distanceX * distanceX + distanceY * distanceY;
+
+    isColliding = distanceSquared < (ellipse.width / 2) ** 2;
+    return isColliding;
+  } else {
     return false;
   }
-
-  let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
-  let dy = 
-    ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
-  let distance = Math.sqrt(dx * dx + dy * dy);
-
-  isColliding = true;
-
-  return (
-    distance <= ellipse1.width / 2 + ellipse2.width / 2 &&
-    distance <= ellipse1.height / 2 + ellipse2.height / 2
-  );
 }
+
+function detectEllipseEllipseCollision(ellipse1, ellipse2) {
+  if (!isJumpInProgress && !isFallInProgress) {
+    let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
+    let dy = ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
+    let distance = Math.sqrt(dx * dx + dy * dy);
+
+    isColliding = distance < ellipse1.width / 2 + ellipse2.width / 2;
+    return isColliding;
+  } else {
+    return false;
+  }
+}
+
+
+
 
 function noCollision() {
   if(!isFallInProgress) {
