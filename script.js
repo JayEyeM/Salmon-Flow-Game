@@ -584,8 +584,9 @@ isFallInProgress = true;
   }, 1000);
 }
 
+
 function jump(){
-  if(isJumpInProgress) {
+  if(isJumpInProgress || isFallInProgress || !jumpsAreAvailable || isJumpRenewalInProgress) {
     return;
   }
     salmon.y = salmon.y - jumpHeight;
@@ -594,7 +595,7 @@ function jump(){
     isColliding = false;
     fall();
     collisionDetectionDelayer();
-    
+    countJumps();
 }
 
 function collisionDetectionDelayer() {
