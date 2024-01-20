@@ -256,6 +256,7 @@ function obstacleSpeedIncrease(level) {
 let jumpCount = 0;
 let jumpsAreAvailable = true;
 let jumpReloadTimeout;
+let isJumpRenewalInProgress = false;
 
 function countJumps() {
   if (isSalmonJumping && jumpsAreAvailable) {
@@ -266,8 +267,10 @@ function countJumps() {
 
     if (jumpCount === 3) {
       jumpsAreAvailable = false;
+      isJumpRenewalInProgress = true;
       jumpReloadTimeout = setTimeout(() => {
         jumpsAreAvailable = true;
+        isJumpRenewalInProgress = false;
         resetJumpIcons();
       }, 15000);
     }
@@ -289,6 +292,9 @@ function jumpLimit() {
   } else {
     isJumpInProgress = false;
   }
+  if (isJumpRenewalInProgress) {
+    isJumpInProgress = false;
+  }
 }
 
 function update() {
@@ -300,10 +306,10 @@ function update() {
   }
 
   let salmonRect = {
-    x: salmon.x - salmon.width / 8 + salmon.width / 2,
-    y: salmon.y - salmon.height / 2 + salmon.height/2.2,
-    width: salmon.width / 4,
-    height: salmon.height / 8
+    x: salmon.x - salmon.width / 8 + salmon.width / 2.6,
+    y: salmon.y - salmon.height / 2 + salmon.height/1.9,
+    width: salmon.width / 2,
+    height: salmon.height
   };
   
   context.clearRect(0, 0, board.width, board.height);
@@ -369,10 +375,11 @@ function update() {
 
     let obstacleRect = {
       x: obstacle.x + obstacle.width / 3,
-      y: obstacle.y + obstacle.height,
+      y: obstacle.y + obstacle.height - 12,
       width: obstacle.width / 3,
       height: obstacle.height / 8
     };
+    
     
     
     context.fillStyle = "rgb(255, 0, 0, 0.35)";
@@ -415,7 +422,7 @@ context.closePath();
       
     
 
-        if (detectEllipseEllipseCollision(salmon, obstacle) || detectEllipseRectangleCollision(salmon, obstacleRect)) {
+        if (detectEllipseEllipseCollision(salmon, obstacle) || detectRectangleRectangleCollision(salmonRect, obstacleRect)) {
           gameOver = true;
           gameOverAudio.play(); // game over sound.
         }
@@ -593,6 +600,10 @@ function jump(){
 function collisionDetectionDelayer() {
   setTimeout(() => {
     isFallInProgress = false;
+    detectEllipseEllipseCollision();
+    detectRectangleRectangleCollision();
+    isJumpInProgress = false;
+    isColliding = true;
   }, 3000);
 }
 
@@ -643,32 +654,35 @@ function gameOverLogic(){
 }
 
 
-function detectEllipseRectangleCollision(ellipse, rectangle) {
-  if (!isJumpInProgress && !isFallInProgress) {
-    let ellipseCenterX = ellipse.x + ellipse.width / 2;
-    let ellipseCenterY = ellipse.y + ellipse.height / 2;
-
-    let rectMinX = rectangle.x;
-    let rectMinY = rectangle.y;
-    let rectMaxX = rectangle.x + rectangle.width;
-    let rectMaxY = rectangle.y + rectangle.height;
-
-    let closestX = Math.max(rectMinX, Math.min(ellipseCenterX, rectMaxX));
-    let closestY = Math.max(rectMinY, Math.min(ellipseCenterY, rectMaxY));
-
-    let distanceX = ellipseCenterX - closestX;
-    let distanceY = ellipseCenterY - closestY;
-    let distanceSquared = distanceX * distanceX + distanceY * distanceY;
-
-    isColliding = distanceSquared < (ellipse.width / 2) ** 2;
-    return isColliding;
-  } else {
+function detectRectangleRectangleCollision(rectangle1, rectangle2) {
+  if (!rectangle1 || !rectangle2) {
     return false;
   }
+
+  if (isJumpInProgress || isFallInProgress) {
+    return false; // Ignore collisions during jump and fall
+  }
+
+  // Check if the small rectangles overlap
+  return (
+    rectangle1.x < rectangle2.x + rectangle2.width &&
+    rectangle1.x + rectangle1.width > rectangle2.x &&
+    rectangle1.y < rectangle2.y + rectangle2.height &&
+    rectangle1.y + rectangle1.height > rectangle2.y
+  );
 }
 
 function detectEllipseEllipseCollision(ellipse1, ellipse2) {
-  if (!isJumpInProgress && !isFallInProgress) {
+  if (!ellipse1 || !ellipse2) {
+    return false;
+  }
+
+  if (isJumpInProgress || isFallInProgress) {
+    return false; // Ignore collisions during jump and fall
+  }
+
+  // Check for collisions after the third jump (no need to check the 15-second renewal time)
+  if (jumpCount === 3 && !isJumpInProgress && !isFallInProgress) {
     let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
     let dy = ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
     let distance = Math.sqrt(dx * dx + dy * dy);
@@ -676,9 +690,20 @@ function detectEllipseEllipseCollision(ellipse1, ellipse2) {
     isColliding = distance < ellipse1.width / 2 + ellipse2.width / 2;
     return isColliding;
   } else {
-    return false;
+    // Check for collisions during the first and second jump phases
+    if (!isJumpInProgress && !isFallInProgress) {
+      let dx = ellipse1.x + ellipse1.width / 2 - (ellipse2.x + ellipse2.width / 2);
+      let dy = ellipse1.y + ellipse1.height / 2 - (ellipse2.y + ellipse2.height / 2);
+      let distance = Math.sqrt(dx * dx + dy * dy);
+
+      isColliding = distance < ellipse1.width / 2 + ellipse2.width / 2;
+      return isColliding;
+    } else {
+      return false;
+    }
   }
 }
+
 
 
 
