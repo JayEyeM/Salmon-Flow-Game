@@ -10,66 +10,59 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
-    
     <h1>Salmon Flow!</h1>
-    
-
-   
-
-   
-
- <div id="container">   
-
-<div id="text-layer-board-div">
-<div id="text-layer">
-    <div id="texts">
-    <p id="level-text"></p>
-    <p id="score-text"></p>
-
-    <div id="jump-icons">
-        <p id="jump-para">Jumps:</p>
-        <p><span id="jump-reload-countdown"></span></p>
-        <div id="jump-icon-1" class="jump-icon"></div>
-        <div id="jump-icon-2" class="jump-icon"></div>
-        <div id="jump-icon-3" class="jump-icon"></div>
-    </div>
-    <p id="game-over-text"></p>
-</div>
-    <div id="button-div">
-        
-        <button id="instructions-button">Instructions</button>
-
-        <div id="instructionsWindow">
-            <div id="instructionsDiv">
-                <h2>Game Instructions</h2>
-                <p id="instructionsPara">
-                    <span class="instructionText">Avoid obstacles like driftwood and beavers, or else game over!
-                        Use your jumps wisely! You get three jumps to bypass obstacles. It takes 15 seconds for all three to renew!<br>
-                        The salmon continues to drift in the last pressed direction, so be careful and keep swimming!<br>
-                        If you're quick enough, you can score extra points by eating flies and worms:</span>
-                        <strong>Flies</strong> = 5 points | <strong>Worms</strong> = 10 points
-                </p>
-                <div id="controlsDiv">
-                    <p id="controlsPara">
-                        <strong class="strong">Left arrow</strong> to move left |
-                        <strong class="strong">Right arrow</strong> to move right |
-                        <strong class="strong">Space Bar</strong> to jump<br>
-                    </p>
+    <div id="container">   
+        <div id="text-layer-board-div">
+            <div id="text-layer">
+                <div id="texts">
+                    <p id="level-text"></p>
+                    <p id="score-text"></p>
+                    <p id="jump-para">Jumps:</p>
+                    <div id="jump-icon-div">
+                        
+                        <div id="jump-icon-1" class="jump-icon">
+                        </div>
+                        <div id="jump-icon-2" class="jump-icon">
+                        </div>
+                        <div id="jump-icon-3" class="jump-icon">
+                        </div>
+                        <div id="overlay">0</div>
+                    </div>
+                    <p id="game-over-text"></p>
                 </div>
-                <button id="closeInstructionsButton">Close</button>
+                <div id="button-div">
+                    <button type="button" id="instructions-button">Instructions</button>
+                        <div id="instructionsWindow">
+                            <div id="instructionsDiv">
+                                <h2>Game Instructions</h2>
+                                <p id="instructionsPara">
+                                <span class="instructionText">Avoid obstacles like driftwood and beavers, or else game over!
+                                Use your jumps wisely! You get three jumps to bypass obstacles. It takes 15 seconds for all three to renew!<br>
+                                The salmon continues to drift in the last pressed direction, so be careful and keep swimming!<br>
+                                If you're quick enough, you can score extra points by eating flies and worms:</span>
+                                <strong>Flies</strong> = 5 points | <strong>Worms</strong> = 10 points
+                                </p>
+                                <div id="controlsDiv">
+                                    <p id="controlsPara">
+                                    <strong class="strong">Left arrow</strong> to move left |
+                                    <strong class="strong">Right arrow</strong> to move right |
+                                    <strong class="strong">Space Bar</strong> to jump<br>
+                                    </p>
+                                </div>
+                                <button type="button" id="closeInstructionsButton">Close</button>
+                            </div>
+                        </div>
+                <button type="button" id="mute-button" onclick="toggleSound()">Mute Sound</button>
+                <button type="button" id="start-button">Start</button>
             </div>
         </div>
-        <button type="button" id="mute-button" onclick="toggleSound()">Mute Sound</button>
-        <button id="start-button">Start</button>
-        
+        <div id="board-div">
+            <canvas id="board"></canvas>
+        </div>
+        </div>
     </div>
-</div>
-
-
-    <canvas id="board"></canvas>
     
-</div>
-</div>
     <script src="script.js"></script>
+    
 </body>
 </html>

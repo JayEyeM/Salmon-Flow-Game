@@ -61,13 +61,20 @@ function playMusic(play) {
 // Board and game variables
 
 
-let board;
-let boardWidth = 390;
-let boardHeight = 480;
-let context;
 
-let fishermanWidth = 130;
-let fishermanHeight = 200;
+
+
+let board = document.getElementById("board");
+let boardWidth = document.getElementById("board").offsetWidth;
+let boardHeight = document.getElementById("board").offsetHeight;
+let boardDiv = document.getElementById("board-div");
+let context = board.getContext("2d");
+
+
+
+
+let fishermanWidth = 100;
+let fishermanHeight = 160;
 let fishermanX = 0;
 let fishermanY = 0;
 let fishermanImg;
@@ -79,10 +86,10 @@ let fisherman = {
   height: fishermanHeight,
 };
 
-let salmonWidth = 40;
-let salmonHeight = 105;
+let salmonWidth = 50;
+let salmonHeight = 115;
 let salmonX = boardWidth / 2.2;
-let salmonY = boardHeight / 1.28;
+let salmonY = boardHeight - salmonHeight;
 let salmonImg;
 
 let salmon = {
@@ -93,15 +100,17 @@ let salmon = {
 };
 
 let obstacleArray = [];
-let obstacleWidth = 50;
-let obstacleHeight = 90;
+let obstacleWidth = 70;
+let obstacleHeight = 110;
 let driftwoodImg;
 let beaverImg;
 
 let velocityX = 0;
-let velocityY = 4;
+let velocityY = 6;
 let gravity = 5;
+const maxVelocityY = 54;
 
+let isUpdating = false;
 let gameOver = false;
 let score = 0;
 
@@ -111,12 +120,151 @@ const levelText = document.getElementById('level-text');
 let currentLevel;
 let level = 1;
 
+
+
+function adjustBoardProperties() {
+  let windowWidth = window.innerWidth;
+  let windowHeight = window.innerHeight;
+  let container = document.getElementById('container');
+  let textLayerBoardDiv = document.getElementById('text-layer-board-div');
+  let textLayer = document.getElementById('text-layer');
+  let texts = document.getElementById('texts');
+  let levelText = document.getElementById('level-text');
+  let scoreText = document.getElementById('score-text');
+  let gameOverText = document.getElementById('game-over-text');
+  let jumpPara = document.getElementById('jump-para');
+  let buttonDiv = document.getElementById('button-div');
+  let jumpIcon1 = document.getElementById('jump-icon-1');
+  let jumpIcon2 = document.getElementById('jump-icon-2');
+  let jumpIcon3 = document.getElementById('jump-icon-3');
+  let muteButton = document.getElementById('mute-button');
+  let instructionsButton = document.getElementById('instructions-button');
+  let startButton = document.getElementById('start-button');
+  let body = document.querySelector('body');
+  let jumpIconDiv = document.getElementById('jump-icon-div');
+  let overlay = document.getElementById('overlay');
+  if (windowWidth < windowHeight) {
+    overlay.style.fontSize = '5vw';
+    jumpIconDiv.style.marginTop = '0px';
+    jumpIconDiv.style.height = '100%';
+    body.style.height = 'auto';
+    body.style.width = '100%';
+    board.style.width = '100%';
+    board.style.height = 'auto';
+    boardDiv.style.alignItems = 'none';
+    boardDiv.style.width = '90%';
+    container.style.height = 'auto';
+    container.style.width = '90%';
+    textLayerBoardDiv.style.flexDirection = 'column';
+    textLayerBoardDiv.style.alignItems = 'none';
+    textLayerBoardDiv.style.width = '100%';
+    textLayerBoardDiv.style.height = 'auto';
+    textLayerBoardDiv.style.paddingBottom = '10%';
+    textLayerBoardDiv.style.marginBottom = '10%';
+    textLayer.style.width = '90%';
+    textLayer.style.height = 'auto';
+    textLayer.style.paddingBottom = '0px';
+    textLayer.style.flexDirection = 'column-reverse';
+    texts.style.height = 'auto';
+    texts.style.width = '100%';
+    texts.style.display = 'grid';
+    texts.style.gridTemplateRows = 'repeat(1, 1fr)';
+    texts.style.gridTemplateColumns = 'repeat(2, 1fr)';
+    texts.style.rowGap = '0px';
+    texts.style.columnGap = '0px';
+    buttonDiv.style.marginTop = '0px';
+    buttonDiv.style.marginBottom = '0px';
+    buttonDiv.style.height = 'auto';
+    buttonDiv.style.width = '100%';
+    buttonDiv.style.display = 'grid';
+    buttonDiv.style.gridTemplateRows = 'repeat(1, 3fr)';
+    buttonDiv.style.gridTemplateColumns = 'repeat(3, 3fr)';
+    buttonDiv.style.rowGap = '0px';
+    buttonDiv.style.columnGap = '0px';
+    buttonDiv.style.flexDirection = 'row';
+    levelText.style.fontSize = '5vw';
+    scoreText.style.fontSize = '5vw';
+    gameOverText.style.fontSize = '5vw';
+    gameOverText.style.paddingBottom = '15px';
+    jumpPara.style.fontSize = '5vw';
+    jumpPara.style.marginBottom = '0';
+    jumpIcon1.style.width = '15vw';
+    jumpIcon2.style.width = '15vw';
+    jumpIcon3.style.width = '15vw';
+    muteButton.style.fontSize = '2.5vw';
+    muteButton.style.height = '3rem';
+    instructionsButton.style.fontSize = '2.5vw';
+    instructionsButton.style.height = '3rem';
+    startButton.style.height = '3rem';
+    startButton.style.fontSize = '2.5vw';
+  } else if (windowWidth > windowHeight) {
+    overlay.style.fontSize = '';
+    jumpIconDiv.style.marginTop = '';
+    jumpIconDiv.style.height = '';
+    body.style.height = '';
+    body.style.width = '';
+    board.style.width = '';
+    board.style.height = '';
+    boardDiv.style.alignItems = '';
+    boardDiv.style.width = '';
+    container.style.height = '';
+    container.style.width = '';
+    textLayerBoardDiv.style.flexDirection = '';
+    textLayerBoardDiv.style.alignItems = '';
+    textLayerBoardDiv.style.width = '';
+    textLayerBoardDiv.style.height = '';
+    textLayerBoardDiv.style.paddingBottom = '';
+    textLayerBoardDiv.style.marginBottom = '';
+    textLayer.style.width = '';
+    textLayer.style.height = '';
+    textLayer.style.paddingBottom = '';
+    textLayer.style.flexDirection = '';
+    texts.style.height = '';
+    texts.style.width = '';
+    texts.style.display = '';
+    texts.style.gridTemplateRows = '';
+    texts.style.gridTemplateColumns = '';
+    texts.style.rowGap = '';
+    texts.style.columnGap = '';
+    buttonDiv.style.marginTop = '';
+    buttonDiv.style.marginBottom = '';
+    buttonDiv.style.height = '';
+    buttonDiv.style.width = '';
+    buttonDiv.style.display = '';
+    buttonDiv.style.gridTemplateRows = '';
+    buttonDiv.style.gridTemplateColumns = '';
+    buttonDiv.style.rowGap = '';
+    buttonDiv.style.columnGap = '';
+    buttonDiv.style.flexDirection = '';
+    levelText.style.fontSize = '';
+    scoreText.style.fontSize = '';
+    gameOverText.style.fontSize = '';
+    gameOverText.style.paddingBottom = '';
+    jumpPara.style.fontSize = '';
+    jumpPara.style.marginBottom = '';
+    jumpIcon1.style.width = '';
+    jumpIcon2.style.width = '';
+    jumpIcon3.style.width = '';
+    muteButton.style.fontSize = '';
+    muteButton.style.height = '';
+    instructionsButton.style.fontSize = '';
+    instructionsButton.style.height = '';
+    startButton.style.height = '';
+    startButton.style.fontSize = '';
+  }
+}
+adjustBoardProperties();
+
+const resizeObserver = new ResizeObserver(adjustBoardProperties);
+resizeObserver.observe(document.body);
+window.addEventListener('resize', adjustBoardProperties);
+
 function drawLevel() {
   levelText.innerHTML = 'Level<br>' + level;
 }
 
 function drawScore() {
-  scoreText.innerHTML = 'Score:<br>' + score;
+  scoreText.innerHTML = 'Score<br>' + score;
 }
 
 function drawGameOver() {
@@ -127,11 +275,15 @@ function drawGameOver() {
 }
 }
 window.onload = function () {
+  adjustBoardProperties();
   board = document.getElementById("board");
   board.height = boardHeight;
   board.width = boardWidth;
   context = board.getContext("2d");
   context.globalCompositeOperation='destination-over';
+  
+  
+
 
   fishermanImg = new Image();
   fishermanImg.src = "./fishermanCharacter2.svg";
@@ -166,11 +318,21 @@ window.onload = function () {
   
 
   
-
+  
   obstacleManager();
-  requestAnimationFrame(update);
   currentLevel = levelCalculation(count);
+  startUpdateLoop();
 };//end of onload
+
+function startUpdateLoop() {
+  document.addEventListener('keydown', handleKeyDown);
+}
+function handleKeyDown(e) {
+  if (!isUpdating && e.code === 'KeyR') {
+    isUpdating = true;
+    requestAnimationFrame(update);
+  }
+}
 
 let musicStopped = false;
 
@@ -210,15 +372,15 @@ function levelCalculation(count) {
   }
 }
 
-const maxVelocityY = 22;
+
 
 function obstacleSpeedIncrease(level) {
   if (level++) {
-    velocityY += 0.002;
+    velocityY += 0.01;
     if (velocityY > maxVelocityY) {
       velocityY = maxVelocityY;
     }
-    if (velocityY > 10) {
+    if (velocityY > 10 && velocityY < 20) {
       document.addEventListener("keydown", function (e) {
         if (e.code == "ArrowLeft") {
           velocityX = -12;
@@ -228,27 +390,75 @@ function obstacleSpeedIncrease(level) {
       });
       document.addEventListener("keyup", function (e) {
         if (e.code == "ArrowLeft") {
-          velocityX = -5.5;
+          velocityX = -6.5;
         }else if (e.code == "ArrowRight") {
-          velocityX = 5.5;
+          velocityX = 6.5;
         }
       });
     }
-    if (velocityY > 20) {
+    if (velocityY > 20 && velocityY < 35) {
       document.addEventListener("keydown", function (e) {
         if (e.code == "ArrowLeft") {
-          velocityX = -14;
+          velocityX = -16;
         }else if (e.code == "ArrowRight") {
-          velocityX = 14;
+          velocityX = 16;
         }
       });
       document.addEventListener("keyup", function (e) {
         if (e.code == "ArrowLeft") {
-          velocityX = -7.5;
+          velocityX = -8.5;
         }else if (e.code == "ArrowRight") {
-          velocityX = 7.5;
+          velocityX = 8.5;
         }
       });
+    }
+    if (velocityY > 35 && velocityY < 50) {
+      document.addEventListener("keydown", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -18;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 18;
+        }
+      });
+      document.addEventListener("keyup", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -9.5;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 9.5;
+        }
+      });
+    }
+    if (velocityY > 50 && velocityY <= maxVelocityY) {
+      document.addEventListener("keydown", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -25;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 25;
+        }
+      });
+      document.addEventListener("keyup", function (e) {
+        if (e.code == "ArrowLeft") {
+          velocityX = -12.5;
+        }else if (e.code == "ArrowRight") {
+          velocityX = 12.5;
+        }
+      });
+
+      jumpsAreAvailable = false;
+      let overlay = document.getElementById("overlay");
+
+      if(!jumpsAreAvailable && maxVelocityY){
+        
+
+        isJumpInProgress = false;
+        isFallInProgress = false;
+        overlay.style.visibility = "visible";
+        board.style.boxShadow = "0px 0px 20px 20px lightsalmon";
+      }else {
+        overlay.style.visibility = "hidden";
+        board.style.boxShadow = "none";
+        
+      }
     }
   }
 }
@@ -297,13 +507,22 @@ function jumpLimit() {
   }
 }
 
+
+
+
 function update() {
+  isUpdating = true;
   requestAnimationFrame(update);
+  context.clearRect(0, 0, board.width, board.height);
+  adjustBoardProperties();
 
   if (gameOver) {
+    startUpdateLoop();
     playMusic(false); // Stop music
     return;
   }
+
+  
 
   let salmonRect = {
     x: salmon.x - salmon.width / 8 + salmon.width / 2.6,
@@ -312,7 +531,7 @@ function update() {
     height: salmon.height
   };
   
-  context.clearRect(0, 0, board.width, board.height);
+  
 
   context.drawImage(
     fishermanImg,
@@ -357,6 +576,7 @@ function update() {
   if (salmon.x + salmon.width > board.width) {
     gameOver = true;
   }//checks if the salmon x position is greater than the board width and sets gameOver to true if it is.
+
 
   for (let i = 0; i < obstacleArray.length; i++) {
     let obstacle = obstacleArray[i];
@@ -464,8 +684,9 @@ context.closePath();
   jumpLimit();
 obstacleSpeedIncrease(level);
 
-document.addEventListener("keydown", moveSalmon);
 
+document.addEventListener("keydown", moveSalmon);
+adjustBoardProperties();
 
 }//end of update function
 
