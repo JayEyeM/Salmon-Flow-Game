@@ -73,8 +73,8 @@ let context = board.getContext("2d");
 
 
 
-let fishermanWidth = 100;
-let fishermanHeight = 160;
+let fishermanWidth = 130;
+let fishermanHeight = 200;
 let fishermanX = 0;
 let fishermanY = 0;
 let fishermanImg;
@@ -121,7 +121,6 @@ let currentLevel;
 let level = 1;
 
 
-
 function adjustBoardProperties() {
   let windowWidth = window.innerWidth;
   let windowHeight = window.innerHeight;
@@ -143,7 +142,10 @@ function adjustBoardProperties() {
   let body = document.querySelector('body');
   let jumpIconDiv = document.getElementById('jump-icon-div');
   let overlay = document.getElementById('overlay');
+  let heading1 = document.querySelector('h1');
   if (windowWidth < windowHeight) {
+    heading1.style.fontSize = '11vw';
+    heading1.style.marginBottom = '15px';
     overlay.style.fontSize = '5vw';
     jumpIconDiv.style.marginTop = '0px';
     jumpIconDiv.style.height = '100%';
@@ -198,6 +200,8 @@ function adjustBoardProperties() {
     startButton.style.height = '3rem';
     startButton.style.fontSize = '2.5vw';
   } else if (windowWidth > windowHeight) {
+    heading1.style.fontSize = '';
+    heading1.style.marginBottom = '';
     overlay.style.fontSize = '';
     jumpIconDiv.style.marginTop = '';
     jumpIconDiv.style.height = '';
@@ -328,7 +332,9 @@ function startUpdateLoop() {
   document.addEventListener('keydown', handleKeyDown);
 }
 function handleKeyDown(e) {
+  console.log(e.code);
   if (!isUpdating && e.code === 'KeyR') {
+    
     isUpdating = true;
     requestAnimationFrame(update);
   }
@@ -357,7 +363,7 @@ if (frameCount !== lastCountFrame) {
     level = levelCalculation(count);
   }
 
-  let currentLevel = levelCalculation(count);
+  currentLevel = levelCalculation(count);
 
     return count;
   }
@@ -518,6 +524,7 @@ function update() {
 
   if (gameOver) {
     startUpdateLoop();
+    isUpdating = false;
     playMusic(false); // Stop music
     return;
   }
@@ -548,7 +555,7 @@ function update() {
 
   context.drawImage(salmonImg, salmon.x, salmon.y, salmon.width, salmon.height);
 
-  context.fillStyle = "rgb(255, 0, 0, 0.35)";
+  context.fillStyle = "rgba(255, 0, 0, 0)";
   context.beginPath();
   context.ellipse(
     salmon.x + salmon.width / 2,
@@ -562,7 +569,7 @@ function update() {
   context.fill();
   context.closePath();
 
-  context.fillStyle = "rgb(255, 0, 0, 0.35)";
+  context.fillStyle = "rgba(255, 0, 0, 0)";
   context.fillRect(
     salmonRect.x,
     salmonRect.y,
@@ -581,14 +588,26 @@ function update() {
   for (let i = 0; i < obstacleArray.length; i++) {
     let obstacle = obstacleArray[i];
     obstacle.y += velocityY;//
-    context.drawImage(
-      obstacle.img,
-      obstacle.x,
-      obstacle.y,
-      obstacle.width,
-      obstacle.height
-    );//draws the obstacle 
-    
+    if (
+      obstacle.x + obstacle.width > fisherman.x &&
+      obstacle.x < fisherman.x + fisherman.width &&
+      obstacle.y + obstacle.height > fisherman.y &&
+      obstacle.y < fisherman.y + fisherman.height - 80
+    ) {
+      obstacle.hidden = true;
+    } else {
+      obstacle.hidden = false;
+    }
+
+    if (!obstacle.hidden) {
+      context.drawImage(
+        obstacle.img,
+        obstacle.x,
+        obstacle.y,
+        obstacle.width,
+        obstacle.height
+      );
+    }
 
     
     moveBeaverFaster(i);
@@ -602,7 +621,7 @@ function update() {
     
     
     
-    context.fillStyle = "rgb(255, 0, 0, 0.35)";
+    context.fillStyle = "rgba(255, 0, 0, 0)";
     context.beginPath();
     context.ellipse(
       obstacle.x + obstacle.width / 2,
@@ -616,9 +635,9 @@ function update() {
     context.fill();
     context.closePath();
 
-    context.fillStyle = "rgb(255, 250, 0, 0.35)";
+    context.fillStyle = "rgba(255, 250, 0, 0)";
     context.beginPath();
-    context.fillStyle = "rgb(255, 250, 0, 0.35)";
+    context.fillStyle = "rgba(255, 250, 0, 0)";
 context.beginPath();
 context.fillRect(
   obstacleRect.x,
@@ -683,7 +702,6 @@ context.closePath();
   countJumps();
   jumpLimit();
 obstacleSpeedIncrease(level);
-
 
 document.addEventListener("keydown", moveSalmon);
 adjustBoardProperties();
