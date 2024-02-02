@@ -271,21 +271,7 @@ font-size: 3.5vh;}
         font-weight: bold;
         font: 2.5vh 'Orbitron', sans-serif;
     }
-    #start-button{
-        background-color: salmon;
-        border: 2px lightseagreen solid;
-        color: rgb(0, 62, 62);
-        border-radius: 10px;
-        position: relative;
-        flex: 1;
-        margin: 2px auto;
-        padding: 5px;
-        height: 25%;
-        margin: 1.5px;
-        width: 95%;
-        font-weight: bold;
-        font: 2.5vh 'Orbitron', sans-serif;
-    }
+    
     
     #instructions-button {
         background-color: salmon;
@@ -342,3 +328,55 @@ font-size: 3.5vh;}
         border-radius: 5px;
       }
       
+      #game-over-text-div {
+        position: absolute;
+        top: 20%;
+        align-items: center;
+        justify-content: center;
+        margin:auto auto;
+        background-color: lightsalmon;
+        padding: 20px;
+        width: 40%;
+        height: 50%;
+        box-shadow: inset 0 0 40px 0.1px skyblue;
+        text-align: center;
+        border-radius: 25px;
+        display: none;
+      }
+
+      #game-over-text2 {
+        font-size: 3.5vh;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        color: rgb(0, 62, 62);
+        position: relative;
+        text-shadow: 3px 3px rgba(0, 62, 62, 0.56);
+      }
+
+      #score-text2 {
+        font-size: 3.5vh;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        color: rgb(0, 62, 62);
+      }
+
+      #highscore-text {
+        font-size: 3.5vh;
+        font-weight: bold;
+        font-family: 'Orbitron', sans-serif;
+        color: rgb(0, 62, 62);
+      }
+
+      #play-game-button {
+        border: 2px rgb(0, 62, 62) solid;
+        background-color: salmon;
+        color: rgb(0, 62, 62);
+        padding: 2px;
+        border-radius: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 80%;
+        font-weight: bold;
+        font: 3vh 'Orbitron', sans-serif;
+
+      }
