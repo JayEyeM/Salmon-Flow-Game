@@ -15,6 +15,10 @@ let overlay = document.getElementById("overlay");
 
 let gameOverOverlay = document.getElementById("game-over-text-div");
 let welcomeText = document.getElementById("game-over-text2");
+let scoreText2 = document.getElementById("score-text2");
+let hightscoreText = document.getElementById("highscore-text");
+let playGameButton = document.getElementById("play-game-button");
+let playGameButtonLabel = document.getElementById("play-game-button-label");
 // Board and game variables
 
 let board = document.getElementById("board");
@@ -186,7 +190,17 @@ function adjustBoardProperties() {
   let body = document.querySelector('body');
   let jumpIconDiv = document.getElementById('jump-icon-div');
   let overlay = document.getElementById('overlay');
+
   if (windowWidth < windowHeight) {
+    gameOverOverlay.style.height = '90%';
+    gameOverOverlay.style.width = '80%';
+    gameOverOverlay.style.margin = '-70px 0px 0px 0px';
+    gameOverOverlay.style.padding = '5px 5px 5px 5px';
+    welcomeText.style.fontSize = '7vw';
+    scoreText2.style.fontSize = '6vw';
+    hightscoreText.style.fontSize = '6vw';
+    playGameButton.style.fontSize = '6.5vw';
+    playGameButtonLabel.style.fontSize = '4vw';
     overlay.style.fontSize = '5vw';
     jumpIconDiv.style.marginTop = '0px';
     jumpIconDiv.style.height = '100%';
@@ -240,6 +254,15 @@ function adjustBoardProperties() {
     instructionsButton.style.height = '3rem';
     
   } else if (windowWidth > windowHeight) {
+    gameOverOverlay.style.height = '';
+    gameOverOverlay.style.width = '';
+    gameOverOverlay.style.margin = '';
+    gameOverOverlay.style.padding = '';
+    welcomeText.style.fontSize = '';
+    scoreText2.style.fontSize = '';
+    hightscoreText.style.fontSize = '';
+    playGameButton.style.fontSize = '';
+    playGameButtonLabel.style.fontSize = '';
     overlay.style.fontSize = '';
     jumpIconDiv.style.marginTop = '';
     jumpIconDiv.style.height = '';
@@ -538,7 +561,7 @@ context.closePath();
       
     
 
-        if (detectEllipseEllipseCollision(ellipse1, ellipse2) || detectRectangleRectangleCollision(salmonRect, obstacleRect)) {
+        if (detectEllipseEllipseCollision(salmon, obstacle) || detectRectangleRectangleCollision(salmonRect, obstacleRect)) {
           gameOver = true;
           gameOverLogic();
         }
@@ -724,8 +747,8 @@ function collisionDetectionDelayer() {
 
 function obstacleSpeedIncrease(level) {
   if (level) {
-    velocityY += 0.01;
-    musicSpeed += 0.01;
+    velocityY += 0.02;
+    musicSpeed += 0.2;
     if (velocityY > maxVelocityY) {
       velocityY = maxVelocityY;
     }
@@ -852,6 +875,7 @@ function detectEllipseEllipseCollision(ellipse1, ellipse2) {
         console.log("Ellipse Collision detected 2");
         isUpdating = false;
       }
+      return isColliding;
   }
 }
 }
@@ -885,10 +909,8 @@ function closeInstructions() {
 function gameOverLogic() {
   if (gameOver){
     gameOverAudio.play();
-    gameOverAudio.muted = false;
     gameOverAudio.volume = 0.2;
     gameOverAudio.loop = false;
-    audio.muted = true;
     playMusic(false);
 
     
@@ -904,7 +926,7 @@ function gameOverLogic() {
 
 function restartGame() {
   playMusic(true,musicSpeed = 1);
- 
+
   gameOver = false;
   score = 0;
   level = 1;
@@ -945,6 +967,9 @@ resizeObserver.observe(document.body);
 window.addEventListener('resize', adjustBoardProperties);
 
 //document.addEventListener("click", handleButtonClick);
+// const playGameButton = document.getElementById("play-game-button");
+// playGameButton.onclick = () => restartGame();
+
 document.addEventListener("keydown", handleKeyEvent);
 document.addEventListener("keyup", handleKeyEvent);
 
@@ -955,13 +980,13 @@ function handleKeyEvent(e) {
     case "ArrowLeft":
       isLeftKeyPressed = e.type === "keydown";
       moveSalmon(keyCode);
-      obstacleSpeedIncrease(keyCode);
+      
       if (!isLeftKeyPressed) handleSalmonDriftVelocity();
       break;
     case "ArrowRight":
       isRightKeyPressed = e.type === "keydown";
       moveSalmon(keyCode);
-      obstacleSpeedIncrease(keyCode);
+      
       if (!isRightKeyPressed) handleSalmonDriftVelocity();
       break;
     case "Space":
@@ -974,7 +999,9 @@ function handleKeyEvent(e) {
       break;
     case "KeyR":
       isRestartKeyPressed = e.type === "keydown";
-      restartGame();
+      if (isRestartKeyPressed) {
+        restartGame();
+      }
       break;
   }
 }
