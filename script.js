@@ -211,8 +211,10 @@ function adjustBoardProperties() {
   let body = document.querySelector('body');
   let jumpIconDiv = document.getElementById('jump-icon-div');
   let overlay = document.getElementById('overlay');
+  let touchScreenButtonDiv = document.getElementById('touchScreenDiv');
 
   if (windowWidth < windowHeight) {
+    touchScreenDiv.style.display = 'grid';
     gameOverOverlay.style.height = '90%';
     gameOverOverlay.style.width = '80%';
     gameOverOverlay.style.margin = '-70px 0px 0px 0px';
@@ -275,6 +277,7 @@ function adjustBoardProperties() {
     instructionsButton.style.height = '3rem';
     
   } else if (windowWidth > windowHeight) {
+    touchScreenButtonDiv.style.display = 'none';
     gameOverOverlay.style.height = '';
     gameOverOverlay.style.width = '';
     gameOverOverlay.style.margin = '';
@@ -1028,3 +1031,56 @@ function handleKeyEvent(e) {
 }
 
 drawScores();
+
+let isTouchLeftPressed = false;
+let isTouchRightPressed = false;
+
+function handleTouchStart(e) {
+  switch (e.target.id) {
+    case "touchScreenLeft":
+      isTouchLeftPressed = true;
+      moveSalmon({ code: "ArrowLeft" });
+      break;
+    case "touchScreenRight":
+      isTouchRightPressed = true;
+      moveSalmon({ code: "ArrowRight" });
+      break;
+    case "touchScreenJump":
+      jump();
+      break;
+    case "touchScreenMaxSpeed":
+      moveSalmon({ code: "KeyS" });
+      break;
+    case "touchScreenRestartGame":
+      restartGame();
+      break;
+  }
+}
+
+function handleTouchEnd(e) {
+  switch (e.target.id) {
+    case "touchScreenLeft":
+      isTouchLeftPressed = false;
+      handleSalmonDriftVelocity();
+      break;
+    case "touchScreenRight":
+      isTouchRightPressed = false;
+      handleSalmonDriftVelocity();
+      break;
+    case "touchScreenJump":
+      // No action needed for touch release
+      break;
+    case "touchScreenMaxSpeed":
+      // No action needed for touch release
+      break;
+  }
+}
+
+document.getElementById("touchScreenLeft").addEventListener("touchstart", handleTouchStart);
+document.getElementById("touchScreenLeft").addEventListener("touchend", handleTouchEnd);
+document.getElementById("touchScreenRight").addEventListener("touchstart", handleTouchStart);
+document.getElementById("touchScreenRight").addEventListener("touchend", handleTouchEnd);
+document.getElementById("touchScreenJump").addEventListener("touchstart", handleTouchStart);
+document.getElementById("touchScreenMaxSpeed").addEventListener("touchstart", handleTouchStart);
+document.getElementById("touchScreenRestartGame").addEventListener("click", handleTouchStart);
+
