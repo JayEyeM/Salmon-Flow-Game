@@ -1036,6 +1036,7 @@ let isTouchLeftPressed = false;
 let isTouchRightPressed = false;
 
 function handleTouchStart(e) {
+  e.preventDefault();
   switch (e.target.id) {
     case "touchScreenLeft":
       isTouchLeftPressed = true;
