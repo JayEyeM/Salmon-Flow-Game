@@ -21,6 +21,7 @@ let playGameButton = document.getElementById("play-game-button");
 let playGameButtonLabel = document.getElementById("play-game-button-label");
 // Board and game variables
 
+
 let board = document.getElementById("board");
 let boardWidth = document.getElementById("board").offsetWidth;
 let boardHeight = document.getElementById("board").offsetHeight;
@@ -129,7 +130,7 @@ window.onload = function () {
   board.width = boardWidth;
   context = board.getContext("2d");
   context.globalCompositeOperation='destination-over';
-
+  
   gameOverOverlay.style.display = "block";
   
   welcomeText.innerHTML = "Happy Swimming!"; 
@@ -168,6 +169,26 @@ window.onload = function () {
   currentLevel = levelCalculation(count);
   
 };//end of onload
+
+function updateHighscore() {
+ let currentHighscore = getHighscore();
+
+  if (score > currentHighscore) {
+    localStorage.setItem("highScoreText", score);
+  }
+}
+function getHighscore() {
+  return parseInt(localStorage.getItem("highScoreText")) || 0;
+}
+
+function drawScores() {
+  getHighscore();
+  updateHighscore();
+  
+  scoreText2.innerHTML = `Score: ${score}`;
+  hightscoreText.innerHTML = `High Score: ${getHighscore()}`;
+
+}
 
 function adjustBoardProperties() {
   let windowWidth = window.innerWidth;
@@ -248,9 +269,9 @@ function adjustBoardProperties() {
     jumpIcon1.style.width = '15vw';
     jumpIcon2.style.width = '15vw';
     jumpIcon3.style.width = '15vw';
-    muteButton.style.fontSize = '2.5vw';
+    muteButton.style.fontSize = '4vw';
     muteButton.style.height = '3rem';
-    instructionsButton.style.fontSize = '2.5vw';
+    instructionsButton.style.fontSize = '4vw';
     instructionsButton.style.height = '3rem';
     
   } else if (windowWidth > windowHeight) {
@@ -913,7 +934,7 @@ function gameOverLogic() {
     gameOverAudio.loop = false;
     playMusic(false);
 
-    
+    drawScores();
     
     gameOverOverlay.style.display = "block";
     welcomeText.innerHTML = "Game Over!<br> Good Luck!";
@@ -1005,3 +1026,5 @@ function handleKeyEvent(e) {
       break;
   }
 }
+
+drawScores();
