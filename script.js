@@ -28,8 +28,8 @@ let boardHeight = document.getElementById("board").offsetHeight;
 let boardDiv = document.getElementById("board-div");
 let context = board.getContext("2d");
 
-let fishermanWidth = 100;
-let fishermanHeight = 160;
+let fishermanWidth = boardWidth / 5;
+let fishermanHeight = boardHeight / 4;
 let fishermanX = 0;
 let fishermanY = 0;
 let fishermanImg;
@@ -41,8 +41,8 @@ let fisherman = {
   height: fishermanHeight,
 };
 
-let salmonWidth = 50;
-let salmonHeight = 115;
+let salmonWidth = boardWidth / 10;
+let salmonHeight = boardHeight / 5;
 let salmonX = boardWidth / 2.1;
 let salmonY = boardHeight - salmonHeight;
 let salmonImg;
@@ -56,8 +56,8 @@ let salmon = {
 let salmonRect;
 
 let obstacleArray = [];
-let obstacleWidth = 70;
-let obstacleHeight = 110;
+let obstacleWidth = boardWidth / 7.5;
+let obstacleHeight = boardHeight / 5;
 let driftwoodImg;
 let beaverImg;
 
@@ -449,9 +449,7 @@ function update() {
     
   updateAnimation =requestAnimationFrame(update);
   context.clearRect(0, 0, board.width, board.height);
-  
 
-  
 
   playMusic(true, musicSpeed = 1);
 
