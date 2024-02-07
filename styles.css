@@ -270,13 +270,17 @@ font-size: 3.5vh;}
         width: 95%;
         font-weight: bold;
         font: 2.75vh 'Orbitron', sans-serif;
+        background-image: url('./soundPlayingIcon.svg');
+        background-size: 17%;
+        background-repeat: no-repeat;
+        background-position: center;
     }
     
     
     #instructions-button {
         background-color: salmon;
         border: 2px lightseagreen solid;
-        color: rgb(0, 62, 62);
+        color: rgba(0, 128, 128, 100%);
         border-radius: 10px;
         position: relative;
         flex: 1;

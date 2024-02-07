@@ -87,14 +87,16 @@ let gameOverAudio = new Audio("./gameOverSound.wav");
 let muteButton = document.getElementById("mute-button");
 let audioClips = [audio, gameOverAudio];
 
+let soundMutedIcon = "./soundMutedIcon.svg";
+
 function toggleSound() {
   audio.muted = !audio.muted;
   gameOverAudio.muted = !gameOverAudio.muted;
 
   if (audio.muted || gameOverAudio.muted) {
-    muteButton.textContent = "Unmute sound";
+    muteButton.style.backgroundImage = `url(${soundMutedIcon})`;
   } else {
-    muteButton.textContent = "Mute sound";
+    muteButton.style.backgroundImage = "";
   }
 }
 
@@ -207,8 +209,10 @@ function adjustBoardProperties() {
   let jumpIconDiv = document.getElementById("jump-icon-div");
   let overlay = document.getElementById("overlay");
   let touchScreenButtonDiv = document.getElementById("touchScreenDiv");
+  let playGameButtonLabel = document.getElementById("play-game-button-label");
 
   if (windowWidth < windowHeight) {
+    playGameButtonLabel.style.display = "none";
     touchScreenDiv.style.display = "grid";
     gameOverOverlay.style.height = "90%";
     gameOverOverlay.style.width = "80%";
@@ -271,6 +275,7 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "3rem";
   } else if (windowWidth > windowHeight) {
+    playGameButtonLabel.style.display = "";
     touchScreenButtonDiv.style.display = "none";
     gameOverOverlay.style.height = "";
     gameOverOverlay.style.width = "";
@@ -920,7 +925,8 @@ function gameOverLogic() {
     drawScores();
 
     gameOverOverlay.style.display = "block";
-    welcomeText.innerHTML = "Game Over!<br> Good Luck!";
+    welcomeText.innerHTML = "Game Over!<br> Good Swimming!";
+    playGameButton.innerHTML = "Play Again";
 
     isUpdating = false;
     update(false);
