@@ -439,21 +439,21 @@ function update() {
   if (gameOver) {
     console.log("updating stopped");
     isUpdating = false;
-    playMusic(false); // Stop music
+    // Stop music
     
     return;
   }
 
   console.log("Updating...")
   if (!gameOver){
- 
+    
   updateAnimation =requestAnimationFrame(update);
   context.clearRect(0, 0, board.width, board.height);
   
 
   
 
-  
+  playMusic(true, musicSpeed = 1);
 
   let salmonRect = {
     x: salmon.x - salmon.width / 8 + salmon.width / 2.6,
@@ -936,7 +936,9 @@ function gameOverLogic() {
     gameOverAudio.play();
     gameOverAudio.volume = 0.2;
     gameOverAudio.loop = false;
-    playMusic(false);
+    gameOverAudio.muted = false;
+    playMusic(false, musicStopped = true);
+
 
     drawScores();
     
@@ -951,7 +953,7 @@ function gameOverLogic() {
 
 function restartGame() {
   cancelAnimation();
-  playMusic(true,musicSpeed = 1);
+  
 
   gameOver = false;
   score = 0;
@@ -987,11 +989,13 @@ function restartGame() {
 
   isUpdating = false;
   update();
+  playMusic(true,musicSpeed = 1);
 }
 
 function restartDuringGame() {
   if (!gameOver) {
-    playMusic(false);
+    gameOverAudio.pause();
+    playMusic(false, musicStopped = true);
    restartGame();
   }
 }
