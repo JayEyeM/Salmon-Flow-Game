@@ -62,8 +62,7 @@ let driftwoodImg;
 let beaverImg;
 
 let velocityX = 0;
-let velocityY = 6;
-let gravity = 5;
+let velocityY = 4;
 const maxVelocityY = 36;
 
 let isUpdating = false;
@@ -341,7 +340,7 @@ function adjustBoardProperties() {
     
   }
 }
-adjustBoardProperties();
+
 
 
 
@@ -434,16 +433,9 @@ function jumpLimit() {
 }
 
 
-
+let updateAnimation;
 
 function update() {
-  console.log("Updating...")
-  if (!gameOver){
- 
-  requestAnimationFrame(update);
-  context.clearRect(0, 0, board.width, board.height);
-  adjustBoardProperties();
-
   if (gameOver) {
     console.log("updating stopped");
     isUpdating = false;
@@ -451,6 +443,15 @@ function update() {
     
     return;
   }
+
+  console.log("Updating...")
+  if (!gameOver){
+ 
+  updateAnimation =requestAnimationFrame(update);
+  context.clearRect(0, 0, board.width, board.height);
+  
+
+  
 
   
 
@@ -626,7 +627,7 @@ obstacleSpeedIncrease(level);
 
 
 document.addEventListener("keydown", moveSalmon);
-adjustBoardProperties();
+
   }
 }//end of update function
 
@@ -949,6 +950,7 @@ function gameOverLogic() {
 }
 
 function restartGame() {
+  cancelAnimation();
   playMusic(true,musicSpeed = 1);
 
   gameOver = false;
@@ -983,16 +985,26 @@ function restartGame() {
 
   board.style.boxShadow = 'none';
 
-  isUpdating = true;
+  isUpdating = false;
   update();
+}
+
+function restartDuringGame() {
+  if (!gameOver) {
+    playMusic(false);
+   restartGame();
+  }
+}
+
+function cancelAnimation() {
+  isUpdating = false;
+  cancelAnimationFrame(updateAnimation);
 }
 
 resizeObserver.observe(document.body);
 window.addEventListener('resize', adjustBoardProperties);
 
-//document.addEventListener("click", handleButtonClick);
-// const playGameButton = document.getElementById("play-game-button");
-// playGameButton.onclick = () => restartGame();
+
 
 document.addEventListener("keydown", handleKeyEvent);
 document.addEventListener("keyup", handleKeyEvent);
@@ -1025,6 +1037,7 @@ function handleKeyEvent(e) {
       isRestartKeyPressed = e.type === "keydown";
       if (isRestartKeyPressed) {
         restartGame();
+        restartDuringGame();
       }
       break;
   }
@@ -1054,6 +1067,7 @@ function handleTouchStart(e) {
       break;
     case "touchScreenRestartGame":
       restartGame();
+      restartDuringGame();
       break;
   }
 }
@@ -1077,11 +1091,11 @@ function handleTouchEnd(e) {
   }
 }
 
-document.getElementById("touchScreenLeft").addEventListener("touchstart", handleTouchStart);
+document.getElementById("touchScreenLeft").addEventListener("touchstart", handleTouchStart, { passive: true });
 document.getElementById("touchScreenLeft").addEventListener("touchend", handleTouchEnd);
-document.getElementById("touchScreenRight").addEventListener("touchstart", handleTouchStart);
+document.getElementById("touchScreenRight").addEventListener("touchstart", handleTouchStart, { passive: true });
 document.getElementById("touchScreenRight").addEventListener("touchend", handleTouchEnd);
-document.getElementById("touchScreenJump").addEventListener("touchstart", handleTouchStart);
-document.getElementById("touchScreenMaxSpeed").addEventListener("touchstart", handleTouchStart);
-document.getElementById("touchScreenRestartGame").addEventListener("click", handleTouchStart);
+document.getElementById("touchScreenJump").addEventListener("touchstart", handleTouchStart, { passive: true });
+document.getElementById("touchScreenMaxSpeed").addEventListener("touchstart", handleTouchStart, { passive: true });
+document.getElementById("touchScreenRestartGame").addEventListener("click", handleTouchStart, { passive: true });
 
