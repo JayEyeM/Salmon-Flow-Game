@@ -263,8 +263,7 @@ function adjustBoardProperties() {
     buttonDiv.style.flexDirection = "row";
     levelText.style.fontSize = "5vw";
     scoreText.style.fontSize = "5vw";
-    gameOverText.style.fontSize = "5vw";
-    gameOverText.style.paddingBottom = "15px";
+    gameOverText.style.display = "none";
     jumpPara.style.fontSize = "5vw";
     jumpPara.style.marginBottom = "0";
     jumpIcon1.style.width = "15vw";
@@ -326,8 +325,7 @@ function adjustBoardProperties() {
     buttonDiv.style.flexDirection = "";
     levelText.style.fontSize = "";
     scoreText.style.fontSize = "";
-    gameOverText.style.fontSize = "";
-    gameOverText.style.paddingBottom = "";
+    gameOverText.style.display = "";
     jumpPara.style.fontSize = "";
     jumpPara.style.marginBottom = "";
     jumpIcon1.style.width = "";
