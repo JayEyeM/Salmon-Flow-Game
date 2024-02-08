@@ -211,8 +211,12 @@ function adjustBoardProperties() {
   let touchScreenButtonDiv = document.getElementById("touchScreenDiv");
   let playGameButtonLabel = document.getElementById("play-game-button-label");
   let heading1 = document.getElementById("heading1");
+  let instructionsWindow = document.getElementById("instructionsWindow");
 
   if (windowWidth < windowHeight) {
+    instructionsWindow.style.width = "100vw";
+    instructionsWindow.style.height = "100%";
+    instructionsWindow.style.left = "0%";
     heading1.style.fontSize = "12vw";
     playGameButtonLabel.style.display = "none";
     touchScreenDiv.style.display = "grid";
@@ -276,6 +280,9 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    instructionsWindow.style.width = "";
+    instructionsWindow.style.height = "";
+    instructionsWindow.style.left = "";
     heading1.style.fontSize = "";
     playGameButtonLabel.style.display = "";
     touchScreenButtonDiv.style.display = "none";

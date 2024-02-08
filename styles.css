@@ -49,27 +49,20 @@ position: relative;
     border-radius: 15px;
     display:flex; 
     flex-direction:column; 
-    justify-content:center;
-    max-height:50%;
-    width:90%;
-    margin:auto;
+    height: auto;
+    width:100%;
+    
 }
 
-#controlsPara{text-align:center;
-padding:1px;
-color: salmon;
-font-size: 2vh;}
-
-.strong{
-color:white;
-font-size: 2.5vh;
-padding:1px;
+#instructionsPara{
+    font-family: sans-serif;
+    width: 100%;
 }
 
 h2{
     font-family: 'Orbitron', sans-serif;
     font-weight: bold;
-    font-size: 200%;
+    font-size: 250%;
     color: rgb(103, 4, 4);
     text-shadow: 5px 5px 5px rgb(0, 62, 62);
     text-align: center;
@@ -316,7 +309,7 @@ font-size: 3.5vh;}
         margin:auto auto;
         background-color: lightsalmon;
         padding: 20px;
-        width: 80%;
+        width: 90%;
         height: 95%;
         text-align: center;
         border-radius: 25px;
@@ -397,7 +390,6 @@ font-size: 3.5vh;}
       }
 
       #touchScreenDiv {
-        border: 3px red solid;
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -409,17 +401,15 @@ font-size: 3.5vh;}
       #touchButtonTopRow{
         width:100%;
         height: 25vw;
-        border: 3px rgb(0, 62, 62) solid;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: 1fr;
         justify-content: center;
         align-items: center;
-        
+        margin-top: 10px;
       }
 
       #touchButtonBottomRow{
-        border: 3px rgb(0, 62, 62) solid;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -452,6 +442,8 @@ font-size: 3.5vh;}
         background-position: center center;
         background-size: 45%;
         background-repeat: no-repeat;
+        margin-left: 3px;
+        margin-right: 3px;
       }
       
       #touchScreenRight {
@@ -478,6 +470,8 @@ font-size: 3.5vh;}
         background-repeat: no-repeat;
         color: rgba(0, 128, 128, 100%);
         text-align: left;
+        margin-left: 1.5px;
+        margin-right: 3px;
       }
 
       #touchScreenMaxSpeed {
@@ -487,6 +481,8 @@ font-size: 3.5vh;}
         background-size: 80%;
         background-repeat: no-repeat;
         background-position: center;
+        margin-left: 3px;
+        margin-right: 1.5px;
       }
 
       .touchScreenDirectionButtons {
