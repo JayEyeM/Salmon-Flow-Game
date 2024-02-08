@@ -447,6 +447,11 @@ font-size: 3.5vh;}
         width: auto;
         height: 100%;
         grid-column: 2 / span 2;
+        background-image: url(./jumpButtonIcon.svg);
+        background-size: cover;
+        background-position: center center;
+        background-size: 45%;
+        background-repeat: no-repeat;
       }
       
       #touchScreenRight {
