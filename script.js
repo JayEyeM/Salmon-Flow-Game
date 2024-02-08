@@ -210,8 +210,10 @@ function adjustBoardProperties() {
   let overlay = document.getElementById("overlay");
   let touchScreenButtonDiv = document.getElementById("touchScreenDiv");
   let playGameButtonLabel = document.getElementById("play-game-button-label");
+  let heading1 = document.getElementById("heading1");
 
   if (windowWidth < windowHeight) {
+    heading1.style.fontSize = "12vw";
     playGameButtonLabel.style.display = "none";
     touchScreenDiv.style.display = "grid";
     gameOverOverlay.style.height = "90%";
@@ -270,10 +272,11 @@ function adjustBoardProperties() {
     jumpIcon2.style.width = "15vw";
     jumpIcon3.style.width = "15vw";
     muteButton.style.fontSize = "4vw";
-    muteButton.style.height = "3rem";
+    muteButton.style.height = "15vw";
     instructionsButton.style.fontSize = "4vw";
-    instructionsButton.style.height = "3rem";
+    instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    heading1.style.fontSize = "";
     playGameButtonLabel.style.display = "";
     touchScreenButtonDiv.style.display = "none";
     gameOverOverlay.style.height = "";
