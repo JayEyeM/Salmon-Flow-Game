@@ -447,7 +447,7 @@ font-size: 3.5vh;}
       #touchScreenMaxSpeed {
         grid-column: 3 / 5;
         grid-row: 3 / 7;
-        background-image: url('./maxSpeedIcon.svg');
+        background-image: url('./MaxSpeedIcon.svg');
         background-size: 80%;
         background-repeat: no-repeat;
         background-position: center;
