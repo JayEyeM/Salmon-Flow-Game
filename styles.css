@@ -29,7 +29,15 @@ body{
     border:2px solid salmon;
     box-shadow: inset 0 0 10px 0.1px lightsalmon; 
     border-radius: inherit;
+    padding-bottom: 200px;
+    cursor: url('./salmonMousePointer.svg'), url('./salmonMousePointer.png'), auto;
+    cursor: url('./salmonMousePointer.svg') 0 0, url('./salmonMousePointer.png') 0 0, auto;
 }
+body:hover{
+  cursor: url('./salmonMousePointer.svg'), url('./salmonMousePointer.png'), auto;
+  cursor: url('./salmonMousePointer.svg') 0 0, url('./salmonMousePointer.png') 0 0, auto;
+}
+
 
 #heading1{color:salmon;
 font-family: 'Orbitron', sans-serif;
@@ -324,10 +332,12 @@ font-size: 3.5vh;}
         background-color: salmon;
         color: rgb(0, 62, 62);
         font-family: 'Orbitron', sans-serif;
-        font-size: 3.5vh;
+        font-size: 2rem;
         margin: 15px;
         padding: 2px;
         border-radius: 5px;
+        width: 40%;
+        height: auto;
       }
       
       #game-over-text-div {
@@ -387,6 +397,11 @@ font-size: 3.5vh;}
         color: grey;
         font-weight: bold;
         font: 3vh 'Orbitron', sans-serif;
+      }
+
+      #play-game-button-label:hover{
+        cursor: url('./salmonMousePointer2.svg'), url('./salmonMousePointer.png'), auto;
+  cursor: url('./salmonMousePointer2.svg') 0 0, url('./salmonMousePointer.png') 0 0, auto;
       }
 
       #touchScreenDiv {
@@ -508,4 +523,14 @@ font-size: 3.5vh;}
         background-color: salmon;
         color: rgb(0, 62, 62);
         font: 5vw 'Orbitron', sans-serif;
+      }
+
+      .desktopButtons{
+        box-shadow: 0 0 5px 1px rgba(79, 174, 169, 1)
+      }
+
+      .desktopButtons:hover{
+        box-shadow: inset 0 0 10px 0.1px black;
+        cursor: url('./salmonMousePointer2.svg'), url('./salmonMousePointer.png'), auto;
+  cursor: url('./salmonMousePointer2.svg') 0 0, url('./salmonMousePointer.png') 0 0, auto;
       }
