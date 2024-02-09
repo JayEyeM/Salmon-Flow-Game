@@ -1009,6 +1009,7 @@ document.addEventListener("keydown", handleKeyEvent);
 document.addEventListener("keyup", handleKeyEvent);
 
 function handleKeyEvent(e) {
+  e.preventDefault();
   const keyCode = e.code;
 
   switch (keyCode) {
