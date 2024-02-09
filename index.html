@@ -31,7 +31,10 @@
                     <p id="game-over-text"></p>
                 </div>
                 <div id="button-div">
+                    
                     <button type="button" id="instructions-button" class="desktopButtons"aria-label="Controls & Instructions"></button>
+                        <div class="popup" id="infoPopup">Instructions & Controls</div>
+                    
                         <div id="instructionsWindow">
                             <div id="instructionsDiv">
                                 <h2>Game Instructions & Controls</h2>
@@ -68,16 +71,19 @@
         </div>
         <div id="touchScreenDiv">
             <div id="touchButtonTopRow">
-                <button type="button" id="touchScreenLeft" class="touchScreenDirectionButtons" aria-label="Swim Left"></button>
-                <button type="button" id="touchScreenJump" class="touchScreenJumpButton" aria-label="Jump"></button>
-                <button type="button" id="touchScreenRight" class="touchScreenDirectionButtons" aria-label="Swim Right"></button>
+                <button type="button" id="touchScreenLeft" class="touchScreenDirectionButtons allTouchButtons" aria-label="Swim Left"></button>
+                <button type="button" id="touchScreenJump" class="touchScreenJumpButton allTouchButtons" aria-label="Jump"></button>
+                <button type="button" id="touchScreenRight" class="touchScreenDirectionButtons allTouchButtons" aria-label="Swim Right"></button>
             </div>
             <div id="touchButtonBottomRow">
-                <button type="button" id="touchScreenMaxSpeed" class="touchScreenButtons2" aria-label="Play on max speed."></button>
-                <button type="button" id="touchScreenRestartGame" class="touchScreenButtons2" aria-label="Restart Game."></button>
+                <button type="button" id="touchScreenMaxSpeed" class="touchScreenButtons2 allTouchButtons" aria-label="Play on max speed."></button>
+                <button type="button" id="touchScreenRestartGame" class="touchScreenButtons2 allTouchButtons" aria-label="Restart Game."></button>
             </div>
         </div>
         
+    </div>
+    <div id="footerDiv">
+
     </div>
     
     <script src="script.js"></script>

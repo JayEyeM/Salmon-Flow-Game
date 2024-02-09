@@ -212,8 +212,12 @@ function adjustBoardProperties() {
   let playGameButtonLabel = document.getElementById("play-game-button-label");
   let heading1 = document.getElementById("heading1");
   let instructionsWindow = document.getElementById("instructionsWindow");
+  let infoPopup = document.querySelector(".popup");
 
   if (windowWidth < windowHeight) {
+    infoPopup.style.top = "-10%";
+    infoPopup.style.left = "-10%";
+    infoPopup.style.font = "2.5vw 'Orbitron', sans-serif";
     instructionsWindow.style.width = "100vw";
     instructionsWindow.style.height = "100%";
     instructionsWindow.style.left = "0%";
@@ -280,6 +284,9 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    infoPopup.style.top = "";
+    infoPopup.style.left = "";
+    infoPopup.style.font = "";
     instructionsWindow.style.width = "";
     instructionsWindow.style.height = "";
     instructionsWindow.style.left = "";
