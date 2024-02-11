@@ -74,7 +74,7 @@ let beaverImg;
 
 let velocityX = 0;
 let velocityY = 4;
-const maxVelocityY = 36;
+const maxVelocityY = 30;
 
 let isUpdating = false;
 let gameOver = false;
@@ -910,20 +910,20 @@ function handleSalmonDriftVelocity() {
 }
 
 function moveSalmon(e) {
-  if (velocityY <= 10) {
-    handleSalmonVelocity(e, -9, 9);
+  if (velocityY > 0 && velocityY <= 10) {
+    handleSalmonVelocity(e, -8, 8);
     handleSalmonDriftVelocity();
-  } else if (velocityY > 10 && velocityY <= 20) {
+  } else if (velocityY > 10 && velocityY <= 15) {
     handleSalmonVelocity(e, -12, 12);
     handleSalmonDriftVelocity();
-  } else if (velocityY > 20 && velocityY <= 30) {
-    handleSalmonVelocity(e, -14, 14);
-    handleSalmonDriftVelocity();
-  } else if (velocityY > 30 && velocityY <= 35) {
+  } else if (velocityY > 15 && velocityY <= 20) {
     handleSalmonVelocity(e, -16, 16);
     handleSalmonDriftVelocity();
-  } else if (velocityY > 35 && velocityY <= maxVelocityY) {
-    handleSalmonVelocity(e, -18, 18);
+  } else if (velocityY > 20 && velocityY <= 25) {
+    handleSalmonVelocity(e, -20, 20);
+    handleSalmonDriftVelocity();
+  } else if (velocityY > 25 && velocityY <= maxVelocityY) {
+    handleSalmonVelocity(e, -24, 24);
     handleSalmonDriftVelocity();
   }
   if (e.code === "Space") {
