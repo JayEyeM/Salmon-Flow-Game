@@ -38,6 +38,19 @@ let fisherman = {
   width: fishermanWidth,
   height: fishermanHeight,
 };
+let fliesEaten = false;
+let fliesWidth = boardWidth / 9;
+let fliesHeight = boardHeight / 9;
+let fliesX = 0;
+let fliesY = 0;
+let fliesImg;
+
+let flies = {
+  x: fliesX,
+  y: fliesY,
+  width: fliesWidth,
+  height: fliesHeight,
+};
 
 let salmonWidth = boardWidth / 12;
 let salmonHeight = boardHeight / 6;
@@ -52,7 +65,7 @@ let salmon = {
   height: salmonHeight,
 };
 let salmonRect;
-
+let fliesArray = [];
 let obstacleArray = [];
 let obstacleWidth = boardWidth / 8;
 let obstacleHeight = boardHeight / 6;
@@ -146,6 +159,9 @@ window.onload = function () {
     );
   };
 
+  fliesImg = new Image();
+  fliesImg.src = "./fliesImage.svg";
+
   driftwoodImg = new Image();
   driftwoodImg.src = "./driftwoodFinal.svg";
 
@@ -165,6 +181,7 @@ window.onload = function () {
   };
 
   obstacleManager();
+  fliesManager();
   currentLevel = levelCalculation(count);
 }; //end of onload
 
@@ -457,7 +474,7 @@ function update() {
     updateAnimation = requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
 
-    playMusic(true, (musicSpeed = 1));
+    playMusic(true, (musicSpeed += 0.2));
 
     let salmonRect = {
       x: salmon.x - salmon.width / 8 + salmon.width / 2.6,
@@ -511,6 +528,34 @@ function update() {
     if (salmon.x + salmon.width > board.width) {
       gameOver = true;
     } //checks if the salmon x position is greater than the board width and sets gameOver to true if it is.
+
+    for (let i = 0; i < fliesArray.length; i++) {
+      let flies = fliesArray[i];
+      flies.y += velocityY; //
+      flies.hidden = false;
+
+      if (
+        !flies.eaten &&
+        flies.x + flies.width > salmon.x &&
+        flies.x < salmon.x + salmon.width &&
+        flies.y + flies.height > salmon.y &&
+        flies.y < salmon.y + salmon.height
+      ) {
+        flies.eaten = true;
+        flies.hidden = true;
+        score += 5;
+      }
+      if (!flies.eaten) {
+        flies.hidden = false;
+        context.drawImage(
+          flies.img,
+          flies.x,
+          flies.y,
+          flies.width,
+          flies.height
+        );
+      }
+    }
 
     for (let i = 0; i < obstacleArray.length; i++) {
       let obstacle = obstacleArray[i];
@@ -637,6 +682,62 @@ function moveBeaverFaster(i) {
   }
 }
 
+function renderFlies(fliesType) {
+  if (fliesType === "flies") {
+    let randomFliesY = -(Math.random() * (board.height - fliesHeight) * 0.5);
+    let randomFliesX = Math.random() * (board.width - fliesWidth);
+    let newFlies = {
+      type: "flies",
+      img: fliesImg,
+      x: randomFliesX,
+      y: randomFliesY,
+      width: fliesWidth * 2,
+      height: fliesHeight / 1.5,
+      passed: false,
+    };
+
+    let isOverlapping = fliesArray.some((existingFlies) => {
+      return checkFliesProximity(newFlies, existingFlies);
+    });
+
+    if (!isOverlapping) {
+      fliesArray.push(newFlies);
+    }
+  }
+}
+
+function getRandomXPositionOfFlies(fliesWidth) {
+  let randomX = Math.random() * (board.width - fliesWidth); //generates a random x position
+  let proximityThreshold = 100; //sets the proximity threshold to 100 pixels between the new obstacle and existing obstacles
+
+  while (
+    fliesArray.some((flies) => Math.abs(flies.x - randomX) < proximityThreshold)
+  ) {
+    randomX = Math.random() * (board.width - fliesWidth);
+  } //checks if the random x position is close to an existing obstacle and generates a new random x position if it is.
+
+  return randomX; //returns the random x position
+}
+
+function checkFliesProximity(newFlies, existingFlies) {
+  let proximityThreshold = 100;
+
+  return (
+    newFlies.x < existingFlies.x + existingFlies.width + proximityThreshold &&
+    newFlies.x + newFlies.width + proximityThreshold > existingFlies.x &&
+    newFlies.y < existingFlies.y + existingFlies.height + proximityThreshold &&
+    newFlies.y + newFlies.height + proximityThreshold > existingFlies.y
+  );
+}
+
+function fliesManager() {
+  if (gameOver) {
+    return;
+  }
+
+  setInterval(renderFlies, 8000, "flies"); //creates a new driftwood every 500ms
+}
+
 function renderObstacles(obstacleType) {
   if (obstacleType === "driftwood") {
     let randomDriftwoodY = -(
@@ -651,7 +752,7 @@ function renderObstacles(obstacleType) {
       x: randomDriftwoodX,
       y: randomDriftwoodY,
       width: obstacleWidth * 2,
-      height: obstacleHeight - 45,
+      height: obstacleHeight / 1.5,
       passed: false,
     };
 
@@ -675,8 +776,8 @@ function renderObstacles(obstacleType) {
       img: beaverImg,
       x: randomBeaverX,
       y: randomBeaverY,
-      width: obstacleWidth - 5,
-      height: obstacleHeight + 20,
+      width: obstacleWidth / 1.1,
+      height: obstacleHeight / 0.8,
       passed: false,
     };
 
@@ -967,6 +1068,7 @@ function restartGame() {
   isSalmonJumping = false;
   gameOverOverlay.style.display = "none";
   obstacleArray = [];
+  fliesArray = [];
 
   fishermanX = 0;
   fishermanY = 0;
