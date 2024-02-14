@@ -90,8 +90,6 @@ let ellipse2;
 
 // Background music
 let musicSpeed = 1; // Initial music speed
-let elapsedTime = 0;
-const speedIncreaseInterval = 15; // Increase speed every 15 seconds
 
 let audio = new Audio("./Theme music.wav");
 audio.loop = true;
@@ -99,34 +97,36 @@ let gameOverAudio = new Audio("./gameOverSound.wav");
 
 let muteButton = document.getElementById("mute-button");
 let audioClips = [audio, gameOverAudio];
-
+let isMuted = false;
 let soundMutedIcon = "./soundMutedIcon.svg";
 
-function toggleSound() {
-  audio.muted = !audio.muted;
-  gameOverAudio.muted = !gameOverAudio.muted;
-
-  if (audio.muted || gameOverAudio.muted) {
+function updateMuteButtonIcon() {
+  if (isMuted) {
     muteButton.style.backgroundImage = `url(${soundMutedIcon})`;
   } else {
     muteButton.style.backgroundImage = "";
   }
 }
 
-let isColliding = false;
+function toggleSound() {
+  isMuted = !isMuted;
+  audioClips.forEach((audioClip) => {
+    audioClip.muted = isMuted;
+  });
+  updateMuteButtonIcon();
+}
 
+let isColliding = false;
+const maxMusicSpeed = 2;
 let currentMusicSpeed = 1; // Variable to store the current music speed
 
-function playMusic(play, speed = 1) {
-  const maxMusicSpeed = 2;
-
+function playMusic(play, musicSpeed) {
   if (play) {
     if (audio && audio.readyState >= 2 && audio.paused) {
       audio.currentTime = 0; // Reset the audio to the beginning
-      audio.playbackRate = Math.min(speed, maxMusicSpeed);
+      audio.playbackRate = Math.min(musicSpeed, maxMusicSpeed);
+      console.log("Setting playback rate:", audio.playbackRate);
       audio.play().catch((error) => console.error("Audio play error:", error));
-
-      currentMusicSpeed = Math.min(speed, maxMusicSpeed);
     }
   } else {
     if (!audio.paused) {
@@ -474,7 +474,15 @@ function update() {
     updateAnimation = requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
 
-    playMusic(true, (musicSpeed += 0.2));
+    if (level > 2 && level <= 10) {
+      musicSpeed = 1.5;
+    } else if (level > 10 && level <= 15) {
+      musicSpeed = 2;
+    } else {
+      musicSpeed = 1; // Default music speed
+    }
+    console.log("Setting music speed:", musicSpeed);
+    playMusic(true, musicSpeed);
 
     let salmonRect = {
       x: salmon.x - salmon.width / 8 + salmon.width / 2.6,
@@ -641,17 +649,8 @@ function update() {
 
     if (!gameOver) {
       musicStopped = false;
-
-      elapsedTime += 1 / 60;
-
-      if (elapsedTime >= speedIncreaseInterval) {
-        elapsedTime = 0;
-        musicSpeed += 0.2;
-
-        // Increase speed from the current speed
-        playMusic(true, 0.2, currentMusicSpeed + 0.2); //increases the music speed by 0.2 and plays the music with the new speed
-      }
     }
+
     frameCount++;
     countObstacles();
     drawLevel();
@@ -879,7 +878,7 @@ function collisionDetectionDelayer() {
 function obstacleSpeedIncrease(level) {
   if (level) {
     velocityY += 0.02;
-    musicSpeed += 0.2;
+
     if (velocityY > maxVelocityY) {
       velocityY = maxVelocityY;
     }
@@ -1032,11 +1031,13 @@ function closeInstructions() {
 
 function gameOverLogic() {
   if (gameOver) {
+    gameOverAudio.currentTime = 0;
     gameOverAudio.play();
     gameOverAudio.volume = 0.2;
     gameOverAudio.loop = false;
-    gameOverAudio.muted = false;
-    playMusic(false, (musicStopped = true));
+
+    playMusic(false);
+    musicStopped = true;
 
     drawScores();
 
@@ -1088,13 +1089,16 @@ function restartGame() {
 
   isUpdating = false;
   update();
-  playMusic(true, (musicSpeed = 1));
+  playMusic(true, musicSpeed);
+  musicSpeed = 1;
+  elapsedTime = 0;
 }
 
 function restartDuringGame() {
   if (!gameOver) {
     gameOverAudio.pause();
-    playMusic(false, (musicStopped = true));
+    playMusic(false);
+    musicStopped = true;
     restartGame();
   }
 }
