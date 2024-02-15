@@ -120,18 +120,34 @@ let isColliding = false;
 const maxMusicSpeed = 2;
 let currentMusicSpeed = 1; // Variable to store the current music speed
 
-function playMusic(play, musicSpeed) {
+function playMusic(play) {
   if (play) {
     if (audio && audio.readyState >= 2 && audio.paused) {
-      audio.currentTime = 0; // Reset the audio to the beginning
+      audio.currentTime = 0;
       audio.playbackRate = Math.min(musicSpeed, maxMusicSpeed);
       console.log("Setting playback rate:", audio.playbackRate);
       audio.play().catch((error) => console.error("Audio play error:", error));
+    } else {
+      audio.playbackRate = Math.min(musicSpeed, maxMusicSpeed);
+      console.log("Setting playback rate:", audio.playbackRate);
     }
   } else {
     if (!audio.paused) {
       audio.pause();
     }
+  }
+}
+
+let previousLevel = 0;
+
+function musicSpeedIncrease(level) {
+  if (level !== previousLevel) {
+    musicSpeed += 0.1;
+    if (musicSpeed > maxMusicSpeed) {
+      musicSpeed = maxMusicSpeed;
+    }
+    previousLevel = level;
+    console.log("Increase that music speed to:", musicSpeed);
   }
 }
 
@@ -474,15 +490,10 @@ function update() {
     updateAnimation = requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
 
-    if (level > 2 && level <= 10) {
-      musicSpeed = 1.5;
-    } else if (level > 10 && level <= 15) {
-      musicSpeed = 2;
-    } else {
-      musicSpeed = 1; // Default music speed
-    }
-    console.log("Setting music speed:", musicSpeed);
-    playMusic(true, musicSpeed);
+    console.log(level);
+
+    musicSpeedIncrease(level);
+    playMusic(true);
 
     let salmonRect = {
       x: salmon.x - salmon.width / 8 + salmon.width / 2.6,
@@ -659,6 +670,7 @@ function update() {
     countJumps();
     jumpLimit();
     obstacleSpeedIncrease(level);
+
     //gameOverLogic(salmonRect, obstacleArray);
 
     document.addEventListener("keydown", moveSalmon);
@@ -1089,7 +1101,7 @@ function restartGame() {
 
   isUpdating = false;
   update();
-  playMusic(true, musicSpeed);
+  playMusic(true);
   musicSpeed = 1;
   elapsedTime = 0;
 }
