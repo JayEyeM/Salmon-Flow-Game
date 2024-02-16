@@ -41,6 +41,11 @@ function toggleToolTips() {
   allToolTips.forEach((toolTip) => {
     toolTip.style.display = isToolTipsEnabled ? "block" : "none";
   });
+  if (isToolTipsEnabled === false) {
+    showLabelsButton.innerHTML = "Show Button Labels";
+  } else {
+    showLabelsButton.innerHTML = "Hide Button Labels";
+  }
 }
 // Board and game variables
 
@@ -129,9 +134,11 @@ function updateMuteButtonIcon() {
   if (isMuted) {
     muteButton.style.backgroundImage = `url(${soundMutedIcon})`;
     muteButtonInfoPopup.innerHTML = "Un-mute Sound";
+    toolTip2.innerHTML = "Un-mute Sound";
   } else {
     muteButton.style.backgroundImage = "";
     muteButtonInfoPopup.textContent = "Mute Sound";
+    toolTip2.textContent = "Mute Sound";
   }
 }
 
