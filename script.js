@@ -99,12 +99,15 @@ let muteButton = document.getElementById("mute-button");
 let audioClips = [audio, gameOverAudio];
 let isMuted = false;
 let soundMutedIcon = "./soundMutedIcon.svg";
+let muteButtonInfoPopup = document.getElementById("infoPopup2");
 
 function updateMuteButtonIcon() {
   if (isMuted) {
     muteButton.style.backgroundImage = `url(${soundMutedIcon})`;
+    muteButtonInfoPopup.innerHTML = "Un-mute Sound";
   } else {
     muteButton.style.backgroundImage = "";
+    muteButtonInfoPopup.textContent = "Mute Sound";
   }
 }
 
@@ -248,6 +251,9 @@ function adjustBoardProperties() {
   let infoPopup = document.querySelector(".popup");
 
   if (windowWidth < windowHeight) {
+    muteButtonInfoPopup.style.top = "-10%";
+    muteButtonInfoPopup.style.left = "45%";
+    muteButtonInfoPopup.style.font = "2.5vw 'Orbitron', sans-serif";
     infoPopup.style.top = "-10%";
     infoPopup.style.left = "-10%";
     infoPopup.style.font = "2.5vw 'Orbitron', sans-serif";
@@ -317,6 +323,9 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    muteButtonInfoPopup.style.top = "";
+    muteButtonInfoPopup.style.left = "";
+    muteButtonInfoPopup.style.font = "";
     infoPopup.style.top = "";
     infoPopup.style.left = "";
     infoPopup.style.font = "";
