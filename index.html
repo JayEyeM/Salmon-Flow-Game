@@ -34,7 +34,7 @@
                 </div>
                 <div id="button-div">
                     
-                    <button type="button" id="instructions-button" class="desktopButtons"aria-label="Controls & Instructions"></button>
+                    <button type="button" id="instructions-button" class="desktopButtons"aria-label="Controls & Instructions"><div id="toolTip1" class="tooltiptext">Instructions & Controls</div></button>
                         <div class="popup" id="infoPopup">Instructions & Controls</div>
                     
                         <div id="instructionsWindow">
@@ -55,7 +55,7 @@
                                 <button type="button" id="closeInstructionsButton" class="desktopButtons">Close</button>
                             </div>
                         </div>
-                <button type="button" id="mute-button" class="desktopButtons" onclick="toggleSound()" aria-label="Mute button"></button>
+                <button type="button" id="mute-button" class="desktopButtons" onclick="toggleSound()" aria-label="Mute button"><div id="toolTip2" class="tooltiptext">Mute Sound</div></button>
                 <div class="popup" id="infoPopup2">Mute Sound</div>
             </div>
         </div>
@@ -73,14 +73,15 @@
         </div>
         <div id="touchScreenDiv">
             <div id="touchButtonTopRow">
-                <button type="button" id="touchScreenLeft" class="touchScreenDirectionButtons allTouchButtons" aria-label="Swim Left"></button>
-                <button type="button" id="touchScreenJump" class="touchScreenJumpButton allTouchButtons" aria-label="Jump"></button>
-                <button type="button" id="touchScreenRight" class="touchScreenDirectionButtons allTouchButtons" aria-label="Swim Right"></button>
+                <button type="button" id="touchScreenLeft" class="touchScreenDirectionButtons allTouchButtons" aria-label="Swim Left"><div id="toolTip3" class="tooltiptext">&#8592; Swim Left</div></button>
+                <button type="button" id="touchScreenJump" class="touchScreenJumpButton allTouchButtons" aria-label="Jump"><div id="toolTip4" class="tooltiptext">&#8593; Jump</div></button>
+                <button type="button" id="touchScreenRight" class="touchScreenDirectionButtons allTouchButtons" aria-label="Swim Right"><div id="toolTip5" class="tooltiptext">Swim &#8594; Right</div></button>
             </div>
             <div id="touchButtonBottomRow">
-                <button type="button" id="touchScreenMaxSpeed" class="touchScreenButtons2 allTouchButtons" aria-label="Play on max speed."></button>
-                <button type="button" id="touchScreenRestartGame" class="touchScreenButtons2 allTouchButtons" aria-label="Restart Game."></button>
+                <button type="button" id="touchScreenMaxSpeed" class="touchScreenButtons2 allTouchButtons" aria-label="Play on max speed."><div id="toolTip6" class="tooltiptext">Max Speed</div></button>
+                <button type="button" id="touchScreenRestartGame" class="touchScreenButtons2 allTouchButtons" aria-label="Restart Game."><div id="toolTip7" class="tooltiptext">Restart Game</div></button>
             </div>
+            <button type="button" id="showLabelsButton" class="allTouchButtons" onclick="toggleToolTips()">Show Button Labels</button>
         </div>
         
     </div>

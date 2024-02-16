@@ -18,6 +18,31 @@ let scoreText2 = document.getElementById("score-text2");
 let hightscoreText = document.getElementById("highscore-text");
 let playGameButton = document.getElementById("play-game-button");
 let playGameButtonLabel = document.getElementById("play-game-button-label");
+let showLabelsButton = document.getElementById("showLabelsButton");
+let toolTip1 = document.getElementById("toolTip1");
+let toolTip2 = document.getElementById("toolTip2");
+let toolTip3 = document.getElementById("toolTip3");
+let toolTip4 = document.getElementById("toolTip4");
+let toolTip5 = document.getElementById("toolTip5");
+let toolTip6 = document.getElementById("toolTip6");
+let toolTip7 = document.getElementById("toolTip7");
+let allToolTips = [
+  toolTip1,
+  toolTip2,
+  toolTip3,
+  toolTip4,
+  toolTip5,
+  toolTip6,
+  toolTip7,
+];
+let isToolTipsEnabled = false;
+function toggleToolTips() {
+  isToolTipsEnabled = !isToolTipsEnabled;
+  allToolTips.forEach((toolTip) => {
+    toolTip.style.display = isToolTipsEnabled ? "block" : "none";
+  });
+  updateMuteButtonIcon();
+}
 // Board and game variables
 
 let board = document.getElementById("board");
@@ -251,6 +276,14 @@ function adjustBoardProperties() {
   let infoPopup = document.querySelector(".popup");
 
   if (windowWidth < windowHeight) {
+    toolTip1.style.display = "none";
+    toolTip2.style.display = "none";
+    toolTip3.style.display = "none";
+    toolTip4.style.display = "none";
+    toolTip5.style.display = "none";
+    toolTip6.style.display = "none";
+    toolTip7.style.display = "none";
+    showLabelsButton.style.display = "block";
     muteButtonInfoPopup.style.top = "-10%";
     muteButtonInfoPopup.style.left = "45%";
     muteButtonInfoPopup.style.font = "2.5vw 'Orbitron', sans-serif";
@@ -323,6 +356,14 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    toolTip1.style.display = "";
+    toolTip2.style.display = "";
+    toolTip3.style.display = "";
+    toolTip4.style.display = "";
+    toolTip5.style.display = "";
+    toolTip6.style.display = "";
+    toolTip7.style.display = "";
+    showLabelsButton.style.display = "";
     muteButtonInfoPopup.style.top = "";
     muteButtonInfoPopup.style.left = "";
     muteButtonInfoPopup.style.font = "";

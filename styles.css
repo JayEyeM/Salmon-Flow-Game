@@ -269,7 +269,6 @@ font-size: 3.5vh;}
     #mute-button {
         background-color: salmon;
         border: 2px lightseagreen solid;
-        color: rgb(0, 62, 62);
         border-radius: 10px;
         position: relative;
         flex: 1;
@@ -278,8 +277,6 @@ font-size: 3.5vh;}
         height: 25%;
         margin: 1.5px;
         width: 95%;
-        font-weight: bold;
-        font: 2.75vh 'Orbitron', sans-serif;
         background-image: url('./soundPlayingIcon.svg');
         background-size: 17%;
         background-repeat: no-repeat;
@@ -290,7 +287,6 @@ font-size: 3.5vh;}
     #instructions-button {
         background-color: salmon;
         border: 2px lightseagreen solid;
-        color: rgba(0, 128, 128, 100%);
         border-radius: 10px;
         position: relative;
         flex: 1;
@@ -299,8 +295,6 @@ font-size: 3.5vh;}
         height: 25%;
         margin: 1.5px;
         width: 95%;
-        font-weight: bold;
-        font: 2.75vh 'Orbitron', sans-serif;
         background-image: url('./controlsAndInstructionsIcon.svg');
         background-size: 80%;
         background-repeat: no-repeat;
@@ -492,8 +486,6 @@ font-size: 3.5vh;}
         background-position: center center;
         background-size: 32%;
         background-repeat: no-repeat;
-        color: rgba(0, 128, 128, 100%);
-        text-align: left;
         margin-left: 1.5px;
         margin-right: 3px;
       }
@@ -514,24 +506,21 @@ font-size: 3.5vh;}
         border-radius: 10px;
   
         background-color: rgba(79, 174, 169, 0.656);
-        color: white;
-        font: 3.5vw 'Orbitron', sans-serif;
+        
       }
 
       .touchScreenJumpButton{
         border: 2px salmon solid;
         border-radius: 10px;
         background-color: rgba(79, 174, 169, 0.656);
-        color: white;
-        font: 8vw 'Orbitron', sans-serif;
+        
       }
 
       .touchScreenButtons2{
         border: 2px lightseagreen solid;
         border-radius: 10px;
         background-color: salmon;
-        color: rgb(0, 62, 62);
-        font: 5vw 'Orbitron', sans-serif;
+     
       }
 
       .desktopButtons{
@@ -582,6 +571,33 @@ font-size: 3.5vh;}
         position: absolute;
         top: 40px;
         left: -110px;
+      }
+      
+      .tooltiptext {
+        display:none;
+        background-color: rgba(0, 0, 0, 0.821);
+        border: 2px white solid;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding-left: 2px;
+        padding-right: 2px;
+       font: 3.5vw 'Orbitron', sans-serif;
+      }
+
+      #showLabelsButton {
+        display: none;
+        border: 2px white solid;
+        border-radius: 10px;
+        background-color: lightseagreen;
+        color:#3e0000;
+        font: 4vw 'Orbitron', sans-serif;
+        width:80%;
+        margin-top: 2%;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       footer {
