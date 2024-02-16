@@ -41,7 +41,6 @@ function toggleToolTips() {
   allToolTips.forEach((toolTip) => {
     toolTip.style.display = isToolTipsEnabled ? "block" : "none";
   });
-  updateMuteButtonIcon();
 }
 // Board and game variables
 
@@ -276,13 +275,6 @@ function adjustBoardProperties() {
   let infoPopup = document.querySelector(".popup");
 
   if (windowWidth < windowHeight) {
-    toolTip1.style.display = "none";
-    toolTip2.style.display = "none";
-    toolTip3.style.display = "none";
-    toolTip4.style.display = "none";
-    toolTip5.style.display = "none";
-    toolTip6.style.display = "none";
-    toolTip7.style.display = "none";
     showLabelsButton.style.display = "block";
     muteButtonInfoPopup.style.top = "-10%";
     muteButtonInfoPopup.style.left = "45%";
@@ -356,13 +348,13 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
-    toolTip1.style.display = "";
-    toolTip2.style.display = "";
-    toolTip3.style.display = "";
-    toolTip4.style.display = "";
-    toolTip5.style.display = "";
-    toolTip6.style.display = "";
-    toolTip7.style.display = "";
+    toolTip1.style.display = "none";
+    toolTip2.style.display = "none";
+    toolTip3.style.display = "none";
+    toolTip4.style.display = "none";
+    toolTip5.style.display = "none";
+    toolTip6.style.display = "none";
+    toolTip7.style.display = "none";
     showLabelsButton.style.display = "";
     muteButtonInfoPopup.style.top = "";
     muteButtonInfoPopup.style.left = "";
