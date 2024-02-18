@@ -55,18 +55,18 @@ let boardHeight = document.getElementById("board").offsetHeight;
 let boardDiv = document.getElementById("board-div");
 let context = board.getContext("2d");
 
-let fishermanWidth = boardWidth / 5;
-let fishermanHeight = boardHeight / 4;
-let fishermanX = 0;
-let fishermanY = 0;
-let fishermanImg;
+// let fishermanWidth = boardWidth / 5;
+// let fishermanHeight = boardHeight / 4;
+// let fishermanX = 0;
+// let fishermanY = 0;
+// let fishermanImg;
 
-let fisherman = {
-  x: fishermanX,
-  y: fishermanY,
-  width: fishermanWidth,
-  height: fishermanHeight,
-};
+// let fisherman = {
+//   x: fishermanX,
+//   y: fishermanY,
+//   width: fishermanWidth,
+//   height: fishermanHeight,
+// };
 let fliesEaten = false;
 let fliesWidth = boardWidth / 9;
 let fliesHeight = boardHeight / 9;
@@ -105,6 +105,7 @@ let group1ImagesArray = [
   "./beaverObstacleImageChoices/boatFisherman.svg",
   "./beaverObstacleImageChoices/ducky.svg",
   "./beaverObstacleImageChoices/rubberBoot.svg",
+  "./beaverObstacleImageChoices/carTire.svg",
   "./beaverCharacter.svg",
 ];
 let group2ImagesArray = [
@@ -215,17 +216,17 @@ window.onload = function () {
 
   welcomeText.innerHTML = "Happy Swimming!";
 
-  fishermanImg = new Image();
-  fishermanImg.src = "./fishermanCharacter2.svg";
-  fishermanImg.onload = function () {
-    context.drawImage(
-      fishermanImg,
-      fisherman.x,
-      fisherman.y,
-      fisherman.width,
-      fisherman.height
-    );
-  };
+  // fishermanImg = new Image();
+  // fishermanImg.src = "./fishermanCharacter2.svg";
+  // fishermanImg.onload = function () {
+  //   context.drawImage(
+  //     fishermanImg,
+  //     fisherman.x,
+  //     fisherman.y,
+  //     fisherman.width,
+  //     fisherman.height
+  //   );
+  // };
 
   fliesImg = new Image();
   fliesImg.src = "./fliesImage.svg";
@@ -569,13 +570,13 @@ function update() {
       height: salmon.height,
     };
 
-    context.drawImage(
-      fishermanImg,
-      fisherman.x,
-      fisherman.y,
-      fisherman.width,
-      fisherman.height
-    );
+    // context.drawImage(
+    //   fishermanImg,
+    //   fisherman.x,
+    //   fisherman.y,
+    //   fisherman.width,
+    //   fisherman.height
+    // );
 
     salmon.x += velocityX; //adds velocity to the salmon x position when the left and right arrow keys are pressed
     salmon.x = Math.max(salmon.x, 0); //sets the salmon x position to 0 if it is less than 0
@@ -646,26 +647,25 @@ function update() {
     for (let i = 0; i < obstacleArray.length; i++) {
       let obstacle = obstacleArray[i];
       obstacle.y += velocityY; //
-      if (
-        obstacle.x + obstacle.width > fisherman.x &&
-        obstacle.x < fisherman.x + fisherman.width &&
-        obstacle.y + obstacle.height > fisherman.y &&
-        obstacle.y < fisherman.y + fisherman.height - 80
-      ) {
-        obstacle.hidden = true;
-      } else {
-        obstacle.hidden = false;
-      }
+      // if (
+      //   obstacle.x + obstacle.width > fisherman.x &&
+      //   obstacle.x < fisherman.x + fisherman.width &&
+      //   obstacle.y + obstacle.height > fisherman.y &&
+      //   obstacle.y < fisherman.y + fisherman.height - 80
+      // ) {
+      //   obstacle.hidden = true;
+      // } else {
+      //   obstacle.hidden = false;
+      // }
 
-      if (!obstacle.hidden) {
-        context.drawImage(
-          obstacle.img,
-          obstacle.x,
-          obstacle.y,
-          obstacle.width,
-          obstacle.height
-        );
-      }
+      // if (!obstacle.hidden) {
+      context.drawImage(
+        obstacle.img,
+        obstacle.x,
+        obstacle.y,
+        obstacle.width,
+        obstacle.height
+      );
 
       moveBeaverFaster(i);
 
@@ -850,6 +850,20 @@ function renderObstacles(obstacleType) {
         passed: false,
       };
     }
+    if (
+      randomDriftwoodImagesSrc ===
+      "./driftwoodObstacleImageChoices/scubaDiver.svg"
+    ) {
+      driftwood = {
+        type: "driftwood",
+        img: randomDriftWoodImages,
+        x: randomDriftwoodX,
+        y: randomDriftwoodY,
+        width: obstacleWidth / 1.05,
+        height: obstacleHeight / 1.6,
+        passed: false,
+      };
+    }
 
     let isOverlapping = obstacleArray.some((obstacle) => {
       return checkObstacleProximity(driftwood, obstacle);
@@ -889,6 +903,17 @@ function renderObstacles(obstacleType) {
         y: randomBeaverY,
         width: obstacleWidth * 1.15,
         height: obstacleHeight * 2.22,
+        passed: false,
+      };
+    }
+    if (randomBeaverImagesSrc === "./beaverObstacleImageChoices/carTire.svg") {
+      beaver = {
+        type: "beaver",
+        img: randomBeaverImages,
+        x: randomBeaverX,
+        y: randomBeaverY,
+        width: obstacleWidth * 1.15,
+        height: obstacleHeight,
         passed: false,
       };
     }
@@ -1184,10 +1209,10 @@ function restartGame() {
   obstacleArray = [];
   fliesArray = [];
 
-  fishermanX = 0;
-  fishermanY = 0;
-  fisherman.x = fishermanX;
-  fisherman.y = fishermanY;
+  // fishermanX = 0;
+  // fishermanY = 0;
+  // fisherman.x = fishermanX;
+  // fisherman.y = fishermanY;
 
   salmonX = boardWidth / 2.1;
   salmonY = boardHeight - salmonHeight;
