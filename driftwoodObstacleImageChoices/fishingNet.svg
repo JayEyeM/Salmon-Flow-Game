@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="509mm"
+   height="244mm"
+   viewBox="0 0 509 244"
+   version="1.1"
+   id="svg1"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm" />
+  <defs
+     id="defs1">
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#pattern13"
+       preserveAspectRatio="xMidYMid"
+       id="pattern14"
+       patternTransform="matrix(0.20801565,0.06065987,-0.07571149,0.16666162,-159.24498,13.083063)"
+       x="0"
+       y="0" />
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="52"
+       height="61.14"
+       id="pattern13"
+       patternTransform="scale(0.3,0.3)"
+       preserveAspectRatio="xMidYMid"
+       style="fill:#000000"
+       inkscape:label="Wire Fence"
+       inkscape:collect="always"
+       inkscape:isstock="true">
+      <path
+         id="path12"
+         style="stroke:none"
+         d="m 31.437499,0 7.257813,7.2578126 c -0.879538,1.3312883 -0.879117,3.0161644 10e-7,4.3476564 L 26.072266,24.228516 14,36.300782 0,22.302735 v 2.828124 l 12.640625,12.640625 c -0.89873,1.34129 -0.898729,3.115742 0,4.457031 L 0,54.86914 v 2.828126 l 14,-14 17.443359,17.443359 2.828125,10e-7 -18.912109,-18.91211 c 0.898055,-1.340861 0.898042,-3.116186 0,-4.457031 L 27.488281,25.642578 40,13.128906 l 12.000001,12 L 52,22.300781 41.302734,11.605469 c 0.879644,-1.331587 0.879713,-3.0161029 0,-4.3476564 L 48.560547,0 H 45.732422 L 40,5.732422 34.267578,0 Z M 52,54.869141 l -6.271484,6.271484 2.828124,0 L 52,57.697265 Z" />
+    </pattern>
+    <pattern
+       inkscape:collect="always"
+       xlink:href="#WireFence"
+       preserveAspectRatio="xMidYMid"
+       id="pattern11"
+       patternTransform="matrix(0.16086186,-0.12586408,0.13026337,0.15542919,2.0575428,-0.80378895)"
+       x="39"
+       y="0" />
+    <pattern
+       patternUnits="userSpaceOnUse"
+       width="52"
+       height="61.14"
+       id="WireFence"
+       patternTransform="scale(0.3,0.3)"
+       preserveAspectRatio="xMidYMid"
+       style="fill:#000000"
+       inkscape:label="Wire Fence"
+       inkscape:collect="always"
+       inkscape:isstock="true">
+      <path
+         id="rect9"
+         style="stroke:none"
+         d="m 31.437499,0 7.257813,7.2578126 c -0.879538,1.3312883 -0.879117,3.0161644 10e-7,4.3476564 L 26.072266,24.228516 14,36.300782 0,22.302735 v 2.828124 l 12.640625,12.640625 c -0.89873,1.34129 -0.898729,3.115742 0,4.457031 L 0,54.86914 v 2.828126 l 14,-14 17.443359,17.443359 2.828125,10e-7 -18.912109,-18.91211 c 0.898055,-1.340861 0.898042,-3.116186 0,-4.457031 L 27.488281,25.642578 40,13.128906 l 12.000001,12 L 52,22.300781 41.302734,11.605469 c 0.879644,-1.331587 0.879713,-3.0161029 0,-4.3476564 L 48.560547,0 H 45.732422 L 40,5.732422 34.267578,0 Z M 52,54.869141 l -6.271484,6.271484 2.828124,0 L 52,57.697265 Z" />
+    </pattern>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g14"
+       transform="matrix(0.99552184,0,0,0.98899223,2.2762983,0.13270315)">
+      <path
+         id="path1"
+         style="fill:#000000;stroke:#000000;stroke-width:0"
+         d="M 138.48211,30.64561 A 124.18539,35.768604 17.543813 0 0 34.258897,12.221942 124.18539,35.768604 17.543813 0 0 40.449857,66.799877 124.18539,35.768604 17.543813 0 0 208.48329,113.16947 l 0.004,-3.7e-4 A 124.18539,35.768604 17.543813 0 0 202.29198,58.590881 124.18539,35.768604 17.543813 0 0 138.48211,30.64561 Z m 2.2741,3.545325 a 112.65463,31.347765 17.543813 0 1 57.95454,25.133252 112.65463,31.347765 17.543813 0 1 6.08454,48.040063 l -0.003,0.002 A 112.65463,31.347765 17.543813 0 1 52.419849,65.11169 112.65463,31.347765 17.543813 0 1 46.338762,17.072714 112.65463,31.347765 17.543813 0 1 140.75617,34.191394 Z" />
+      <path
+         id="path2"
+         style="stroke:#000000;stroke-width:0"
+         transform="matrix(0.8941065,0.4478544,-0.39276832,0.91963746,0,0)"
+         d="m 530.71758,-6.2092029 c -51.99903,4.652516 -216.6541,-10.4298781 -283.43019,5.0254279 -7.23377,1.67425551 7.04553,-21.505476 9.66054,-20.900989 49.92849,11.541532 178.73725,-2.651276 246.04658,0.942898 67.30934,3.594174 79.72348,10.279532 27.72789,14.9322319"
+         sodipodi:nodetypes="csssc" />
+      <path
+         id="path3"
+         style="fill:url(#pattern11);fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none"
+         d="M 223.30044,207.37124 C 199.2019,268.79671 107.62404,240.03324 55.268849,218.72822 2.9143399,197.42347 -17.332835,-4.9089475 19.147361,41.804602 54.316088,86.83879 231.17539,129.89515 238.33924,103.59013 242.36652,88.802329 203.85277,167.33239 223.3042,207.36868"
+         sodipodi:nodetypes="csssc" />
+      <path
+         style="fill:url(#pattern14);fill-opacity:1;stroke:#000000;stroke-width:0"
+         id="path11"
+         sodipodi:type="arc"
+         sodipodi:cx="148.13129"
+         sodipodi:cy="17.7162"
+         sodipodi:rx="116.54497"
+         sodipodi:ry="33.501148"
+         sodipodi:start="0.65778456"
+         sodipodi:end="0.65773337"
+         sodipodi:open="true"
+         sodipodi:arc-type="arc"
+         d="M 240.35899,38.197635 A 116.54497,33.501148 0 0 1 76.880933,44.227549 116.54497,33.501148 0 0 1 55.901764,-2.7645567 116.54497,33.501148 0 0 1 219.37928,-8.7956737 116.54497,33.501148 0 0 1 240.36263,38.196278"
+         transform="matrix(0.93965195,0.34213186,-0.52945544,0.84833775,0,0)" />
+    </g>
+  </g>
+</svg>

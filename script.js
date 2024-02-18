@@ -101,6 +101,23 @@ let obstacleHeight = boardHeight / 6;
 let driftwoodImg;
 let beaverImg;
 
+let group1ImagesArray = [
+  "./beaverObstacleImageChoices/boatFisherman.svg",
+  "./beaverObstacleImageChoices/ducky.svg",
+  "./beaverObstacleImageChoices/rubberBoot.svg",
+  "./beaverCharacter.svg",
+];
+let group2ImagesArray = [
+  "./driftwoodObstacleImageChoices/fishingNet.svg",
+  "./driftwoodObstacleImageChoices/scubaDiver.svg",
+  "./driftwoodObstacleImageChoices/tinCan.svg",
+  "./driftwoodFinal.svg",
+];
+
+function getRandomImage(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
 let velocityX = 0;
 let velocityY = 4;
 const maxVelocityY = 30;
@@ -212,11 +229,11 @@ window.onload = function () {
   fliesImg = new Image();
   fliesImg.src = "./fliesImage.svg";
 
-  driftwoodImg = new Image();
-  driftwoodImg.src = "./driftwoodFinal.svg";
+  // driftwoodImg = new Image();
+  // driftwoodImg.src = randomDriftwoodImages;
 
-  beaverImg = new Image();
-  beaverImg.src = "./beaverCharacter.svg";
+  // beaverImg = new Image();
+  // beaverImg.src = randomBeaverImages;
 
   salmonImg = new Image();
   salmonImg.src = "./finalSalmonCharacter.svg";
@@ -800,6 +817,9 @@ function fliesManager() {
 
 function renderObstacles(obstacleType) {
   if (obstacleType === "driftwood") {
+    let randomDriftwoodImagesSrc = getRandomImage(group2ImagesArray);
+    let randomDriftWoodImages = new Image();
+    randomDriftWoodImages.src = randomDriftwoodImagesSrc;
     let randomDriftwoodY = -(
       Math.random() *
       (board.height - obstacleHeight) *
@@ -808,7 +828,7 @@ function renderObstacles(obstacleType) {
     let randomDriftwoodX = Math.random() * (board.width - obstacleWidth);
     let driftwood = {
       type: "driftwood",
-      img: driftwoodImg,
+      img: randomDriftWoodImages,
       x: randomDriftwoodX,
       y: randomDriftwoodY,
       width: obstacleWidth * 2,
@@ -825,6 +845,9 @@ function renderObstacles(obstacleType) {
     }
     //console.log("Updated obstacleArray:", obstacleArray);
   } else if (obstacleType === "beaver") {
+    let randomBeaverImagesSrc = getRandomImage(group1ImagesArray);
+    let randomBeaverImages = new Image();
+    randomBeaverImages.src = randomBeaverImagesSrc;
     let randomBeaverY = -(
       Math.random() *
       (board.height - obstacleHeight) *
@@ -833,13 +856,27 @@ function renderObstacles(obstacleType) {
     let randomBeaverX = Math.random() * (board.width - obstacleWidth);
     let beaver = {
       type: "beaver",
-      img: beaverImg,
+      img: randomBeaverImages,
       x: randomBeaverX,
       y: randomBeaverY,
       width: obstacleWidth / 1.1,
       height: obstacleHeight / 0.8,
       passed: false,
     };
+
+    if (
+      randomBeaverImagesSrc === "./beaverObstacleImageChoices/boatFisherman.svg"
+    ) {
+      beaver = {
+        type: "beaver",
+        img: randomBeaverImages,
+        x: randomBeaverX,
+        y: randomBeaverY,
+        width: obstacleWidth * 1.15,
+        height: obstacleHeight * 2.22,
+        passed: false,
+      };
+    }
 
     let isOverlapping = obstacleArray.some((obstacle) => {
       return checkObstacleProximity(beaver, obstacle);
