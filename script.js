@@ -111,6 +111,7 @@ let group2ImagesArray = [
   "./driftwoodObstacleImageChoices/fishingNet.svg",
   "./driftwoodObstacleImageChoices/scubaDiver.svg",
   "./driftwoodObstacleImageChoices/tinCan.svg",
+  "./driftwoodObstacleImageChoices/floatingBabe.svg",
   "./driftwoodFinal.svg",
 ];
 
@@ -835,6 +836,20 @@ function renderObstacles(obstacleType) {
       height: obstacleHeight / 1.5,
       passed: false,
     };
+    if (
+      randomDriftwoodImagesSrc ===
+      "./driftwoodObstacleImageChoices/floatingBabe.svg"
+    ) {
+      driftwood = {
+        type: "driftwood",
+        img: randomDriftWoodImages,
+        x: randomDriftwoodX,
+        y: randomDriftwoodY,
+        width: obstacleWidth * 3,
+        height: obstacleHeight * 1.05,
+        passed: false,
+      };
+    }
 
     let isOverlapping = obstacleArray.some((obstacle) => {
       return checkObstacleProximity(driftwood, obstacle);
