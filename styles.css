@@ -38,15 +38,6 @@ body:hover{
   cursor: url('./salmonMousePointer.svg') 0 0, url('./salmonMousePointer.png') 0 0, auto;
 }
 
-#salmonFlowLogo{
-  box-shadow: 0 0 15px 15px lightsalmon;
-  border-radius: 50%;
-    width: 12%;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-}
-
 #heading1{color:salmon;
 font-family: 'Orbitron', sans-serif;
 font-weight: bold;
@@ -341,6 +332,20 @@ font-size: 3.5vh;}
         border-radius: 5px;
         width: 40%;
         height: auto;
+      }
+
+      #salmonFlowLogo{
+        position: absolute;
+              top: 10%;
+              align-items: center;
+              justify-content: center;
+              margin:auto auto;
+        box-shadow: 0 0 15px 15px lightsalmon;
+        border-radius: 50%;
+          width: auto;
+          height: 80%;
+          margin: 0 auto;
+          display: none;
       }
       
       #game-over-text-div {

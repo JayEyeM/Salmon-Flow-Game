@@ -217,6 +217,17 @@ window.onload = function () {
 
   welcomeText.innerHTML = "Happy Swimming!";
 
+  let logoImage = document.getElementById("salmonFlowLogo");
+  logoImage.style.display = "block";
+
+  setTimeout(function () {
+    logoImage.style.opacity = "0";
+    logoImage.style.transition = "opacity 2s";
+    logoImage.addEventListener("transitionend", function () {
+      logoImage.style.display = "none";
+    });
+  }, 2000);
+
   // fishermanImg = new Image();
   // fishermanImg.src = "./fishermanCharacter2.svg";
   // fishermanImg.onload = function () {
