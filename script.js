@@ -314,12 +314,8 @@ function adjustBoardProperties() {
 
   if (windowWidth < windowHeight) {
     showLabelsButton.style.display = "block";
-    muteButtonInfoPopup.style.top = "-10%";
-    muteButtonInfoPopup.style.left = "45%";
-    muteButtonInfoPopup.style.font = "2.5vw 'Orbitron', sans-serif";
-    infoPopup.style.top = "-10%";
-    infoPopup.style.left = "-10%";
-    infoPopup.style.font = "2.5vw 'Orbitron', sans-serif";
+    muteButtonInfoPopup.style.display = "none";
+    infoPopup.style.display = "none";
     instructionsWindow.style.width = "100vw";
     instructionsWindow.style.height = "100%";
     instructionsWindow.style.left = "0%";
@@ -1379,3 +1375,17 @@ document
 document
   .getElementById("touchScreenRestartGame")
   .addEventListener("click", handleTouchStart, { passive: false });
+
+function toggleGraphics() {
+  const computedStyle = window.getComputedStyle(graphicsDiv);
+  const displayProperty = computedStyle.getPropertyValue("display");
+  if (displayProperty === "none") {
+    graphicsDiv.style.display = "grid";
+    viewGraphicsButton.textContent = "Hide Graphics";
+  } else {
+    graphicsDiv.style.display = "none";
+    viewGraphicsButton.textContent = "View Graphics";
+  }
+}
+
+viewGraphicsButton.addEventListener("click", toggleGraphics);

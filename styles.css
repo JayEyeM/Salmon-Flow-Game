@@ -618,6 +618,40 @@ font-size: 3.5vh;}
         align-items: center;
         margin-left: auto;
         margin-right: auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      #viewGraphicsButton{
+        background-color: rgba(0, 166, 255, 0.79);
+        border: 3px white solid;
+        border-radius: 10px;
+        color: white;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: bold;
+        height: 40px;
+        width: 20%;
+        margin-top: 25px;
+      }
+      #viewGraphicsButton:hover{
+        background-color:rgba(0, 166, 255, 0.477) ;
+        color: white;
+        border: 1px white solid;
+      }
+      #graphicsDiv{
+        background-color: rgba(0, 166, 255, 0.79);
+        border: 2px white solid;
+        border-radius: 10px;
+        width: 80%;
+        height:auto;
+        display: none;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        padding: 15px;
+        margin-top: 15px;
+        box-shadow: 0 0 10px 0.1px white;
       }
 
       footer {
