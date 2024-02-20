@@ -108,6 +108,7 @@ let group1ImagesArray = [
   "./beaverObstacleImageChoices/carTire.svg",
   "./beaverObstacleImageChoices/mrMoosey.svg",
   "./beaverObstacleImageChoices/paperBoat.svg",
+  "./beaverObstacleImageChoices/sirOtter.svg",
   "./beaverCharacter.svg",
 ];
 let group2ImagesArray = [
@@ -961,6 +962,17 @@ function renderObstacles(obstacleType) {
         y: randomBeaverY,
         width: obstacleWidth * 1.75,
         height: obstacleHeight,
+        passed: false,
+      };
+    }
+    if (randomBeaverImagesSrc === "./beaverObstacleImageChoices/sirOtter.svg") {
+      beaver = {
+        type: "beaver",
+        img: randomBeaverImages,
+        x: randomBeaverX,
+        y: randomBeaverY,
+        width: obstacleWidth * 1.5,
+        height: obstacleHeight * 1.1,
         passed: false,
       };
     }
