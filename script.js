@@ -107,6 +107,7 @@ let group1ImagesArray = [
   "./beaverObstacleImageChoices/rubberBoot.svg",
   "./beaverObstacleImageChoices/carTire.svg",
   "./beaverObstacleImageChoices/mrMoosey.svg",
+  "./beaverObstacleImageChoices/paperBoat.svg",
   "./beaverCharacter.svg",
 ];
 let group2ImagesArray = [
@@ -114,6 +115,7 @@ let group2ImagesArray = [
   "./driftwoodObstacleImageChoices/scubaDiver.svg",
   "./driftwoodObstacleImageChoices/tinCan.svg",
   "./driftwoodObstacleImageChoices/floatingBabe.svg",
+  "./driftwoodObstacleImageChoices/lilyPad.svg",
   "./driftwoodFinal.svg",
 ];
 
@@ -872,6 +874,19 @@ function renderObstacles(obstacleType) {
         passed: false,
       };
     }
+    if (
+      randomDriftwoodImagesSrc === "./driftwoodObstacleImageChoices/lilyPad.svg"
+    ) {
+      driftwood = {
+        type: "driftwood",
+        img: randomDriftWoodImages,
+        x: randomDriftwoodX,
+        y: randomDriftwoodY,
+        width: obstacleWidth,
+        height: obstacleHeight * 1.1,
+        passed: false,
+      };
+    }
 
     let isOverlapping = obstacleArray.some((obstacle) => {
       return checkObstacleProximity(driftwood, obstacle);
@@ -933,6 +948,19 @@ function renderObstacles(obstacleType) {
         y: randomBeaverY,
         width: obstacleWidth * 2.25,
         height: obstacleHeight * 1.75,
+        passed: false,
+      };
+    }
+    if (
+      randomBeaverImagesSrc === "./beaverObstacleImageChoices/paperBoat.svg"
+    ) {
+      beaver = {
+        type: "beaver",
+        img: randomBeaverImages,
+        x: randomBeaverX,
+        y: randomBeaverY,
+        width: obstacleWidth * 1.75,
+        height: obstacleHeight,
         passed: false,
       };
     }
