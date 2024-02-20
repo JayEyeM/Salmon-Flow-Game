@@ -188,6 +188,9 @@ font-size: 3.5vh;}
         width:100%;
         justify-content: center;
         align-items: center;
+        background-color: #0C2F00;
+        border: 2px lightseagreen solid;
+      border-radius: 10px;
     }
     #overlay {
         position: absolute;
@@ -221,6 +224,21 @@ font-size: 3.5vh;}
         background-position: center;
     }
   
+    .numbers1{
+      color: lightgreen;
+      background-color: #191830;
+      border: 2px lightseagreen solid;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    .numbers2 {
+        color: yellow;
+        background-color:#3e0000;
+        border: 2px lightseagreen solid;
+      border-radius: 10px;
+    }
+
     #level-text {
         color: lightseagreen;
         position: relative;

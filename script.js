@@ -465,11 +465,11 @@ function adjustBoardProperties() {
 }
 
 function drawLevel() {
-  levelText.innerHTML = "Level<br>" + level;
+  levelText.innerHTML = "Level<br><p class='numbers1'>" + level + "</p>";
 }
 
 function drawScore() {
-  scoreText.innerHTML = "Score<br>" + score;
+  scoreText.innerHTML = "Score<br><p class='numbers2'>" + score + "</p>";
 }
 
 function drawGameOver() {
