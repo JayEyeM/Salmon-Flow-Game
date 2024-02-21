@@ -109,6 +109,7 @@ let group1ImagesArray = [
   "./beaverObstacleImageChoices/mrMoosey.svg",
   "./beaverObstacleImageChoices/paperBoat.svg",
   "./beaverObstacleImageChoices/sirOtter.svg",
+  "./beaverObstacleImageChoices/mrTurtle.svg",
   "./beaverCharacter.svg",
 ];
 let group2ImagesArray = [
@@ -118,6 +119,7 @@ let group2ImagesArray = [
   "./driftwoodObstacleImageChoices/floatingBabe.svg",
   "./driftwoodObstacleImageChoices/lilyPad.svg",
   "./driftwoodObstacleImageChoices/shipInBottle.svg",
+  "./driftwoodObstacleImageChoices/manOnRaft.svg",
   "./driftwoodFinal.svg",
 ];
 
@@ -904,6 +906,20 @@ function renderObstacles(obstacleType) {
       };
     }
 
+    if (
+      randomDriftwoodImagesSrc ===
+      "./driftwoodObstacleImageChoices/manOnRaft.svg"
+    ) {
+      driftwood = {
+        type: "driftwood",
+        img: randomDriftWoodImages,
+        x: randomDriftwoodX,
+        y: randomDriftwoodY,
+        width: obstacleWidth * 2.5,
+        height: obstacleHeight * 1.75,
+        passed: false,
+      };
+    }
     let isOverlapping = obstacleArray.some((obstacle) => {
       return checkObstacleProximity(driftwood, obstacle);
     });
@@ -976,7 +992,7 @@ function renderObstacles(obstacleType) {
         x: randomBeaverX,
         y: randomBeaverY,
         width: obstacleWidth * 1.75,
-        height: obstacleHeight,
+        height: obstacleHeight / 1.75,
         passed: false,
       };
     }
@@ -988,6 +1004,17 @@ function renderObstacles(obstacleType) {
         y: randomBeaverY,
         width: obstacleWidth * 1.5,
         height: obstacleHeight * 1.1,
+        passed: false,
+      };
+    }
+    if (randomBeaverImagesSrc === "./beaverObstacleImageChoices/mrTurtle.svg") {
+      beaver = {
+        type: "beaver",
+        img: randomBeaverImages,
+        x: randomBeaverX,
+        y: randomBeaverY,
+        width: obstacleWidth * 1.15,
+        height: obstacleHeight * 1.25,
         passed: false,
       };
     }
