@@ -19,10 +19,14 @@ html {
   height: auto;
   width: 100vw;
   box-sizing: border-box;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  scrollbar-color: rgba(0, 62, 62, 1) salmon;
+  scrollbar-width: thin;
+  -ms-overflow-style: thin;
   overflow-x: hidden;
 }
+
+
+
 html {
   border: 2px solid salmon;
   box-shadow: inset 0 0 10px 0.1px lightsalmon;

@@ -117,6 +117,7 @@ let group2ImagesArray = [
   "./driftwoodObstacleImageChoices/tinCan.svg",
   "./driftwoodObstacleImageChoices/floatingBabe.svg",
   "./driftwoodObstacleImageChoices/lilyPad.svg",
+  "./driftwoodObstacleImageChoices/shipInBottle.svg",
   "./driftwoodFinal.svg",
 ];
 
@@ -885,6 +886,20 @@ function renderObstacles(obstacleType) {
         y: randomDriftwoodY,
         width: obstacleWidth,
         height: obstacleHeight * 1.1,
+        passed: false,
+      };
+    }
+    if (
+      randomDriftwoodImagesSrc ===
+      "./driftwoodObstacleImageChoices/shipInBottle.svg"
+    ) {
+      driftwood = {
+        type: "driftwood",
+        img: randomDriftWoodImages,
+        x: randomDriftwoodX,
+        y: randomDriftwoodY,
+        width: obstacleWidth * 2,
+        height: obstacleHeight / 1.45,
         passed: false,
       };
     }
