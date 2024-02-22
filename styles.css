@@ -645,7 +645,7 @@ h2 {
   font-family: "Orbitron", sans-serif;
   font-weight: bold;
   height: auto;
-  width: 25%;
+  width: 35%;
   margin-top: 25px;
   text-align: center;
   padding:5px;
@@ -672,43 +672,44 @@ h2 {
 }
 
 #viewAboutMeButton {
-  background-color: rgba(0, 166, 255, 0.79);
-  border: 3px white solid;
+  box-shadow: 0 0 10px 0.1px black;
+  background-color: #FFE680;
+  border: 3px black solid;
   border-radius: 10px;
-  color: white;
+  color: black;
   font-family: "Orbitron", sans-serif;
   font-weight: bold;
   height: auto;
-  width: 25%;
+  width: 35%;
   margin-top: 10px;
   text-align: center;
   padding:5px;
 }
 #viewAboutMeButton:hover {
-  background-color: rgba(0, 166, 255, 0.477);
-  color: white;
-  border: 1px white solid;
+  background-color: #ffe680c6;
+  color: black;
+  border: 1px black solid;
 }
 #aboutMeDiv {
-  background-color: rgba(0, 166, 255, 0.79);
-  border: 2px white solid;
+  background-color: #FFE680;
+  border: 2px black solid;
   border-radius: 10px;
   width: 80%;
   height: auto;
   display: none;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 1fr;
   justify-content: center;
   justify-items: center;
   align-items: center;
   padding: 15px;
   margin-top: 15px;
-  box-shadow: 0 0 10px 0.1px white;
+  box-shadow: 0 0 10px 0.1px black;
 }
 
 #joshuaImage {
   position: relative;
   border-radius: 20px;
-  box-shadow: 0 0 20px 0.1px white;
+  box-shadow: 0 0 20px 0.1px black;
   margin-left: auto;
   margin-right: auto;
   
@@ -716,7 +717,7 @@ h2 {
 
 .aboutMePara{
   font-size: 1.5vw;
-  color: white;
+  color: black;
   text-align: center;
   font-family: monospace, sans-serif;
   font-weight: bold;
