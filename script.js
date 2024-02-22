@@ -110,6 +110,7 @@ let group1ImagesArray = [
   "./beaverObstacleImageChoices/paperBoat.svg",
   "./beaverObstacleImageChoices/sirOtter.svg",
   "./beaverObstacleImageChoices/mrTurtle.svg",
+  "./beaverObstacleImageChoices/sea-dooMan.svg",
   "./beaverCharacter.svg",
 ];
 let group2ImagesArray = [
@@ -1018,6 +1019,19 @@ function renderObstacles(obstacleType) {
         passed: false,
       };
     }
+    if (
+      randomBeaverImagesSrc === "./beaverObstacleImageChoices/sea-dooMan.svg"
+    ) {
+      beaver = {
+        type: "beaver",
+        img: randomBeaverImages,
+        x: randomBeaverX,
+        y: randomBeaverY,
+        width: obstacleWidth * 3,
+        height: obstacleHeight * 2.25,
+        passed: false,
+      };
+    }
 
     let isOverlapping = obstacleArray.some((obstacle) => {
       return checkObstacleProximity(beaver, obstacle);
@@ -1471,3 +1485,17 @@ function toggleGraphics() {
 }
 
 viewGraphicsButton.addEventListener("click", toggleGraphics);
+
+function toggleAboutMe() {
+  const computedStyle = window.getComputedStyle(aboutMeDiv);
+  const displayProperty = computedStyle.getPropertyValue("display");
+  if (displayProperty === "none") {
+    aboutMeDiv.style.display = "grid";
+    viewAboutMeButton.textContent = "Hide About Me";
+  } else {
+    aboutMeDiv.style.display = "none";
+    viewAboutMeButton.textContent = "View About Me";
+  }
+}
+
+viewAboutMeButton.addEventListener("click", toggleAboutMe);
