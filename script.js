@@ -319,8 +319,10 @@ function adjustBoardProperties() {
   let heading1 = document.getElementById("heading1");
   let instructionsWindow = document.getElementById("instructionsWindow");
   let infoPopup = document.querySelector(".popup");
+  let aboutMeButton = document.getElementById("viewAboutMeButton");
 
   if (windowWidth < windowHeight) {
+    aboutMeButton.style.width = "60%";
     showLabelsButton.style.display = "block";
     muteButtonInfoPopup.style.display = "none";
     infoPopup.style.display = "none";
@@ -390,6 +392,7 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    aboutMeButton.style.width = "";
     toolTip1.style.display = "none";
     toolTip2.style.display = "none";
     toolTip3.style.display = "none";
@@ -1506,11 +1509,12 @@ function toggleAboutMe() {
   const displayProperty = computedStyle.getPropertyValue("display");
   if (displayProperty === "none") {
     aboutMeDiv.style.display = "grid";
-    viewAboutMeButton.textContent = "Hide About Me";
+    viewAboutMeButton.innerHTML = "Hide About Me";
   } else {
     aboutMeDiv.style.display = "none";
-    viewAboutMeButton.textContent = "View About Me";
+    viewAboutMeButton.innerHTML =
+      '<img src="IMG_3640.jpg" id="joshuaImageButton" alt="Image of Joshua, the website creator." width="10%" height="auto"> Learn More About Me';
   }
 }
 
-viewAboutMeButton.addEventListener("click", toggleAboutMe);
+//viewAboutMeButton.addEventListener("click", toggleAboutMe);
