@@ -9,6 +9,8 @@ let frameCount = 0;
 let lastCountFrame = 0;
 let count = countObstacles();
 
+const readMoreButton = document.getElementById("readMoreButton");
+
 const resizeObserver = new ResizeObserver(adjustBoardProperties);
 let overlay = document.getElementById("overlay");
 
@@ -187,11 +189,10 @@ function playMusic(play) {
     if (audio && audio.readyState >= 2 && audio.paused) {
       audio.currentTime = 0;
       audio.playbackRate = Math.min(musicSpeed, maxMusicSpeed);
-      console.log("Setting playback rate:", audio.playbackRate);
+
       audio.play().catch((error) => console.error("Audio play error:", error));
     } else {
       audio.playbackRate = Math.min(musicSpeed, maxMusicSpeed);
-      console.log("Setting playback rate:", audio.playbackRate);
     }
   } else {
     if (!audio.paused) {
@@ -209,7 +210,6 @@ function musicSpeedIncrease(level) {
       musicSpeed = maxMusicSpeed;
     }
     previousLevel = level;
-    console.log("Increase that music speed to:", musicSpeed);
   }
 }
 
@@ -322,6 +322,7 @@ function adjustBoardProperties() {
   let aboutMeButton = document.getElementById("viewAboutMeButton");
 
   if (windowWidth < windowHeight) {
+    readMoreButton.style.width = "90%";
     aboutMeButton.style.width = "60%";
     showLabelsButton.style.display = "block";
     muteButtonInfoPopup.style.display = "none";
@@ -392,6 +393,7 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    readMoreButton.style.width = "";
     aboutMeButton.style.width = "";
     toolTip1.style.display = "none";
     toolTip2.style.display = "none";
@@ -502,8 +504,7 @@ function countObstacles() {
         count++;
       }
     }
-    //console.log("Updated obstacleArray:", obstacleArray);
-    console.log("Count of Obstacles:", count);
+
     lastCountFrame = frameCount;
 
     if (count % 10 === 0) {
@@ -565,19 +566,15 @@ let updateAnimation;
 
 function update() {
   if (gameOver) {
-    console.log("updating stopped");
     isUpdating = false;
     // Stop music
 
     return;
   }
 
-  console.log("Updating...");
   if (!gameOver) {
     updateAnimation = requestAnimationFrame(update);
     context.clearRect(0, 0, board.width, board.height);
-
-    console.log(level);
 
     musicSpeedIncrease(level);
     playMusic(true);
@@ -946,7 +943,6 @@ function renderObstacles(obstacleType) {
     if (!isOverlapping) {
       obstacleArray.push(driftwood);
     }
-    //console.log("Updated obstacleArray:", obstacleArray);
   } else if (obstacleType === "beaver") {
     let randomBeaverImagesSrc = getRandomImage(group1ImagesArray);
     let randomBeaverImages = new Image();
@@ -1059,7 +1055,6 @@ function renderObstacles(obstacleType) {
       obstacleArray.push(beaver);
       moveBeaverFaster(obstacleArray.length - 1);
     }
-    //console.log("Updated obstacleArray:", obstacleArray);
   }
 }
 
@@ -1229,7 +1224,6 @@ function detectRectangleRectangleCollision(rectangle1, rectangle2) {
     isUpdating = false;
     gameOver = true;
     gameOverLogic();
-    console.log("Rectangle Collision detected");
   }
 }
 
@@ -1252,7 +1246,6 @@ function detectEllipseEllipseCollision(ellipse1, ellipse2) {
 
     isColliding = distance < ellipse1.width / 2 + ellipse2.width / 2;
     if (isColliding) {
-      console.log("Ellipse Collision detected 1");
       gameOver = true;
       gameOverLogic();
       isUpdating = false;
@@ -1269,7 +1262,6 @@ function detectEllipseEllipseCollision(ellipse1, ellipse2) {
 
       isColliding = distance < ellipse1.width / 2 + ellipse2.width / 2;
       if (isColliding) {
-        console.log("Ellipse Collision detected 2");
         isUpdating = false;
       }
       return isColliding;
@@ -1318,7 +1310,6 @@ function gameOverLogic() {
 
     isUpdating = false;
     update(false);
-    console.log("game over logic");
   }
 }
 
@@ -1518,3 +1509,18 @@ function toggleAboutMe() {
 }
 
 //viewAboutMeButton.addEventListener("click", toggleAboutMe);
+
+function readMore() {
+  const readMoreParas = document.querySelectorAll(".readMorePara");
+
+  readMoreParas.forEach((para) => {
+    if (para.style.display === "none" || para.style.display === "") {
+      para.style.display = "block";
+    } else {
+      para.style.display = "none";
+    }
+  });
+
+  readMoreButton.innerHTML =
+    readMoreButton.innerHTML === "Read More" ? "Read Less" : "Read More";
+}

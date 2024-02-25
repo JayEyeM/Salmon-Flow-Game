@@ -726,7 +726,7 @@ h2 {
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   justify-items: center;
-  align-items: center;
+  
   padding: 15px;
   margin-top: 15px;
   box-shadow: 0 0 10px 0.1px black;
@@ -754,11 +754,50 @@ h2 {
   text-indent: 30px;
 }
 
+#readMoreButton{
+  position: relative;
+  box-shadow: 0 0 10px 0.1px black;
+  background-color: #9eff80;
+  border: 3px black solid;
+  border-radius: 10px;
+  color: black;
+  font-family: "Orbitron", sans-serif;
+  font-weight: bold;
+  height: auto;
+  width: 25%;
+  margin-top: 10px;
+  text-align: center;
+  padding:5px;
+  margin:auto auto;
+}
+
+#readMoreButton:hover {
+  background-color: #9eff80b5;
+  color: black;
+  border: 1px black solid;
+}
+
+.readMorePara{
+  display: none;
+}
+
+.socialLinks{
+  position: relative;
+  left: 40%;
+  top: 10px;
+ 
+}
+#githubSpan{
+  position: relative;
+  top: 10px;
+  text-indent: 30px;
+}
+
 footer {
   position: relative;
   margin-top: 3%;
   bottom: 0;
-  height: 50px;
+  height: 10%;
   width: 99%;
   background-color: rgba(0, 0, 0, 0.261);
   text-align: center;
