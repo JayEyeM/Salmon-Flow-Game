@@ -214,6 +214,7 @@ function musicSpeedIncrease(level) {
 }
 
 window.onload = function () {
+  document.getElementById("loadingIcon").style.display = "none";
   adjustBoardProperties();
   board = document.getElementById("board");
   board.height = boardHeight;

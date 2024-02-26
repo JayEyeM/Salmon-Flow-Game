@@ -793,6 +793,25 @@ h2 {
   text-indent: 30px;
 }
 
+#loadingIcon{
+  position: absolute;
+  top: 30%;
+  align-items: center;
+  justify-content: center;
+  margin: auto auto;
+  box-shadow: 0 0 15px 15px lightsalmon;
+  border-radius: 50%;
+  width: auto;
+  height: 20%;
+  margin: 0 auto;
+  display: block;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 footer {
   position: relative;
   margin-top: 3%;
