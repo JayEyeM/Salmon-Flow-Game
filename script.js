@@ -321,8 +321,10 @@ function adjustBoardProperties() {
   let instructionsWindow = document.getElementById("instructionsWindow");
   let infoPopup = document.querySelector(".popup");
   let aboutMeButton = document.getElementById("viewAboutMeButton");
+  let overviewVideo = document.getElementById("overviewVideoButton");
 
   if (windowWidth < windowHeight) {
+    overviewVideo.style.width = "60%";
     readMoreButton.style.width = "90%";
     aboutMeButton.style.width = "60%";
     showLabelsButton.style.display = "block";
@@ -394,6 +396,7 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    overviewVideo.style.width = "";
     readMoreButton.style.width = "";
     aboutMeButton.style.width = "";
     toolTip1.style.display = "none";
@@ -1525,3 +1528,13 @@ function readMore() {
   readMoreButton.innerHTML =
     readMoreButton.innerHTML === "Read More" ? "Read Less" : "Read More";
 }
+
+document
+  .getElementById("overviewVideoButton")
+  .addEventListener("click", function () {
+    window.open(
+      "https://jayeyem.github.io/Salmon-Flow-Overview-Video/",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  });
