@@ -725,6 +725,7 @@ h2 {
   height: auto;
   display: none;
   grid-template-columns: 1fr 1fr;
+  row-gap: 5px;
   justify-content: center;
   justify-items: center;
   
@@ -755,6 +756,15 @@ h2 {
   text-indent: 30px;
 }
 
+#specialThanksSpan{
+  color: #3e0000a4;
+  text-shadow: lightseagreen -1px 1px 2px;
+  font-size: 1.75vw;
+
+  font-weight: bold;
+  text-indent:20px;
+}
+
 #readMoreButton{
   position: relative;
   box-shadow: 0 0 10px 0.1px black;
@@ -780,6 +790,12 @@ h2 {
 
 .readMorePara{
   display: none;
+  border: 2px black solid;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #9eff80;
+  box-shadow: black 0 0 10px 0.1px;
+  margin-top:10px;
 }
 
 .socialLinks{
