@@ -326,9 +326,13 @@ function adjustBoardProperties() {
   let overviewVideo = document.getElementById("overviewVideoButton");
   let videoAndAboutMe = document.getElementById("videoAndAboutMeDiv");
   let yellowButtonsDiv = document.getElementById("yellowButtonsDiv");
+  let contactMeHeading = document.getElementById("contactMeHeading");
+  let contactMeLink = document.getElementById("contactMeLink");
   
 
   if (windowWidth < windowHeight) {
+    contactMeHeading.style.fontSize = "4vw";
+    contactMeLink.style.fontSize = "4vw";
     logoImage.style.left = "8%";
     yellowButtonsDiv.style.display = "none";
     videoAndAboutMe.style.height = "18%";
@@ -410,6 +414,8 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    contactMeHeading.style.fontSize = "";
+    contactMeLink.style.fontSize = "";
     logoImage.style.left = "";
     yellowButtonsDiv.style.display = "";
     videoAndAboutMe.style.height = "";

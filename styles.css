@@ -869,6 +869,27 @@ h2 {
   margin-bottom:0px;
 }
 
+#contactMeHeading{
+  font-size: 3vh;
+  text-align: center;
+  color: rgb(186, 177, 177);
+}
+
+#contactMeLink{
+  text-decoration: none;
+  color: #9eff80;
+  font-size: 3vh;
+  text-align: center;
+}
+
+#contactMeLink:hover{
+  color: black;
+  cursor: url("./salmonMousePointer2.svg"), url("./salmonMousePointer.png"),
+    auto;
+  cursor: url("./salmonMousePointer2.svg") 0 0,
+    url("./salmonMousePointer.png") 0 0, auto;
+}
+
 footer {
   position: relative;
   margin-top: 3%;
