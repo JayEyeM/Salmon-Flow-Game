@@ -169,12 +169,28 @@ h2 {
   width: auto;
   position: relative;
   padding: 0;
-  margin: 0;
+  margin: auto;
+  margin-right:0;
   border-radius: 10px;
   background-image: url(./salmonFlowBackgroundNewest.png);
   background-size: cover;
   box-shadow: none;
   border: 2px solid lightseagreen;
+}
+
+#yellowButtonsDiv{
+  height: 90%;
+  width: 20%;
+  position: relative;
+  padding: 1%;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: lightblue 0 0 10px 0.1px;
+  border: 2px solid lightseagreen;
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
 }
 
 #jump-para {
@@ -359,7 +375,7 @@ h2 {
   top: 10%;
   align-items: center;
   justify-content: center;
-  margin: auto auto;
+  left: 13%;
   box-shadow: 0 0 15px 15px lightsalmon;
   border-radius: 50%;
   width: auto;
@@ -373,7 +389,8 @@ h2 {
   top: 20%;
   align-items: center;
   justify-content: center;
-  margin: auto auto;
+  
+  left: 11%;
   background-color: lightsalmon;
   padding: 20px;
   width: 50%;
@@ -385,6 +402,7 @@ h2 {
 }
 
 #game-over-text2 {
+  
   font-size: 3.5vh;
   font-weight: bold;
   font-family: "Orbitron", sans-serif;
@@ -670,19 +688,7 @@ h2 {
   margin-top: 15px;
   box-shadow: 0 0 10px 0.1px white;
 }
-#learnMoreButtonDiv{
-  
-  width: 80%;
-  height:auto;
-  padding-top:10px;
-  padding-bottom:10px;
-  position:relative;
-  margin-top: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  
-}
+
 #viewAboutMeButton {
   position: relative;
   box-shadow: 0 0 10px 0.1px black;
@@ -693,10 +699,10 @@ h2 {
   font-family: "Orbitron", sans-serif;
   font-weight: bold;
   height: 90px;
-  width: 25%;
+  width: 99%;
   text-align: center;
   padding:5px;
- margin-left:1%;
+ margin:1%;
 }
 #viewAboutMeButton:hover {
   background-color: #ffe680c6;
@@ -815,7 +821,7 @@ h2 {
   top: 30%;
   align-items: center;
   justify-content: center;
-  margin: auto auto;
+ left: 30%;
   box-shadow: 0 0 15px 15px lightsalmon;
   border-radius: 50%;
   width: auto;
@@ -839,18 +845,28 @@ h2 {
   font-family: "Orbitron", sans-serif;
   font-weight: bold;
   height: 90px;
-  width: 25%;
+  width: 99%;
   text-align: center;
   padding:10px;
- 
+ margin:1%;
 }
 #overviewVideoButton:hover {
   background-color: #ffe680c6;
   color: black;
   border: 1px black solid;
  
-  width: 25%;
+  
   padding:10px;
+}
+
+#videoAndAboutMeDiv{
+  
+  width: 100%;
+  height:auto;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  margin-bottom:0px;
 }
 
 footer {

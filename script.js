@@ -1,5 +1,5 @@
 let musicStopped = false;
-
+let logoImage = document.getElementById("salmonFlowLogo");
 let jumpCount = 0;
 let jumpsAreAvailable = true;
 let jumpReloadTimeout;
@@ -215,6 +215,7 @@ function musicSpeedIncrease(level) {
 
 window.onload = function () {
   document.getElementById("loadingIcon").style.display = "none";
+  
   adjustBoardProperties();
   board = document.getElementById("board");
   board.height = boardHeight;
@@ -226,10 +227,11 @@ window.onload = function () {
 
   welcomeText.innerHTML = "Happy Swimming!";
 
-  let logoImage = document.getElementById("salmonFlowLogo");
+  
   logoImage.style.display = "block";
 
   setTimeout(function () {
+    document.getElementById("container").scrollIntoView({ behavior: "smooth" });
     logoImage.style.opacity = "0";
     logoImage.style.transition = "opacity 2s";
     logoImage.addEventListener("transitionend", function () {
@@ -322,11 +324,23 @@ function adjustBoardProperties() {
   let infoPopup = document.querySelector(".popup");
   let aboutMeButton = document.getElementById("viewAboutMeButton");
   let overviewVideo = document.getElementById("overviewVideoButton");
+  let videoAndAboutMe = document.getElementById("videoAndAboutMeDiv");
+  let yellowButtonsDiv = document.getElementById("yellowButtonsDiv");
+  
 
   if (windowWidth < windowHeight) {
-    overviewVideo.style.width = "60%";
+    logoImage.style.left = "8%";
+    yellowButtonsDiv.style.display = "none";
+    videoAndAboutMe.style.height = "18%";
+    videoAndAboutMe.insertBefore(overviewVideo, videoAndAboutMe.firstChild);
+    overviewVideo.style.width = "50%";
+    overviewVideo.style.height = "100%";
+    overviewVideo.style.fontSize = "2.4vw";
+    videoAndAboutMe.insertBefore(aboutMeButton, videoAndAboutMe.firstChild);
+    aboutMeButton.style.width = "50%";
+    aboutMeButton.style.height = "100%";
+    aboutMeButton.style.fontSize = "2.4vw";
     readMoreButton.style.width = "90%";
-    aboutMeButton.style.width = "60%";
     showLabelsButton.style.display = "block";
     muteButtonInfoPopup.style.display = "none";
     infoPopup.style.display = "none";
@@ -340,7 +354,7 @@ function adjustBoardProperties() {
     gameOverOverlay.style.width = "80%";
     gameOverOverlay.style.margin = "-70px 0px 0px 0px";
     gameOverOverlay.style.padding = "5px 5px 5px 5px";
-    welcomeText.style.fontSize = "7vw";
+    welcomeText.style.fontSize = "6vw";
     scoreText2.style.fontSize = "6vw";
     hightscoreText.style.fontSize = "6vw";
     playGameButton.style.fontSize = "6.5vw";
@@ -396,9 +410,20 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    logoImage.style.left = "";
+    yellowButtonsDiv.style.display = "";
+    videoAndAboutMe.style.height = "";
+    yellowButtonsDiv.insertBefore(overviewVideo, yellowButtonsDiv.firstChild);
     overviewVideo.style.width = "";
-    readMoreButton.style.width = "";
+    overviewVideo.style.height = "";
+    overviewVideo.style.fontSize = "";
+    yellowButtonsDiv.appendChild(aboutMeButton);
     aboutMeButton.style.width = "";
+    aboutMeButton.style.height = "";
+    aboutMeButton.style.fontSize = "";
+   
+    readMoreButton.style.width = "";
+  
     toolTip1.style.display = "none";
     toolTip2.style.display = "none";
     toolTip3.style.display = "none";
@@ -1490,10 +1515,10 @@ function toggleGraphics() {
   const displayProperty = computedStyle.getPropertyValue("display");
   if (displayProperty === "none") {
     graphicsDiv.style.display = "grid";
-    viewGraphicsButton.textContent = "Hide Graphics";
+    viewGraphicsButton.textContent = "Hide Game Assets";
   } else {
     graphicsDiv.style.display = "none";
-    viewGraphicsButton.textContent = "View Graphics";
+    viewGraphicsButton.textContent = "View Game Assets";
   }
 }
 
@@ -1537,4 +1562,9 @@ document
       "_blank",
       "noopener,noreferrer"
     );
+  });
+
+  document.getElementById("viewAboutMeButton").addEventListener("click", function() {
+    // Scroll to the desired section
+    document.getElementById("joshuaImage").scrollIntoView();
   });

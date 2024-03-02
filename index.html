@@ -13,41 +13,7 @@
 <body>
     
     <h1 id="heading1">Salmon Flow!</h1>
-    <div id="learnMoreButtonDiv">
-        <button id="overviewVideoButton" type="button" class="desktopButtons" aria-label="Watch Project Overview Video"> Watch Project Overview</br>Video</button>
-        <button id="viewAboutMeButton" type="button" class="desktopButtons" onclick="toggleAboutMe()" aria-label="Learn More About Me"><img src="IMG_3640.jpg" id="joshuaImageButton" alt="Image of Joshua, the website creator." width="10%" height="auto"> Learn More About Me </button>
-        
-    </div>
-    <div id="aboutMeDiv">
-        <img src="IMG_3640.jpg" id="joshuaImage" alt="Image of Joshua, the website creator." width="55%" height="auto">
-
-        <p class="aboutMePara">My name is Joshua Ivany. I am in the process of making a career change into software development. Much of my working experience is 
-            within the offshore and onshore food industries. I have a certificate in Marine Cooking and a diploma in Supply Chain. I also completed the Google Digital Marketing & E-commerce course through Coursera. 
-            I have been a student of the Get Coding Full Stack Software Development program since December 2023, and this is my first module project. 
-            I am hopeful that I can continue to learn and grow as a developer and become an asset to a supportive and creative team.</br></br>
-            <span id="specialThanksSpan">Special thanks to my Get Coding Mentor, Hai Nghiem, for his guidance and support throughout this project.</span></p>
-            <p class="aboutMePara">If you would like to get in touch with me, please feel free to reach out through my LinkedIn: </br><a href="https://www.linkedin.com/in/joshuaivany/" class="socialLinks" title="Joshua's LinkedIn Profile" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                <path fill="#0077B5" d="M20.94 0H3.06C1.37 0 0 1.37 0 3.06v17.88C0 22.63 1.37 24 3.06 24h17.88C22.63 24 24 22.63 24 20.94V3.06C24 1.37 22.63 0 20.94 0zM7.31 20.88H4.62V9.35h2.69v11.53zM5.96 7.93a1.91 1.91 0 1 1-.02-3.82 1.91 1.91 0 0 1 .02 3.82zM21.07 20.88h-2.69v-4.69c0-1.12-.02-2.55-1.56-2.55-1.56 0-1.8 1.22-1.8 2.48v4.76h-2.69V9.35h2.58v1.32h.04c.36-.68 1.24-1.4 2.55-1.4 2.73 0 3.24 1.8 3.24 4.14v4.49h-.01z"/>
-              </svg></a></br>
-                <span id="githubSpan">You can view my GitHub profile and the repository for this project here: </br><a href="https://github.com/JayEyeM" class="socialLinks" title="Joshua's GitHub Profile" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="#000000" d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.801 8.205 11.385.6.111.82-.261.82-.58 0-.287-.01-1.045-.015-2.05-3.338.724-4.042-1.613-4.042-1.613-.547-1.384-1.336-1.754-1.336-1.754-1.093-.745.083-.729.083-.729 1.207.085 1.84 1.24 1.84 1.24 1.07 1.832 2.805 1.303 3.49.998.108-.777.418-1.305.762-1.605-2.665-.303-5.466-1.333-5.466-5.93 0-1.31.465-2.383 1.235-3.223-.124-.303-.537-1.523.117-3.176 0 0 1.007-.322 3.3 1.23.957-.266 1.982-.399 3-.405 1.016.006 2.041.139 2.998.405 2.29-1.552 3.296-1.23 3.296-1.23.656 1.653.242 2.873.118 3.176.772.84 1.234 1.912 1.234 3.223 0 4.609-2.804 5.624-5.476 5.922.43.371.814 1.102.814 2.219 0 1.604-.015 2.896-.015 3.289 0 .322.217.698.825.577C20.566 21.797 24 17.297 24 12c0-6.627-5.373-12-12-12z"/>
-                  </svg></a></span>
-            </p>
-            <button id="readMoreButton" class="desktopButtons" type="button" onclick="readMore()" aria-label="Read More">Read More</button>
-              
-            <p class="aboutMePara readMorePara">For my first module project, I chose a game to keep it lighthearted and fun while in the early learning stages. The game is called "Salmon Flow". It
-    is about a salmon as the player's character trying to make it up river while avoiding obstacles along the way and surviving
-as long as possible. There is a desktop layout and a mobile layout which includes touch screen buttons.</p>
-    <p class="aboutMePara readMorePara">The game is made in HTML, CSS, and JavaScript. As well, I used the Chrome Music Lab - Song Maker to make the music and game over sound,
-and Inkscape to make the in-game graphics and button icons. The font used for headings, score text, level text, etc. is Orbitron, designed 
-by Matt McInerney and found on Google Fonts. I believe the Orbitron font created a classic game "feel" to the Salmon Flow website and
-fit well with the overall theme I was trying to achieve. The colors 'salmon', 'lightsalmon', 'seagreen' and 'lightseagreen' were some of the main colors 
-used in the design to highlight the theme throughout the webpage. </p>
-<p></p>
-        <p class="aboutMePara readMorePara">I faced many challenges, but I am happy with the outcome. I hope you enjoy the game. Happy Swimming!</p>
-        <p></p>
-        
-    </div>
+    
     <div id="container">   
         <div id="text-layer-board-div">
             <div id="text-layer">
@@ -95,9 +61,15 @@ used in the design to highlight the theme throughout the webpage. </p>
             </div>
         </div>
         <div id="board-div">
-           
+            
             <canvas id="board"></canvas>
+            <div id="yellowButtonsDiv">
+                <button id="overviewVideoButton" type="button" class="desktopButtons" aria-label="Watch Project Overview Video"> Watch Project Overview</br>Video</button>
+                <button id="viewAboutMeButton" type="button" class="desktopButtons" onclick="toggleAboutMe()" aria-label="Learn More About Me"><img src="IMG_3640.jpg" id="joshuaImageButton" alt="Image of Joshua, the website creator." width="10%" height="auto"> Learn More About Me </button>
+            </div>
+            
             <div id="game-over-text-div">
+                <div id="videoAndAboutMeDiv"></div>
                 <p id="game-over-text2"><br></p>
                 <p id="score-text2">Score: <span id="score"></span></p>
                 <p id="highscore-text">High Score: <span id="highscore"></span></p>
@@ -105,8 +77,10 @@ used in the design to highlight the theme throughout the webpage. </p>
                 <button type="button" id="play-game-button" class="desktopButtons" onclick="restartGame()">Play Game</button><br>
                 <label for="play-game-button" id="play-game-button-label">Or press 'R' key to restart</label>
             </div>
+            
             <img src="salmonFlowFavicon.svg" alt="salmon flow logo" id="salmonFlowLogo">
             <img src="loadingIcon.svg" alt="loading Icon" id="loadingIcon">
+            
         </div>
         <div id="touchScreenDiv">
             <div id="touchButtonTopRow">
@@ -123,7 +97,7 @@ used in the design to highlight the theme throughout the webpage. </p>
         
     </div>
 </div>
-    <button id="viewGraphicsButton" type="button" class="desktopButtons" aria-label="View Graphics">View Graphics</button>
+    <button id="viewGraphicsButton" type="button" class="desktopButtons" aria-label="View Graphics">View Game Assets</button>
     <div id="graphicsDiv">
         <img src="driftwoodObstacleImageChoices\fishingNet.svg" alt="fishing net" width="80%" height="auto">
         <img src="driftwoodObstacleImageChoices\floatingBabe.svg" alt="Floating Babe: girl floating on orange blow-up raft." width="90%" height="auto">
@@ -148,7 +122,36 @@ used in the design to highlight the theme throughout the webpage. </p>
         <img src="fliesImage.svg" alt="Flies." width="45%" height="auto">
         <img src="bearImage.svg" alt="Angry Bear." width="95%" height="auto">
     </div>
-    
+    <div id="aboutMeDiv">
+        <img src="IMG_3640.jpg" id="joshuaImage" alt="Image of Joshua, the website creator." width="55%" height="auto">
+
+        <p class="aboutMePara">My name is Joshua Ivany. I am in the process of making a career change into software development. Much of my working experience is 
+            within the offshore and onshore food industries. I have a certificate in Marine Cooking and a diploma in Supply Chain. I also completed the Google Digital Marketing & E-commerce course through Coursera. 
+            I have been a student of the Get Coding Full Stack Software Development program since December 2023, and this is my first module project. 
+            I am hopeful that I can continue to learn and grow as a developer and become an asset to a supportive and creative team.</br></br>
+            <span id="specialThanksSpan">Special thanks to my Get Coding Mentor, Hai Nghiem, for his guidance and support throughout this project.</span></p>
+            <p class="aboutMePara">If you would like to get in touch with me, please feel free to reach out through my LinkedIn: </br><a href="https://www.linkedin.com/in/joshuaivany/" class="socialLinks" title="Joshua's LinkedIn Profile" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="#0077B5" d="M20.94 0H3.06C1.37 0 0 1.37 0 3.06v17.88C0 22.63 1.37 24 3.06 24h17.88C22.63 24 24 22.63 24 20.94V3.06C24 1.37 22.63 0 20.94 0zM7.31 20.88H4.62V9.35h2.69v11.53zM5.96 7.93a1.91 1.91 0 1 1-.02-3.82 1.91 1.91 0 0 1 .02 3.82zM21.07 20.88h-2.69v-4.69c0-1.12-.02-2.55-1.56-2.55-1.56 0-1.8 1.22-1.8 2.48v4.76h-2.69V9.35h2.58v1.32h.04c.36-.68 1.24-1.4 2.55-1.4 2.73 0 3.24 1.8 3.24 4.14v4.49h-.01z"/>
+              </svg></a></br>
+                <span id="githubSpan">You can view my GitHub profile and the repository for this project here: </br><a href="https://github.com/JayEyeM" class="socialLinks" title="Joshua's GitHub Profile" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="#000000" d="M12 0C5.372 0 0 5.373 0 12c0 5.302 3.438 9.801 8.205 11.385.6.111.82-.261.82-.58 0-.287-.01-1.045-.015-2.05-3.338.724-4.042-1.613-4.042-1.613-.547-1.384-1.336-1.754-1.336-1.754-1.093-.745.083-.729.083-.729 1.207.085 1.84 1.24 1.84 1.24 1.07 1.832 2.805 1.303 3.49.998.108-.777.418-1.305.762-1.605-2.665-.303-5.466-1.333-5.466-5.93 0-1.31.465-2.383 1.235-3.223-.124-.303-.537-1.523.117-3.176 0 0 1.007-.322 3.3 1.23.957-.266 1.982-.399 3-.405 1.016.006 2.041.139 2.998.405 2.29-1.552 3.296-1.23 3.296-1.23.656 1.653.242 2.873.118 3.176.772.84 1.234 1.912 1.234 3.223 0 4.609-2.804 5.624-5.476 5.922.43.371.814 1.102.814 2.219 0 1.604-.015 2.896-.015 3.289 0 .322.217.698.825.577C20.566 21.797 24 17.297 24 12c0-6.627-5.373-12-12-12z"/>
+                  </svg></a></span>
+            </p>
+            <button id="readMoreButton" class="desktopButtons" type="button" onclick="readMore()" aria-label="Read More">Read More</button>
+              
+            <p class="aboutMePara readMorePara">For my first module project, I chose a game to keep it lighthearted and fun while in the early learning stages. The game is called "Salmon Flow". It
+    is about a salmon as the player's character trying to make it up river while avoiding obstacles along the way and surviving
+as long as possible. There is a desktop layout and a mobile layout which includes touch screen buttons.</p>
+    <p class="aboutMePara readMorePara">The game is made in HTML, CSS, and JavaScript. As well, I used the Chrome Music Lab - Song Maker to make the music and game over sound,
+and Inkscape to make the in-game graphics and button icons. The font used for headings, score text, level text, etc. is Orbitron, designed 
+by Matt McInerney and found on Google Fonts. I believe the Orbitron font created a classic game "feel" to the Salmon Flow website and
+fit well with the overall theme I was trying to achieve. The colors 'salmon', 'lightsalmon', 'seagreen' and 'lightseagreen' were some of the main colors 
+used in the design to highlight the theme throughout the webpage. </p>
+<p></p>
+        <p class="aboutMePara readMorePara">I faced many challenges, but I am happy with the outcome. I hope you enjoy the game. Happy Swimming!</p>
+        <p></p>
+        
+    </div>
     <script src="script.js"></script>
     <footer>&copy; 2024 JayEye (https://github.com/JayEyeM). All rights reserved.</footer>
 </body>
