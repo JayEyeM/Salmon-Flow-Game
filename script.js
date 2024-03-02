@@ -215,7 +215,7 @@ function musicSpeedIncrease(level) {
 
 window.onload = function () {
   document.getElementById("loadingIcon").style.display = "none";
-  
+
   adjustBoardProperties();
   board = document.getElementById("board");
   board.height = boardHeight;
@@ -227,7 +227,6 @@ window.onload = function () {
 
   welcomeText.innerHTML = "Happy Swimming!";
 
-  
   logoImage.style.display = "block";
 
   setTimeout(function () {
@@ -328,9 +327,10 @@ function adjustBoardProperties() {
   let yellowButtonsDiv = document.getElementById("yellowButtonsDiv");
   let contactMeHeading = document.getElementById("contactMeHeading");
   let contactMeLink = document.getElementById("contactMeLink");
-  
+  let avatarLink = document.getElementById("avatarLink");
 
   if (windowWidth < windowHeight) {
+    avatarLink.style.width = "20%";
     contactMeHeading.style.fontSize = "4vw";
     contactMeLink.style.fontSize = "4vw";
     logoImage.style.left = "8%";
@@ -414,6 +414,7 @@ function adjustBoardProperties() {
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
   } else if (windowWidth > windowHeight) {
+    avatarLink.style.width = "";
     contactMeHeading.style.fontSize = "";
     contactMeLink.style.fontSize = "";
     logoImage.style.left = "";
@@ -427,9 +428,9 @@ function adjustBoardProperties() {
     aboutMeButton.style.width = "";
     aboutMeButton.style.height = "";
     aboutMeButton.style.fontSize = "";
-   
+
     readMoreButton.style.width = "";
-  
+
     toolTip1.style.display = "none";
     toolTip2.style.display = "none";
     toolTip3.style.display = "none";
@@ -1570,7 +1571,9 @@ document
     );
   });
 
-  document.getElementById("viewAboutMeButton").addEventListener("click", function() {
+document
+  .getElementById("viewAboutMeButton")
+  .addEventListener("click", function () {
     // Scroll to the desired section
     document.getElementById("joshuaImage").scrollIntoView();
   });

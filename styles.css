@@ -873,6 +873,7 @@ h2 {
   font-size: 3vh;
   text-align: center;
   color: rgb(186, 177, 177);
+  margin-bottom: 0;
 }
 
 #contactMeLink{
@@ -880,10 +881,37 @@ h2 {
   color: #9eff80;
   font-size: 3vh;
   text-align: center;
+  align-items: center;
+  justify-content: center
 }
 
 #contactMeLink:hover{
   color: black;
+  cursor: url("./salmonMousePointer2.svg"), url("./salmonMousePointer.png"),
+    auto;
+  cursor: url("./salmonMousePointer2.svg") 0 0,
+    url("./salmonMousePointer.png") 0 0, auto;
+}
+
+#heading4Div{
+  text-align: center;
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 0px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0;
+}
+
+#avatarLink{
+  width: 10%;
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+
+#avatarLink:hover{
+  box-shadow: inset 0 0 10px 0.1px black;
+  border-radius: 50%;
   cursor: url("./salmonMousePointer2.svg"), url("./salmonMousePointer.png"),
     auto;
   cursor: url("./salmonMousePointer2.svg") 0 0,
