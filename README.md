@@ -7,9 +7,16 @@
 <h3>Mobile View</h3>
 <img src="mobileViewScreenshot.png" alt="Screenshot of project mobile view" width="20%">
 
+<h2><a href="https://jayeyem.github.io/Salmon-Flow-Game/">Play the Salmon Flow Game Here!</a></h2>
+
 <h2>About The Project:</h2>
 
 Salmon Flow is a continuous 2D top-down avoidance game.
+
+I chose to do a game like this, because I was intrigued by games such as flappy bird or tetris. Games that are just downright addicting. I wanted to learn more about how to bring
+an idea like that to life. The inspiration for the Salmon Flow theme was drawn from my days of salmon fishing in the summer time with my father. I thought it would be really cool
+to take that idea of a salmon's journey up river and put it into the form of a simple yet addicting game to be enjoyed by everyone! I hope it has met that goal in the eyes of anybody
+that plays the game.
 
 For best playing experience(in my opinion), desktop/laptop with keyboard is best. However, there is a
 mobile layout with touchscreen buttons. You can make the width of your browser window less than the height to view the mobile layout on your computer, but you
