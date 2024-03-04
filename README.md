@@ -1,6 +1,14 @@
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+
 <h1>Salmon Flow!</h1>
-![Screenshot of project desktop view]()
-![Screenshot of project mobile view]()
+
+<h3>Desktop View</h3>
+<img src="desktopViewScreenshot.png" alt="Screenshot of project desktop view" width="50%">
+<h3>Mobile View</h3>
+<img src="mobileViewScreenshot.png" alt="Screenshot of project mobile view" width="20%">
+
+
 ## About The Project:
   Salmon Flow is a continuous 2D top-down avoidance game. 
   
