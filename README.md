@@ -12,16 +12,16 @@
 <h2>Jump to:</h2>
 
 
-[About Project](#about)
-  [Score & Highscore](#scoreHighscore)
-  [Levels](#levels)
-  [Speed/Velocity](#speed)
-  [Jumping](#jumping)
-  [Collision Detection](#collision)
-  [Game Over/Restart](#gameOver)
-  [Obstacles](#obstacles) </br>
-  [Q & A](#QA) </br>
-[Shout-out](#shoutout)
+- [About Project](#about)
+  - [Score & Highscore](#scoreHighscore)
+  - [Levels](#levels)
+  - [Speed/Velocity](#speed)
+  - [Jumping](#jumping)
+  - [Collision Detection](#collision)
+  - [Game Over/Restart](#gameOver)
+  - [Obstacles](#obstacles) </br>
+- [Q & A](#QA) </br>
+- [Shout-out](#shoutout)
 
 
 
