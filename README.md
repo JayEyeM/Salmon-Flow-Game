@@ -13,7 +13,14 @@
 
 
 [About Project](#about)
-
+  [Score & Highscore](#scoreHighscore)
+  [Levels](#levels)
+  [Speed/Velocity](#speed)
+  [Jumping](#jumping)
+  [Collision Detection](#collision)
+  [Game Over/Restart](#gameOver)
+  [Obstacles](#obstacles) </br>
+  [Q & A](#QA) </br>
 [Shout-out](#shoutout)
 
 
@@ -49,29 +56,29 @@ In-game music and game over sound were made using https://musiclab.chromeexperim
 The font used for headings, score text, level text, etc. is Orbitron, designed by Matt McInerney. The font is found on Google Fonts. I believe the Orbitron font created a
 classic game "feel" to the Salmon Flow website and fit well with the overall theme I was trying to achieve.
 
-<h3>Score & Highscore:</h3>
+<h3 id="scoreHighscore">Score & Highscore:</h3>
 
 Each obstacle passed succesfully --> +1 point added to score.
 Each time the salmon "eats" flies --> +5 points added to score.
 
 Highscore is saved in local storage currently and does not connect to any leader board. Perhaps that will be a future addition.
 
-<h3>Levels:</h3>
+<h3 id="levels">Levels:</h3>
 
 Levels are incremented every 10 obstacles that are rendered into the game (starting point along the Y-axis is above canvas height).
 
-<h3>Speed/Velocity:</h3>
+<h3 id="speed">Speed/Velocity:</h3>
 
 velocityY is 4 and increments 0.02 each new level up to a maxVelocityY of 30. Salmon velocityX starts at -8 & 8 (left and right). It increments, controlled in
 the moveSalmon function, accordingly as the velocityY increases over time.
 
-<h3>Jumping:</h3>
+<h3 id="jumping">Jumping:</h3>
   
   There is a jump function with a call to fall function. During the jump and for 3 seconds after, collisions between salmon and obstacles are not detected.
   Three jumps are initially made available. Once all three are used, it takes 15 seconds for all three to renew. If max speed is reached, no jumps are made 
   available any longer.
 
-<h3>Collision Detection:</h3>
+<h3 id="collision">Collision Detection:</h3>
 
 Collision detection was a challenge for me, especially since this is my very first project. I realized I didn't take certain things into account when creating the
 assets. When the salmon image collided with the obstacle image using a standard collsiion detection formula between two rectangles, it did not visibly look like a
@@ -94,7 +101,7 @@ the corners of the graphics' bounding boxes causing a visibly inaccurate collisi
 
 Then finally, the overlaying ellipses and rectangles are all made transparent, of course!
 
-<h3>Game Over/Restart:</h3>
+<h3 id="gameOver">Game Over/Restart:</h3>
 By the time I got to this stage of the project, I started to realize I should have considered this step sooner. However, I managed to add the functionality and get it working. 
 So, on game over, certain actions are performed, and on restart/play again, the necessary variables are reset. During this step, I also tackled the challenge of consolidating all the 
 event listeners. I had these spread throughout my code, individual event listeners for every thing. So I managed to consolidate them quite a bit and clean the code up. Though, I am sure it
@@ -102,7 +109,7 @@ is probably not the cleanest code you have ever laid eyes on. It took some time,
 and I had to repeat a similar process as I did for the key board event listeners. When I tried to do the touch screen event listeners in a similar fashion, I could not get the buttons to work.
 So they are probably not as consolidated as they could be, but they work, and I am happy with the functionality.
 
-  <h3>Obstacles:</h3>
+  <h3 id="obstacles">Obstacles:</h3>
 
 I originally started with two obstacle types, beavers and driftwood. The velocityY for beaver is slightly faster than for driftwood. As I overcame the main challenges for the
 mechanics of the game, it was suggested by my mentor that it would be a good idea to starting adding more obstacle images. So now, the there is a group of images designated
@@ -110,7 +117,7 @@ to the beaver obstacle and its rules, and a group of images designated to the dr
 beaver obstacle type, the image displayed is randomly selected from its designated group of images. Likewise for the driftwood obstacle type and its designated image group. So the
 images will vary and are not particularly a beaver or driftwood everytime. Depending on which group the image comes from, that will determine the velocity of the obstacle.
 
-<h2> Q & A:</h2>
+<h2 id="QA"> Q & A:</h2>
 
 <h3>"Any more challenges related to the project yet to be tackled?"</h3>
 That is a great question, thanks for asking!
