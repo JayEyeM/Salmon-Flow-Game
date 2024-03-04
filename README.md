@@ -10,8 +10,12 @@
 <img src="mobileViewScreenshot.png" alt="Screenshot of project mobile view" width="20%">
 
 <h2>Jump to:</h2>
-<a href="about">About Project</a>
-<a href="shoutout">Shoutout</a>
+
+
+[About Project](#about)
+
+[Shout-out](#shoutout)
+
 
 
 <h2 id="about">About The Project:</h2>
