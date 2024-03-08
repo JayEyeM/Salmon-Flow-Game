@@ -328,8 +328,15 @@ function adjustBoardProperties() {
   let contactMeHeading = document.getElementById("contactMeHeading");
   let contactMeLink = document.getElementById("contactMeLink");
   let avatarLink = document.getElementById("avatarLink");
+  let controlsImagesDiv = document.getElementById("controlsDiv");
+  let mobileControlsImage = document.getElementById("mobileControlsImage");
+  let desktopControlsImage = document.getElementById("desktopControlsImage");
 
   if (windowWidth < windowHeight) {
+    controlsImagesDiv.style.flexDirection = "column";
+    controlsImagesDiv.style.alignItems = "center";
+    mobileControlsImage.style.width = "100%";
+    desktopControlsImage.style.width = "100%";
     avatarLink.style.width = "20%";
     contactMeHeading.style.fontSize = "4vw";
     contactMeLink.style.fontSize = "4vw";
@@ -401,6 +408,8 @@ function adjustBoardProperties() {
     buttonDiv.style.rowGap = "0px";
     buttonDiv.style.columnGap = "0px";
     buttonDiv.style.flexDirection = "row";
+    
+
     levelText.style.fontSize = "5vw";
     scoreText.style.fontSize = "5vw";
     gameOverText.style.display = "none";
@@ -413,7 +422,12 @@ function adjustBoardProperties() {
     muteButton.style.height = "15vw";
     instructionsButton.style.fontSize = "4vw";
     instructionsButton.style.height = "15vw";
+    instructionsButton.style.marginTop = "7px";
   } else if (windowWidth > windowHeight) {
+    controlsImagesDiv.style.flexDirection = "";
+    controlsImagesDiv.style.alignItems = "";
+    mobileControlsImage.style.width = "";
+    desktopControlsImage.style.width = "";
     avatarLink.style.width = "";
     contactMeHeading.style.fontSize = "";
     contactMeLink.style.fontSize = "";
@@ -510,6 +524,7 @@ function adjustBoardProperties() {
     muteButton.style.height = "";
     instructionsButton.style.fontSize = "";
     instructionsButton.style.height = "";
+    instructionsButton.style.marginTop = "";
   }
 }
 
