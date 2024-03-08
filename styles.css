@@ -322,7 +322,7 @@ h2 {
   
   padding: 5px;
   height: 25%;
-  margin-top: 5px;
+  margin-top: 0px;
   width: 95%;
   background-image: url("./soundPlayingIcon.svg");
   background-size: 25%;
@@ -336,10 +336,10 @@ h2 {
   border-radius: 10px;
   position: relative;
   flex: 1;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   padding: 5px;
   height: 25%;
-  
+  margin-top: 5px;
   width: 95%;
   background-image: url("./controlsAndInstructionsIcon.svg");
   background-size: 60%;
