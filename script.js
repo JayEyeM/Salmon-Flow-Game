@@ -113,6 +113,7 @@ let group1ImagesArray = [
   "./beaverObstacleImageChoices/sirOtter.svg",
   "./beaverObstacleImageChoices/mrTurtle.svg",
   "./beaverObstacleImageChoices/sea-dooMan.svg",
+  "./beaverObstacleImageChoices/fishingRod.svg",
   "./beaverCharacter.svg",
 ];
 let group2ImagesArray = [
@@ -408,7 +409,6 @@ function adjustBoardProperties() {
     buttonDiv.style.rowGap = "0px";
     buttonDiv.style.columnGap = "0px";
     buttonDiv.style.flexDirection = "row";
-    
 
     levelText.style.fontSize = "5vw";
     scoreText.style.fontSize = "5vw";
@@ -1094,6 +1094,19 @@ function renderObstacles(obstacleType) {
         y: randomBeaverY,
         width: obstacleWidth * 3,
         height: obstacleHeight * 2.25,
+        passed: false,
+      };
+    }
+    if (
+      randomBeaverImagesSrc === "./beaverObstacleImageChoices/fishingRod.svg"
+    ) {
+      beaver = {
+        type: "beaver",
+        img: randomBeaverImages,
+        x: randomBeaverX,
+        y: randomBeaverY,
+        width: obstacleWidth * 1.1,
+        height: obstacleHeight * 2,
         passed: false,
       };
     }
